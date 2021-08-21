@@ -1,5 +1,8 @@
 <template>
   <v-container class="text-center">
+    <v-toolbar>
+      <v-text-field prepend-icon="mdi-magnify" rounded></v-text-field>
+    </v-toolbar>
     <h2>Featured Recipe</h2>
     <v-card>
       <v-img
