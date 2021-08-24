@@ -1,15 +1,14 @@
+import Recipe from "@/models/recipe";
+
 const featuredStore = {
   state: {
-    title: "",
-    servings: 0,
-    summary: "",
-    image: "",
+    featured: new Recipe(),
   },
   mutations: {
-    setFeaturedTitle: (state, newTitle) => (state.title = newTitle),
+    setFeaturedTitle: (state, newTitle) => (state.featured.title = newTitle),
   },
   getters: {
-    getFeaturedTitle: (state) => state.title,
+    getFeaturedTitle: (state) => state.featured.title,
   },
 };
 

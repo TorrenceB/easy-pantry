@@ -22,7 +22,7 @@ import store from "@/store/featured";
 export default {
   name: "Featured",
   data: () => ({
-    featuredRecipe: store.state,
+    featuredRecipe: store.state.featured,
   }),
   mounted: function() {
     this.featuredRecipe = fetchRecipeData(
