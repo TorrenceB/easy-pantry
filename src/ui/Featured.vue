@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import fetchRecipeData from "@/util/api.js";
+// import fetchRecipeData from "@/util/api.js";
 import store from "@/store/featured";
 
 export default {
@@ -24,12 +24,12 @@ export default {
   data: () => ({
     featuredRecipe: store.state.featured,
   }),
-  mounted: function() {
-    this.featuredRecipe = fetchRecipeData(
-      "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?number=1&tags=vegetarian"
-    ).then((randomRecipes) => {
-      this.featuredRecipe = randomRecipes.recipes[0];
-    });
-  },
+  // mounted: function() {
+  //   fetchRecipeData(
+  //     "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?number=1&tags=vegetarian"
+  //   ).then((randomRecipes) => {
+  //     this.featuredRecipe = randomRecipes.recipes[0];
+  //   });
+  // },
 };
 </script>

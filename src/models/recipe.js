@@ -5,13 +5,19 @@ export default class Recipe {
     recipeSummary = "",
     recipeInstructions = "",
     ingredients = [],
-    image = ""
+    image = "",
+    numServings = 0
   ) {
-    this.id = id;
-    this.recipeTitle = recipeTitle;
-    this.recipeSummary = recipeSummary;
-    this.recipeInstructions = recipeInstructions;
-    this.ingredients = ingredients;
-    this.image = image;
+    this.id = id ?? "";
+    this.recipeTitle = recipeTitle ?? "";
+    this.recipeSummary = recipeSummary ?? "";
+    this.recipeInstructions = recipeInstructions ?? "";
+    this.ingredients = ingredients ?? "";
+    this.image = image ?? "Whoops this image seems to be missing!";
+    this.numServings = numServings ?? "";
+  }
+
+  static fromJSON(json) {
+    Object.assign(new Recipe(), json);
   }
 }
