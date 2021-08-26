@@ -6,17 +6,16 @@
     <h2>Featured Recipe</h2>
     <v-card>
       <v-img :src="featuredRecipe.image"></v-img>
-      <v-card-title>{{ featuredRecipe.title }}</v-card-title>
+      <v-card-title>{{ featuredRecipe.recipeTitle }}</v-card-title>
       <v-card-subtitle
-        >Number of Servings: {{ featuredRecipe.servings }}</v-card-subtitle
+        >Number of Servings: {{ featuredRecipe.numServings }}</v-card-subtitle
       >
-      <v-card-text>{{ featuredRecipe.summary }}</v-card-text>
+      <v-card-text>{{ featuredRecipe.recipeSummary }}</v-card-text>
     </v-card>
   </v-container>
 </template>
 
 <script>
-// import fetchRecipeData from "@/util/api.js";
 import store from "@/store/featured";
 
 export default {
@@ -24,12 +23,8 @@ export default {
   data: () => ({
     featuredRecipe: store.state.featured,
   }),
-  // mounted: function() {
-  //   fetchRecipeData(
-  //     "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?number=1&tags=vegetarian"
-  //   ).then((randomRecipes) => {
-  //     this.featuredRecipe = randomRecipes.recipes[0];
-  //   });
-  // },
+  mounted: function() {
+    return store.actions.fetchData();
+  },
 };
 </script>

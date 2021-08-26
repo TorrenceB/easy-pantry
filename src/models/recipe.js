@@ -18,6 +18,13 @@ export default class Recipe {
   }
 
   static fromJSON(json) {
-    Object.assign(new Recipe(), json);
+    const recipeFromJson = new Recipe();
+    recipeFromJson.id = json["id"];
+    recipeFromJson.recipeTitle = json["title"];
+    recipeFromJson.numServings = json["servings"];
+    recipeFromJson.image = json["image"];
+    recipeFromJson.recipeSummary = json["summary"];
+
+    return recipeFromJson;
   }
 }
