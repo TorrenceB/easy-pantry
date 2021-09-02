@@ -1,0 +1,49 @@
+{
+    "results":[
+        {
+        "id":1145,
+        "title":"Seafood Stew",
+        "readyInMinutes":33,
+        "servings":45,
+        "sourceUrl":"http://www.williams-sonoma.com/recipe/seafood-stew.html",
+        "openLicense":0,
+        "image":"seafood-stew-2-1145.jpg"
+        },
+        {
+        "id":564981,
+        "title":"Seafood Spaghetti",
+        "readyInMinutes":25,
+        "servings":2,
+        "sourceUrl":"http://www.noobcook.com/seafood-spaghetti/2/",
+        "openLicense":0,
+        "image":"Seafood-Spaghetti-564981.jpg"
+        },
+        {
+        "id":3677,
+        "title":"Seafood Ragù with Cavatappi",
+        "readyInMinutes":45,
+        "servings":6,
+        "sourceUrl":"http://www.myrecipes.com/recipe/seafood-rag-with-cavatappi-10000000522097/",
+        "openLicense":0,
+        "image":"seafood-rag-with-cavatappi-3677.jpg"
+        },
+        {
+        "id":6438,
+        "title":"Spicy Seafood Couscous",
+        "readyInMinutes":45,
+        "servings":10,
+        "sourceUrl":"http://www.epicurious.com/recipes/food/views/Spicy-Seafood-Couscous-106471",
+        "openLicense":0,
+        "image":"spicy-seafood-couscous-2-6438.jpg"
+        },
+        {
+        "id":76825,
+        "title":"Normandy Seafood Stew",
+        "readyInMinutes":45,
+        "servings":8,
+        "sourceUrl":"http://www.myrecipes.com/recipe/normandy-seafood-stew-10000000604757/",
+        "openLicense":0,
+        "image":"normandy-seafood-stew-76825.jpg"
+        }
+    ]
+}

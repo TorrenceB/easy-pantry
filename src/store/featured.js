@@ -1,28 +1,25 @@
 import Recipe from "@/models/recipe";
-import fetchRecipeData from "@/util/api";
+import fetchFeaturedRecipe from "@/util/api";
 
 const featuredStore = {
   state: {
     featured: new Recipe(),
   },
   mutations: {
-    setFeaturedTitle: (state, newTitle) => (state.featured.title = newTitle),
-    setFeaturedRecipe: (state, newFeaturedRecipe) =>
+    setFeaturedRecipeState: (state, newFeaturedRecipe) =>
       (state.featured = newFeaturedRecipe),
   },
   getters: {
-    getFeaturedTitle: (state) => state.featured.title,
+    featuredRecipes: (state) => state.featured,
   },
   actions: {
-    async fetchData() {
+    async fetchFeatured() {
       try {
-        await fetchRecipeData(
+        await fetchFeaturedRecipe(
           "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?number=1&tags=vegetarian"
         ).then((randomRecipes) => {
-          this.mutations.setFeaturedRecipe(
-            state.featured,
-            Recipe.fromJSON(randomRecipes.recipes[0])
-          );
+          console.log(randomRecipes);
+          // this.state.featured =
         });
       } catch (e) {
         console.error(e);

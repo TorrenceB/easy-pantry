@@ -1,12 +1,12 @@
 const fetchRecipes = (url) => {
-  const recipeKey = process.env.VUE_APP_RECIPE_KEY;
+  // const recipeKey = process.env.VUE_APP_RECIPE_KEY;
 
   return fetch(url, {
     method: "GET",
-    headers: {
-      "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
-      "x-rapidapi-key": recipeKey,
-    },
+    // headers: {
+    //   "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+    //   "x-rapidapi-key": recipeKey,
+    // },
   })
     .then((response) => {
       if (response.ok) {

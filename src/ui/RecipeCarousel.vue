@@ -16,31 +16,32 @@
 
 <script>
 import carouselRecipeStore from "@/store/carousel-recipe";
-import fetchRecipeData from "@/util/api";
-import Recipe from "@/models/recipe";
 
 export default {
   name: "Recipe Carousel",
   data: () => ({
     recipes: carouselRecipeStore.state.seafoodRecipes,
   }),
-  mounted: function() {
-    const enrichedRecipes = [];
-
-    fetchRecipeData(
-      "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search?query=seafood&number=5"
-    ).then(async (res) => {
-      const baseUri = "https://spoonacular.com/recipeImages/";
-
-      await res.results.map((result) => {
-        result.image = `${baseUri}${result.image}`;
-        enrichedRecipes.push(Recipe.fromJSON(result));
-      });
-
-      this.recipes = [...enrichedRecipes];
-
-      return enrichedRecipes;
-    });
+  computed: {
+    fetch() {},
   },
+  // mounted: function() {
+  //   const enrichedRecipes = [];
+
+  //   fetchRecipeData(
+  //     "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search?query=seafood&number=5"
+  //   ).then(async (res) => {
+  //     const baseUri = "https://spoonacular.com/recipeImages/";
+
+  //     await res.results.map((result) => {
+  //       result.image = `${baseUri}${result.image}`;
+  //       enrichedRecipes.push(Recipe.fromJSON(result));
+  //     });
+
+  //     this.recipes = [...enrichedRecipes];
+
+  //     return enrichedRecipes;
+  //   });
+  // },
 };
 </script>

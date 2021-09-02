@@ -23,8 +23,11 @@ export default {
   data: () => ({
     featuredRecipe: store.state.featured,
   }),
-  mounted: function() {
-    return store.actions.fetchData();
+  computed: {
+    //
+  },
+  mounted: function () {
+    return store.actions.fetchFeatured();
   },
 };
 </script>
