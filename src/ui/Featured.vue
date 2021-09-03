@@ -24,10 +24,9 @@ export default {
     featuredRecipe: store.state.featured,
   }),
   computed: {
-    //
-  },
-  mounted: function () {
-    return store.actions.fetchFeatured();
+    fetch() {
+      return store.actions.fetchFeatured();
+    },
   },
 };
 </script>

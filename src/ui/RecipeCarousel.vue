@@ -22,8 +22,8 @@ export default {
   data: () => ({
     recipes: carouselRecipeStore.state.seafoodRecipes,
   }),
-  computed: {
-    fetch() {},
+  mounted: function () {
+    return carouselRecipeStore.actions.fetch();
   },
   // mounted: function() {
   //   const enrichedRecipes = [];

@@ -9,9 +9,9 @@ const carouselRecipeStore = {
       (state.seafoodRecipes = newSeafoodRecipe),
   },
   actions: {
-    fetch() {
-      fetchRecipeData("config.json").then((response) => {
-        // 
+    async fetch() {
+      await fetchRecipeData("/config.json").then((response) => {
+        this.setSeafoodRecipeState(response);
       });
     },
   },

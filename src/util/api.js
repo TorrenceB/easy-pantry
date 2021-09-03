@@ -3,6 +3,9 @@ const fetchRecipes = (url) => {
 
   return fetch(url, {
     method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
     // headers: {
     //   "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
     //   "x-rapidapi-key": recipeKey,
