@@ -1,15 +1,15 @@
 <template>
   <v-container>
-    <!-- <Featured /> -->
+    <Featured />
   </v-container>
 </template>
 
 <script>
-// import Featured from "@/ui/Featured";
+import Featured from "@/ui/Featured";
 
 export default {
   name: "Landing",
-  components: {},
+  components: { Featured },
 
   data: () => ({
     //

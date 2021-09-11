@@ -1,32 +1,32 @@
 <template>
   <v-container class="text-center">
-    <v-toolbar>
-      <v-text-field prepend-icon="mdi-magnify" rounded></v-text-field>
-    </v-toolbar>
     <h2>Featured Recipe</h2>
     <v-card>
       <v-img :src="featuredRecipe.image"></v-img>
-      <v-card-title>{{ featuredRecipe.recipeTitle }}</v-card-title>
+      <v-card-title>{{ featuredRecipe.title }}</v-card-title>
       <v-card-subtitle
-        >Number of Servings: {{ featuredRecipe.numServings }}</v-card-subtitle
+        >Number of Servings: {{ featuredRecipe.servings }}</v-card-subtitle
       >
-      <v-card-text>{{ featuredRecipe.recipeSummary }}</v-card-text>
+      <v-card-text
+        >Ready in: {{ featuredRecipe.readyInMinutes }} minutes</v-card-text
+      >
     </v-card>
   </v-container>
 </template>
 
 <script>
-import store from "@/store/featured";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "Featured",
-  data: () => ({
-    featuredRecipe: store.state.featured,
-  }),
+  methods: {
+    ...mapActions(["fetchFeatured"]),
+  },
   computed: {
-    fetch() {
-      return store.actions.fetchFeatured();
-    },
+    ...mapGetters(["featuredRecipe"]),
+  },
+  created() {
+    this.fetchFeatured();
   },
 };
 </script>
