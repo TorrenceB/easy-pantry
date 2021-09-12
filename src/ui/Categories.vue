@@ -2,8 +2,13 @@
   <v-container>
     <h2 class="text-center pb-4">Choose a cuisine</h2>
     <v-row class="d-flex">
-      <CategoryTile title="Italian" color="#E27D60" icon="mdi-pasta" />
-      <CategoryTile title="Mexican" color="#41B3A3" icon="mdi-taco" />
+      <v-col cols="6" v-for="category in categories" :key="category.index">
+        <CategoryTile
+          :title="category.title"
+          :color="category.color"
+          :icon="category.icon"
+        />
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -16,5 +21,19 @@ export default {
   components: {
     CategoryTile,
   },
+  data: () => ({
+    categories: [
+      {
+        title: "Italian",
+        icon: "mdi-pasta",
+        color: "#E27D60",
+      },
+      {
+        title: "Mexican",
+        icon: "mdi-taco",
+        color: "#41B3A3",
+      },
+    ],
+  }),
 };
 </script>
