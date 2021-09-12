@@ -2,14 +2,14 @@ import fetchRecipeClient from "@/util/fetchRecipeClient";
 
 const featuredStore = {
   state: {
-    featured: {},
-    // featured: {
-    //   id: 716429,
-    //   recipeTitle: "Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs",
-    //   numServings: 2,
-    //   readyInMinutes: 45,
-    //   image: "https://spoonacular.com/recipeImages/716429-556x370.jpg",
-    // },
+    // featured: {},
+    featured: {
+      id: 716429,
+      title: "Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs",
+      numServings: 2,
+      readyInMinutes: 45,
+      image: "https://spoonacular.com/recipeImages/716429-556x370.jpg",
+    },
   },
   getters: {
     featuredRecipe: (state) => state.featured,
