@@ -45,7 +45,19 @@ export default {
       {
         title: "Mediterranean",
         icon: "mdi-fruit-grapes-outline",
-        color: "#E8A87C",
+        color: "#69DDFF",
+        route: (e) => console.log(`${e.target.innerText} category clicked!`),
+      },
+      {
+        title: "French",
+        icon: "mdi-chef-hat",
+        color: "#85DCBA",
+        route: (e) => console.log(`${e.target.innerText} category clicked!`),
+      },
+      {
+        title: "Vegetarian",
+        icon: "mdi-chili-mild",
+        color: "#BFEDC1",
         route: (e) => console.log(`${e.target.innerText} category clicked!`),
       },
     ],

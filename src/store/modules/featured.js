@@ -6,7 +6,7 @@ const featuredStore = {
     featured: {
       id: 716429,
       title: "Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs",
-      numServings: 2,
+      servings: 2,
       readyInMinutes: 45,
       image: "https://spoonacular.com/recipeImages/716429-556x370.jpg",
     },

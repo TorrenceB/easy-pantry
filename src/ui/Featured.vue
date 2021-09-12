@@ -3,7 +3,9 @@
     <h2>Featured Recipe</h2>
     <v-card>
       <v-img :src="featuredRecipe.image"></v-img>
-      <v-card-title>{{ featuredRecipe.title }}</v-card-title>
+      <v-card-title class="justify-center">{{
+        featuredRecipe.title
+      }}</v-card-title>
       <v-card-subtitle
         >Number of Servings: {{ featuredRecipe.servings }}</v-card-subtitle
       >

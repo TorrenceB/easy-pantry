@@ -1,9 +1,9 @@
 <template>
   <v-app>
-    <v-app-bar>
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+    <v-app-bar dark>
+      <v-app-bar-nav-icon class="font-lg"></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
-      <v-app-bar-title>Easy Pantry</v-app-bar-title>
+      <v-app-bar-title class="font-lg">Easy Pantry</v-app-bar-title>
       <v-spacer></v-spacer>
     </v-app-bar>
     <v-main>
@@ -17,3 +17,9 @@ export default {
   name: "App",
 };
 </script>
+
+<style scoped>
+.font-lg {
+  font-size: 2.5em;
+}
+</style>
