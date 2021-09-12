@@ -7,6 +7,7 @@
           :title="category.title"
           :color="category.color"
           :icon="category.icon"
+          :pushToRecipeListRoute="category.route"
         />
       </v-col>
     </v-row>
@@ -27,11 +28,25 @@ export default {
         title: "Italian",
         icon: "mdi-pasta",
         color: "#E27D60",
+        route: (e) => console.log(`${e.target.innerText} category clicked!`),
       },
       {
         title: "Mexican",
         icon: "mdi-taco",
         color: "#41B3A3",
+        route: (e) => console.log(`${e.target.innerText} category clicked!`),
+      },
+      {
+        title: "Seafood",
+        icon: "mdi-fish",
+        color: "#C38D9E",
+        route: (e) => console.log(`${e.target.innerText} category clicked!`),
+      },
+      {
+        title: "Mediterranean",
+        icon: "mdi-fruit-grapes-outline",
+        color: "#E8A87C",
+        route: (e) => console.log(`${e.target.innerText} category clicked!`),
       },
     ],
   }),

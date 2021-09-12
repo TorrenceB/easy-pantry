@@ -1,5 +1,5 @@
 <template>
-  <v-card :color="color" height="200px">
+  <v-card :color="color" height="200px" @click="pushToRecipeListRoute">
     <div class="text-center">
       <v-icon class="text-white" size="75">{{ icon }}</v-icon>
       <v-card-title class="text-white justify-center">{{ title }}</v-card-title>
@@ -19,6 +19,9 @@ export default {
     },
     color: {
       type: String,
+    },
+    pushToRecipeListRoute: {
+      type: Function,
     },
   },
 };

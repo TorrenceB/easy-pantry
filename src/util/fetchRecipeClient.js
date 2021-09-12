@@ -16,7 +16,6 @@ const fetchRecipes = (url) => {
       }
     })
     .then((data) => {
-      console.log(data);
       return data;
     })
     .catch((err) => console.error(err));
