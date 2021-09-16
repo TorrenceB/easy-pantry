@@ -7,7 +7,7 @@
           :title="category.title"
           :color="category.color"
           :icon="category.icon"
-          :pushToRecipeListRoute="category.route"
+          :pushToRecipeListRoute="fetchItalianResults"
         />
       </v-col>
     </v-row>
@@ -16,49 +16,62 @@
 
 <script>
 import CategoryTile from "@/ui/CategoryTile";
+import { mapActions } from "vuex";
 
 export default {
   name: "Categories",
   components: {
     CategoryTile,
   },
+  methods: mapActions(["fetchItalianResults"]),
   data: () => ({
     categories: [
       {
         title: "Italian",
         icon: "mdi-pasta",
         color: "#E27D60",
-        route: (e) => console.log(`${e.target.innerText} category clicked!`),
       },
       {
         title: "Mexican",
         icon: "mdi-taco",
         color: "#41B3A3",
-        route: (e) => console.log(`${e.target.innerText} category clicked!`),
+        route: {},
       },
       {
         title: "Seafood",
         icon: "mdi-fish",
         color: "#C38D9E",
-        route: (e) => console.log(`${e.target.innerText} category clicked!`),
+        route: {},
       },
       {
         title: "Mediterranean",
         icon: "mdi-fruit-grapes-outline",
         color: "#69DDFF",
-        route: (e) => console.log(`${e.target.innerText} category clicked!`),
+        route: {},
       },
       {
         title: "French",
         icon: "mdi-chef-hat",
         color: "#85DCBA",
-        route: (e) => console.log(`${e.target.innerText} category clicked!`),
+        route: {},
       },
       {
         title: "Vegetarian",
         icon: "mdi-chili-mild",
         color: "#BFEDC1",
-        route: (e) => console.log(`${e.target.innerText} category clicked!`),
+        route: {},
+      },
+      {
+        title: "Greek",
+        icon: "mdi-alphabet-greek",
+        color: "#582630",
+        route: {},
+      },
+      {
+        title: "Quick & Easy",
+        icon: "mdi-bike-fast",
+        color: "#AD2E24",
+        route: {},
       },
     ],
   }),
