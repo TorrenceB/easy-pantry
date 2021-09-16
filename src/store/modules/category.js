@@ -3,10 +3,12 @@ import fetchRecipeClient from "@/util/fetchRecipeClient";
 export default {
   state: () => ({
     italianResults: [],
+    mexicanResults: [],
   }),
 
   getters: {
     getItalianResults: (state) => state.italianResults,
+    getMexicanResults: (state) => state.mexicanResults,
   },
 
   actions: {
@@ -20,10 +22,22 @@ export default {
         console.error(e);
       }
     },
+    async fetchMexicanResults() {
+      try {
+        await fetchRecipeClient(
+          "https://api.spoonacular.com/recipes/complexSearch",
+          "cuisine=mexican"
+        ).then((response) => console.log(response));
+      } catch (e) {
+        console.error(e);
+      }
+    },
   },
 
   mutations: {
-    setItalianResultsState: (state, newResults) =>
+    setItalianResultState: (state, newResults) =>
       (state.italianResults = newResults),
+    setMexicanResultState: (state, newResults) =>
+      (state.mexicanResults = newResults),
   },
 };

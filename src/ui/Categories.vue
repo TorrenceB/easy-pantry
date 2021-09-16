@@ -7,7 +7,7 @@
           :title="category.title"
           :color="category.color"
           :icon="category.icon"
-          :pushToRecipeListRoute="fetchItalianResults"
+          :pushToRecipeListRoute="fetchMexicanResults"
         />
       </v-col>
     </v-row>
@@ -23,7 +23,7 @@ export default {
   components: {
     CategoryTile,
   },
-  methods: mapActions(["fetchItalianResults"]),
+  methods: { ...mapActions(["fetchItalianResults", "fetchMexicanResults"]) },
   data: () => ({
     categories: [
       {
