@@ -27,8 +27,8 @@ export default {
   computed: {
     ...mapGetters(["featuredRecipe"]),
   },
-  created() {
-    this.fetchFeatured();
-  },
+  // created() {
+  //   this.fetchFeatured();
+  // },
 };
 </script>

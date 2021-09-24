@@ -26,7 +26,7 @@ export default {
       try {
         await fetchRecipeClient(
           "https://api.spoonacular.com/recipes/complexSearch",
-          "cuisine=mexican"
+          { query: "pasta", cuisine: "italian" }
         ).then((response) => console.log(response));
       } catch (e) {
         console.error(e);
