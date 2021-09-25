@@ -4,11 +4,13 @@ export default {
   state: () => ({
     italianResults: [],
     mexicanResults: [],
+    seafoodResults: [],
   }),
 
   getters: {
     getItalianResults: (state) => state.italianResults,
     getMexicanResults: (state) => state.mexicanResults,
+    getSeafoodResults: (state) => state.seafoodResults,
   },
 
   actions: {
@@ -16,7 +18,7 @@ export default {
       try {
         await fetchRecipeClient(
           "https://api.spoonacular.com/recipes/complexSearch",
-          "cuisine=italian"
+          { cuisine: "italian" }
         ).then((response) => console.log(response));
       } catch (e) {
         console.error(e);
@@ -26,7 +28,17 @@ export default {
       try {
         await fetchRecipeClient(
           "https://api.spoonacular.com/recipes/complexSearch",
-          { query: "pasta", cuisine: "italian" }
+          { cuisine: "mexican" }
+        ).then((response) => console.log(response));
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    async fetchSeafoodResults() {
+      try {
+        await fetchRecipeClient(
+          "https://api.spoonacular.com/recipes/complexSearch",
+          { query: "seafood" }
         ).then((response) => console.log(response));
       } catch (e) {
         console.error(e);
@@ -39,5 +51,7 @@ export default {
       (state.italianResults = newResults),
     setMexicanResultState: (state, newResults) =>
       (state.mexicanResults = newResults),
+    setSeafoodResultState: (state, newResults) =>
+      (state.seafoodResults = newResults),
   },
 };

@@ -7,43 +7,25 @@ const fetchRecipes = (url, params = {}) => {
     },
   };
 
-  /* 
-    const params = {
-      cuisine: "mexican",
-      foo: "bar",
-    }
-    const baseURL = "baseURL.com";
-
-    ["cuisine=mexican", "foo=bar"].map(param => {
-      return `&${param}`  
-    }) //["&cuisine=mexican", "&foo=bar"];
-
-    1. Params object to array
-    2. Adding & to beginning of each param
-    3. convert array values to string
-
-  */
-
-  const setURL = (url) => {
+  const setURL = (url, params) => {
     const recipeKey = process.env.VUE_APP_RECIPE_KEY;
 
     url += `?apiKey=${recipeKey}`;
 
     if (params) {
-      const paramsToArr = [];
+      const paramString = Object.entries(params)
+        .map(([key, value]) => {
+          return `&${key}=${value}`;
+        })
+        .join("");
 
-      Object.keys(params).forEach((key) => {
-        paramsToArr.push(`&${key}=${params[key]}`);
-      });
-
-      url += paramsToArr.join("");
+      url += paramString;
     }
 
-    console.log(url);
     return url;
   };
 
-  return fetch(setURL(url), options)
+  return fetch(setURL(url, params), options)
     .then((response) => {
       if (response.ok) {
         return response.json();

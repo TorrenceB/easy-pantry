@@ -7,7 +7,7 @@
           :title="category.title"
           :color="category.color"
           :icon="category.icon"
-          :pushToRecipeListRoute="fetchMexicanResults"
+          :pushToRecipeListRoute="fetchSeafoodResults"
         />
       </v-col>
     </v-row>
@@ -23,7 +23,13 @@ export default {
   components: {
     CategoryTile,
   },
-  methods: { ...mapActions(["fetchItalianResults", "fetchMexicanResults"]) },
+  methods: {
+    ...mapActions([
+      "fetchItalianResults",
+      "fetchMexicanResults",
+      "fetchSeafoodResults",
+    ]),
+  },
   data: () => ({
     categories: [
       {
@@ -71,6 +77,12 @@ export default {
         title: "Quick & Easy",
         icon: "mdi-bike-fast",
         color: "#AD2E24",
+        route: {},
+      },
+      {
+        title: "Vegan",
+        icon: "mdi-food-apple",
+        color: "#69DDFF",
         route: {},
       },
     ],
