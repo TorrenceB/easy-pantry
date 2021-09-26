@@ -9,6 +9,11 @@ const featuredStore = {
       servings: 2,
       aggregateLikes: 209,
       readyInMinutes: 45,
+      cheap: true,
+      dairyFree: false,
+      sustainable: true,
+      vegan: false,
+      vegetarian: true,
       image: "https://spoonacular.com/recipeImages/716429-556x370.jpg",
     },
   },
@@ -21,7 +26,29 @@ const featuredStore = {
         await fetchRecipeClient(
           "https://api.spoonacular.com/recipes/random"
         ).then((response) => {
-          commit("setFeaturedRecipeState", response["recipes"][0]);
+          /* 
+            1. Get response object
+            2. Target specific properties
+            3. Group properties into array
+            4. Create new property, tags and set value to new array
+          */
+          const randomRecipe = response["recipes"][0];
+          const tags = Object.entries(randomRecipe).filter(([key]) => {
+            return (
+              key === "vegetarian" ||
+              key === "vegan" ||
+              key === "cheap" ||
+              key === "dairyFree" ||
+              key === "sustainable"
+            );
+          });
+
+          const newRecipe = {
+            ...randomRecipe,
+            tags: Object.fromEntries(tags),
+          };
+
+          commit("setFeaturedRecipeState", newRecipe);
         });
       } catch (e) {
         console.error(e);
@@ -29,8 +56,9 @@ const featuredStore = {
     },
   },
   mutations: {
-    setFeaturedRecipeState: (state, newFeaturedRecipe) =>
-      (state.featured = newFeaturedRecipe),
+    setFeaturedRecipeState: (state, newFeaturedRecipe) => {
+      state.featured = newFeaturedRecipe;
+    },
   },
 };
 

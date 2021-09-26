@@ -17,8 +17,14 @@
         {{ featuredRecipe.readyInMinutes }} minutes
       </v-card-text>
       <v-row class="justify-start px-6">
-        <v-chip>Pasta</v-chip>
-        <v-chip>Seafood</v-chip>
+        <v-chip
+          v-for="tag in isTagActive"
+          :key="tag.index"
+          class="text-h6 mr-2"
+          color="#E27D60"
+          outlined
+          >{{ tag }}</v-chip
+        >
       </v-row>
     </v-card>
   </v-container>
@@ -34,9 +40,22 @@ export default {
   },
   computed: {
     ...mapGetters(["featuredRecipe"]),
+
+    isTagActive() {
+      let activeTags = {};
+      for (let key in this.featuredRecipe.tags) {
+        console.log(this.featuredRecipe.tags[key]);
+        if (this.featuredRecipe.tags[key]) {
+          activeTags = { ...key };
+        }
+      }
+
+      console.log(activeTags);
+      return activeTags;
+    },
   },
-  // created() {
-  //   this.fetchFeatured();
-  // },
+  created() {
+    this.fetchFeatured();
+  },
 };
 </script>
