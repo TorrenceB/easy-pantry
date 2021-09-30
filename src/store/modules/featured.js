@@ -8,6 +8,7 @@ const featuredStore = {
       title: "Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs",
       servings: 2,
       aggregateLikes: 209,
+      healthScore: 1300,
       readyInMinutes: 45,
       cheap: true,
       dairyFree: false,
