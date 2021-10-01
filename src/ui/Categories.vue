@@ -7,7 +7,7 @@
           :title="category.title"
           :color="category.color"
           :icon="category.icon"
-          :pushToRecipeListRoute="fetchQuickResults"
+          :pushToRecipeListRoute="category.route"
         />
       </v-col>
     </v-row>
@@ -16,20 +16,12 @@
 
 <script>
 import CategoryTile from "@/ui/CategoryTile";
-import { mapActions } from "vuex";
+import router from "@/router/index";
 
 export default {
   name: "Categories",
   components: {
     CategoryTile,
-  },
-  methods: {
-    ...mapActions([
-      "fetchItalianResults",
-      "fetchMexicanResults",
-      "fetchSeafoodResults",
-      "fetchQuickResults",
-    ]),
   },
   data: () => ({
     categories: [
@@ -37,48 +29,49 @@ export default {
         title: "Italian",
         icon: "mdi-pasta",
         color: "#E27D60",
+        route: () => router.push({ name: "results" }),
       },
       {
         title: "Mexican",
         icon: "mdi-taco",
         color: "#41B3A3",
-        route: {},
+        route: () => null,
       },
       {
         title: "Seafood",
         icon: "mdi-fish",
         color: "#C38D9E",
-        route: {},
+        route: () => null,
       },
       {
         title: "Mediterranean",
         icon: "mdi-fruit-grapes-outline",
         color: "#69DDFF",
-        route: {},
+        route: () => null,
       },
       {
         title: "Vegan",
         icon: "mdi-food-apple",
         color: "#85DCBA",
-        route: {},
+        route: () => null,
       },
       {
         title: "Vegetarian",
         icon: "mdi-chili-mild",
         color: "#BFEDC1",
-        route: {},
+        route: () => null,
       },
       {
         title: "Greek",
         icon: "mdi-alphabet-greek",
         color: "#582630",
-        route: {},
+        route: () => null,
       },
       {
         title: "Quick & Easy",
         icon: "mdi-bike-fast",
         color: "#AD2E24",
-        route: {},
+        route: () => null,
       },
     ],
   }),

@@ -24,12 +24,14 @@ export default {
   },
 
   actions: {
-    async fetchItalianResults() {
+    async fetchItalianResults({ commit }) {
       try {
         await fetchRecipeClient(
           "https://api.spoonacular.com/recipes/complexSearch",
           { cuisine: "italian" }
-        ).then((response) => console.log(response));
+        ).then((response) => {
+          commit("setItalianResultState", response["results"]);
+        });
       } catch (e) {
         console.error(e);
       }
@@ -86,11 +88,13 @@ export default {
       (state.mexicanResults = newResults),
     setSeafoodResultState: (state, newResults) =>
       (state.seafoodResults = newResults),
-    setMediterraneanResults: (state, newResults) =>
+    setMediterraneanResultState: (state, newResults) =>
       (state.mediterraneanResults = newResults),
-    setVeganResults: (state, newResults) => (state.veganResults = newResults),
-    setVegetarianResults: (state, newResults) =>
+    setVeganResultState: (state, newResults) =>
+      (state.veganResults = newResults),
+    setVegetarianResultState: (state, newResults) =>
       (state.vegetarianResults = newResults),
-    setQuickResults: (state, newResults) => (state.quickResults = newResults),
+    setQuickResultState: (state, newResults) =>
+      (state.quickResults = newResults),
   },
 };
