@@ -44,8 +44,6 @@ const featuredStore = {
             tags: Object.fromEntries(tags),
           };
 
-          console.log(transformRecipe);
-
           commit("setFeaturedRecipeState", transformRecipe);
         });
       } catch (e) {

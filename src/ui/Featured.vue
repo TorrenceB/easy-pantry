@@ -53,8 +53,8 @@ export default {
       return activeTags;
     },
   },
-  created() {
-    this.fetchFeatured();
-  },
+  // created() {
+  //   this.fetchFeatured();
+  // },
 };
 </script>

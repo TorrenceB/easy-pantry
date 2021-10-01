@@ -5,12 +5,22 @@ export default {
     italianResults: [],
     mexicanResults: [],
     seafoodResults: [],
+    mediterraneanResults: [],
+    veganResults: [],
+    vegetarianResults: [],
+    greekResults: [],
+    quickResults: [],
   }),
 
   getters: {
     getItalianResults: (state) => state.italianResults,
     getMexicanResults: (state) => state.mexicanResults,
     getSeafoodResults: (state) => state.seafoodResults,
+    getMediterraneanResults: (state) => state.mediterraneanResults,
+    getVeganResults: (state) => state.veganResults,
+    getVegetarianResults: (state) => state.vegetarianResults,
+    getGreekResults: (state) => state.greekResults,
+    getQuickResults: (state) => state.quickResults,
   },
 
   actions: {
@@ -44,6 +54,29 @@ export default {
         console.error(e);
       }
     },
+    async fetchMediterraneanResults() {
+      try {
+        await fetchRecipeClient(
+          "https://api.spoonacular.com/recipes/complexSearch",
+          { cuisine: "mediterranean" }
+        ).then((response) => console.log(response));
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    async fetchVeganResults() {},
+    async fetchVegitarianResults() {},
+    async fetchGreekResults() {},
+    async fetchQuickResults() {
+      try {
+        await fetchRecipeClient(
+          "https://api.spoonacular.com/recipes/complexSearch",
+          { query: "easy", maxReadyTime: 20 }
+        ).then((response) => console.log(response));
+      } catch (e) {
+        console.error(e);
+      }
+    },
   },
 
   mutations: {
@@ -53,5 +86,11 @@ export default {
       (state.mexicanResults = newResults),
     setSeafoodResultState: (state, newResults) =>
       (state.seafoodResults = newResults),
+    setMediterraneanResults: (state, newResults) =>
+      (state.mediterraneanResults = newResults),
+    setVeganResults: (state, newResults) => (state.veganResults = newResults),
+    setVegetarianResults: (state, newResults) =>
+      (state.vegetarianResults = newResults),
+    setQuickResults: (state, newResults) => (state.quickResults = newResults),
   },
 };

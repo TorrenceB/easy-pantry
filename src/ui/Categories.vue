@@ -7,7 +7,7 @@
           :title="category.title"
           :color="category.color"
           :icon="category.icon"
-          :pushToRecipeListRoute="fetchSeafoodResults"
+          :pushToRecipeListRoute="fetchQuickResults"
         />
       </v-col>
     </v-row>
@@ -28,6 +28,7 @@ export default {
       "fetchItalianResults",
       "fetchMexicanResults",
       "fetchSeafoodResults",
+      "fetchQuickResults",
     ]),
   },
   data: () => ({
@@ -56,8 +57,8 @@ export default {
         route: {},
       },
       {
-        title: "French",
-        icon: "mdi-chef-hat",
+        title: "Vegan",
+        icon: "mdi-food-apple",
         color: "#85DCBA",
         route: {},
       },
@@ -77,12 +78,6 @@ export default {
         title: "Quick & Easy",
         icon: "mdi-bike-fast",
         color: "#AD2E24",
-        route: {},
-      },
-      {
-        title: "Vegan",
-        icon: "mdi-food-apple",
-        color: "#69DDFF",
         route: {},
       },
     ],
