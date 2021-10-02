@@ -24,16 +24,14 @@ export default {
   data: () => ({
     isLoadingResults: true,
   }),
-  computed: mapGetters(["getItalianResults"]),
-  methods: {
-    ...mapActions(["fetchItalianResults"]),
-  },
-//   created() {
-//     this.fetchItalianResults();
+  computed: { ...mapGetters(["getItalianResults"]) },
+  methods: { ...mapActions(["fetchItalianResults"]) },
+    created() {
+      this.fetchItalianResults();
 
-//     if (this.fetchItalianResults) {
-//       this.isLoadingResults = false;
-//     }
-//   },
+      if (this.fetchItalianResults) {
+        this.isLoadingResults = false;
+      }
+    },
 };
 </script>

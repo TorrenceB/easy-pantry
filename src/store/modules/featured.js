@@ -28,20 +28,25 @@ const featuredStore = {
           "https://api.spoonacular.com/recipes/random"
         ).then((response) => {
           const randomRecipe = response["recipes"][0];
-          const tags = Object.entries(randomRecipe).filter(([key]) => {
-            return (
+
+          const tags = Object.entries(randomRecipe).filter(([key, value]) => {
+            if (
               key === "vegetarian" ||
               key === "vegan" ||
               key === "cheap" ||
               key === "dairyFree" ||
               key === "sustainable" ||
               key === "glutenFree"
-            );
+            ) {
+              if (value === true) {
+                return key;
+              }
+            }
           });
 
           const transformRecipe = {
             ...randomRecipe,
-            tags: Object.fromEntries(tags),
+            tags,
           };
 
           commit("setFeaturedRecipeState", transformRecipe);
