@@ -29,25 +29,48 @@ const featuredStore = {
         ).then((response) => {
           const randomRecipe = response["recipes"][0];
 
-          const tags = Object.entries(randomRecipe).filter(([key, value]) => {
-            if (
-              key === "vegetarian" ||
-              key === "vegan" ||
-              key === "cheap" ||
-              key === "dairyFree" ||
-              key === "sustainable" ||
-              key === "glutenFree"
-            ) {
-              if (value === true) {
-                return key;
+          /* 
+            1. Extract object properties that we're interested in
+            2. Check values of each property, only want true values
+            3. Create array that contains string representations of each true property
+            4. transformRecipe.tags = [...values]
+          */
+          const {
+            vegetarian,
+            vegan,
+            cheap,
+            dairyFree,
+            sustainable,
+            glutenFree,
+          } = randomRecipe || {};
+
+          const tagsObj = {
+            vegetarian,
+            vegan,
+            cheap,
+            dairyFree,
+            sustainable,
+            glutenFree,
+          };
+
+          const getActiveTags = (tags = {}) => {
+            const activeTags = [];
+
+            for (let key in tags) {
+              if (tags[key]) {
+                activeTags.push(key);
               }
             }
-          });
+
+            return activeTags;
+          };
 
           const transformRecipe = {
             ...randomRecipe,
-            tags,
+            tags: getActiveTags(tagsObj),
           };
+
+          console.log(transformRecipe);
 
           commit("setFeaturedRecipeState", transformRecipe);
         });

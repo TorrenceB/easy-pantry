@@ -33,7 +33,7 @@
           class="text-h6 mr-2 mb-4"
           color="#E27D60"
           outlined
-          >{{ tag[0].toUpperCase() }}</v-chip
+          >{{ tag.toUpperCase() }}</v-chip
         >
       </v-row>
     </v-card>
