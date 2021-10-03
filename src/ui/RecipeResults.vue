@@ -1,13 +1,13 @@
 <template>
-  <v-container>
+  <v-container fluid fill-height>
     <v-row class="justify-center">
       <v-progress-circular
-        :v-show="isLoadingResults"
+        v-if="isLoadingResults"
         indeterminate
         color="primary"
         size="60"
       ></v-progress-circular>
-      <ul>
+      <ul v-else>
         <li v-for="result in getItalianResults" :key="result.id">
           {{ result }}
         </li>
@@ -26,12 +26,10 @@ export default {
   }),
   computed: { ...mapGetters(["getItalianResults"]) },
   methods: { ...mapActions(["fetchItalianResults"]) },
-    created() {
-      this.fetchItalianResults();
+  async created() {
+    await this.fetchItalianResults();
 
-      if (this.fetchItalianResults) {
-        this.isLoadingResults = false;
-      }
-    },
+    this.isLoadingResults = false;
+  },
 };
 </script>

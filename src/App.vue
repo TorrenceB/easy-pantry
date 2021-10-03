@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar dark>
+    <v-app-bar dark app>
       <v-app-bar-nav-icon class="font-lg"></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
       <v-app-bar-title class="font-lg">Easy Pantry</v-app-bar-title>
