@@ -7,11 +7,12 @@
         color="primary"
         size="60"
       ></v-progress-circular>
-      <ul v-else>
-        <li v-for="result in getItalianResults" :key="result.id">
-          {{ result }}
-        </li>
-      </ul>
+      <v-card v-else>
+        <v-img
+          src="https://spoonacular.com/recipeImages/715769-312x231.jpg"
+        ></v-img>
+        <v-card-title>Broccolini Quinoa Pilaf</v-card-title>
+      </v-card>
     </v-row>
   </v-container>
 </template>
@@ -22,14 +23,14 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "RecipeResults",
   data: () => ({
-    isLoadingResults: true,
+    isLoadingResults: false,
   }),
   computed: { ...mapGetters(["getItalianResults"]) },
   methods: { ...mapActions(["fetchItalianResults"]) },
-  async created() {
-    await this.fetchItalianResults();
+  // async created() {
+  //   await this.fetchItalianResults();
 
-    this.isLoadingResults = false;
-  },
+  //   this.isLoadingResults = false;
+  // },
 };
 </script>
