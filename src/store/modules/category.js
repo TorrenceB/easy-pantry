@@ -30,6 +30,8 @@ export default {
           "https://api.spoonacular.com/recipes/complexSearch",
           { cuisine: "italian" }
         ).then((response) => {
+          console.log(response["results"]);
+
           commit("setItalianResultState", response["results"]);
         });
       } catch (e) {
