@@ -29,7 +29,11 @@ export default {
         title: "Italian",
         icon: "mdi-pasta",
         color: "#E27D60",
-        route: () => router.push({ name: "results" }),
+        route: () =>
+          router.push({
+            name: "results",
+            params: {},
+          }),
       },
       {
         title: "Mexican",

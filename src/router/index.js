@@ -15,6 +15,7 @@ const routes = [
     path: "/results",
     name: "results",
     component: RecipeResults,
+    props: true,
   },
 ];
 

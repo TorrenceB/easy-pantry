@@ -2,7 +2,13 @@ import fetchRecipeClient from "@/util/fetchRecipeClient";
 
 export default {
   state: () => ({
-    italianResults: [],
+    italianResults: [
+      {
+        id: 1,
+        title: "Chicken Cacciatore",
+        image: "https://spoonacular.com/recipeImages/716429-556x370.jpg",
+      },
+    ],
     mexicanResults: [],
     seafoodResults: [],
     mediterraneanResults: [],
@@ -38,12 +44,14 @@ export default {
         console.error(e);
       }
     },
-    async fetchMexicanResults() {
+    async fetchMexicanResults({ commit }) {
       try {
         await fetchRecipeClient(
           "https://api.spoonacular.com/recipes/complexSearch",
           { cuisine: "mexican" }
-        ).then((response) => console.log(response));
+        ).then((response) => {
+          commit("setMexicanResultState", response["results"]);
+        });
       } catch (e) {
         console.error(e);
       }

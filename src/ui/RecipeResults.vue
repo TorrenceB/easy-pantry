@@ -8,9 +8,9 @@
         size="60"
       ></v-progress-circular>
       <div v-else>
-        <h1 class="font-weight-bold ">Italian Recipes</h1>
+        <h1 class="font-weight-bold">{{ "" }}</h1>
         <v-card
-          v-for="result in getItalianResults"
+          v-for="result in getMexicanResults"
           :key="result.id"
           class="my-4"
           width="95%"
@@ -41,15 +41,23 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "RecipeResults",
+  props: {},
   data: () => ({
     isLoadingResults: false,
   }),
-  computed: { ...mapGetters(["getItalianResults"]) },
-  methods: { ...mapActions(["fetchItalianResults"]) },
+  computed: { ...mapGetters(["getItalianResults", "getMexicanResults"]) },
+  methods: { ...mapActions(["fetchItalianResults", "fetchMexicanResults"]) },
   async created() {
-    await this.fetchItalianResults();
+    await this.fetchMexicanResults();
 
     this.isLoadingResults = false;
   },
 };
+
+/* 
+  Object: Hey I am who I am, here's my ID, can you please 
+  tell the doorman to situate the room appropriately to
+  suite my needs?
+*/
 </script>
+
