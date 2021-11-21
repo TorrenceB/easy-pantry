@@ -8,9 +8,9 @@
         size="60"
       ></v-progress-circular>
       <div v-else>
-        <h1 class="font-weight-bold">{{ "" }}</h1>
+        <h1 class="font-weight-bold">{{ title }}</h1>
         <v-card
-          v-for="result in getMexicanResults"
+          v-for="result in mapResults"
           :key="result.id"
           class="my-4"
           width="95%"
@@ -41,23 +41,40 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "RecipeResults",
-  props: {},
+  props: {
+    title: {
+      type: String,
+    },
+  },
   data: () => ({
+    category: null,
     isLoadingResults: false,
   }),
-  computed: { ...mapGetters(["getItalianResults", "getMexicanResults"]) },
-  methods: { ...mapActions(["fetchItalianResults", "fetchMexicanResults"]) },
-  async created() {
-    await this.fetchMexicanResults();
-
-    this.isLoadingResults = false;
+  computed: {
+    ...mapGetters([
+      "getItalianResults",
+      "getMexicanResults",
+      "getSeafoodResults",
+      "getMediterraneanResults",
+      "getVeganResults",
+      "getVegitarianResults",
+      "getGreekResults",
+      "getQuickResults",
+    ]),
   },
+  methods: {
+    init() {
+      ...mapActions([]);
+
+      this.isLoadingResults = false;
+    },
+  },
+  async created() {},
 };
 
-/* 
-  Object: Hey I am who I am, here's my ID, can you please 
+/*
+  Object: Hey I am who I am, here's my ID, can you please
   tell the doorman to situate the room appropriately to
   suite my needs?
 */
 </script>
-

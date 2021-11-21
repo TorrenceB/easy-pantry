@@ -32,7 +32,10 @@ export default {
         route: () =>
           router.push({
             name: "results",
-            params: {},
+            params: {
+              category: "italian",
+              title: "Test num 2",
+            },
           }),
       },
       {

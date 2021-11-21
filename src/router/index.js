@@ -1,7 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Landing from "@/ui/Landing";
-import RecipeResults from "@/ui/RecipeResults";
 
 Vue.use(VueRouter);
 
@@ -12,9 +11,10 @@ const routes = [
     component: Landing,
   },
   {
-    path: "/results",
+    path: "/results/:category",
     name: "results",
-    component: RecipeResults,
+    component: () =>
+      import(/* webpackChunkName: RecipeResults*/ "@/ui/RecipeResults"),
     props: true,
   },
 ];
