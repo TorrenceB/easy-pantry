@@ -2,13 +2,7 @@ import fetchRecipeClient from "@/util/fetchRecipeClient";
 
 export default {
   state: () => ({
-    italianResults: [
-      {
-        id: 1,
-        title: "Chicken Cacciatore",
-        image: "https://spoonacular.com/recipeImages/716429-556x370.jpg",
-      },
-    ],
+    italianResults: [],
     mexicanResults: [],
     seafoodResults: [],
     mediterraneanResults: [],
@@ -88,6 +82,17 @@ export default {
       } catch (e) {
         console.error(e);
       }
+    },
+
+    async fetchResultsByCategory({ commit }, category) {
+      let categories = [];
+
+      if (category === "italian") {
+        categories = console.log("test");
+      }
+
+      commit("setItalianResultState", categories);
+      console.log(categories);
     },
   },
 

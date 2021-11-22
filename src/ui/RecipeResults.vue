@@ -9,12 +9,7 @@
       ></v-progress-circular>
       <div v-else>
         <h1 class="font-weight-bold">{{ title }}</h1>
-        <v-card
-          v-for="result in mapResults"
-          :key="result.id"
-          class="my-4"
-          width="95%"
-        >
+        <v-card v-for="result in []" :key="result.id" class="my-4" width="95%">
           <v-row>
             <v-col>
               <v-avatar tile size="95%" class="ma-2">
@@ -63,13 +58,17 @@ export default {
     ]),
   },
   methods: {
+    ...mapActions(["fetchResultsByCategory"]),
     init() {
-      ...mapActions([]);
+      this.category = "italian";
+      this.fetchResultsByCategory({ category: this.category });
 
       this.isLoadingResults = false;
     },
   },
-  async created() {},
+  async created() {
+    await this.init();
+  },
 };
 
 /*
