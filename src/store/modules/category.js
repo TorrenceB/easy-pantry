@@ -2,7 +2,12 @@ import fetchRecipeClient from "@/util/fetchRecipeClient";
 
 export default {
   state: () => ({
-    italianResults: [],
+    italianResults: [
+      {
+        title: "Test food",
+        image: "",
+      }
+    ],
     mexicanResults: [],
     seafoodResults: [],
     mediterraneanResults: [],
@@ -88,7 +93,7 @@ export default {
       let categories = [];
 
       if (category === "italian") {
-        categories = console.log("test");
+        console.log("test");
       }
 
       commit("setItalianResultState", categories);

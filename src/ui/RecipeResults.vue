@@ -9,16 +9,21 @@
       ></v-progress-circular>
       <div v-else>
         <h1 class="font-weight-bold">{{ title }}</h1>
-        <v-card v-for="result in []" :key="result.id" class="my-4" width="95%">
+        <v-card
+          v-for="category in getCategories"
+          :key="category.id"
+          class="my-4"
+          width="95%"
+        >
           <v-row>
             <v-col>
               <v-avatar tile size="95%" class="ma-2">
-                <v-img :src="result.image"></v-img>
+                <v-img :src="category.image"></v-img>
               </v-avatar>
             </v-col>
             <v-col class="d-flex flex-column justify-center">
               <v-card-title class="font-weight-bold text-h5 pa-0">{{
-                result.title
+                category.title
               }}</v-card-title>
               <v-card-text class="mt-6 text-subtitle-1 pa-0">
                 View Recipe <v-icon>mdi-arrow-right</v-icon></v-card-text
@@ -32,7 +37,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters /* mapActions */ } from "vuex";
 
 export default {
   name: "RecipeResults",
@@ -56,12 +61,34 @@ export default {
       "getGreekResults",
       "getQuickResults",
     ]),
+    getCategories() {
+      switch (this.category) {
+        case "italian":
+          return this.getItalianResults;
+        case "mexican":
+          return this.getMexicanResults;
+        case "seafood":
+          return this.getSeafoodResults;
+        case "mediterranean":
+          return this.getMediterraneanResults;
+        case "vegan":
+          return this.getVeganResults;
+        case "vegitarian":
+          return this.getVegitarianResults;
+        case "greek":
+          return this.getGreekResults;
+        case "quick":
+          return this.getQuickResults;
+        default:
+          return [];
+      }
+    },
   },
   methods: {
-    ...mapActions(["fetchResultsByCategory"]),
+    // ...mapActions(["fetchResultsByCategory"]),
     init() {
       this.category = "italian";
-      this.fetchResultsByCategory({ category: this.category });
+      // this.fetchResultsByCategory({ category: this.category });
 
       this.isLoadingResults = false;
     },
@@ -70,10 +97,4 @@ export default {
     await this.init();
   },
 };
-
-/*
-  Object: Hey I am who I am, here's my ID, can you please
-  tell the doorman to situate the room appropriately to
-  suite my needs?
-*/
 </script>
