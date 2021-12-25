@@ -34,7 +34,6 @@ export default {
             name: "results",
             params: {
               category: "italian",
-              title: "Test num 2",
             },
           }),
       },
@@ -42,13 +41,25 @@ export default {
         title: "Mexican",
         icon: "mdi-taco",
         color: "#41B3A3",
-        route: () => null,
+        route: () =>
+          router.push({
+            name: "results",
+            params: {
+              category: "mexican",
+            },
+          }),
       },
       {
         title: "Seafood",
         icon: "mdi-fish",
         color: "#C38D9E",
-        route: () => null,
+        route: () =>
+          router.push({
+            name: "results",
+            params: {
+              category: "seafood",
+            },
+          }),
       },
       {
         title: "Mediterranean",

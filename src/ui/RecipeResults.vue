@@ -8,7 +8,6 @@
         size="60"
       ></v-progress-circular>
       <div v-else>
-        <h1 class="font-weight-bold">{{ title }}</h1>
         <v-card
           v-for="category in getCategories"
           :key="category.id"
@@ -38,16 +37,14 @@
 
 <script>
 import { mapGetters /* mapActions */ } from "vuex";
-
 export default {
   name: "RecipeResults",
   props: {
-    title: {
+    category: {
       type: String,
     },
   },
   data: () => ({
-    category: null,
     isLoadingResults: false,
   }),
   computed: {
@@ -87,9 +84,6 @@ export default {
   methods: {
     // ...mapActions(["fetchResultsByCategory"]),
     init() {
-      this.category = "italian";
-      // this.fetchResultsByCategory({ category: this.category });
-
       this.isLoadingResults = false;
     },
   },

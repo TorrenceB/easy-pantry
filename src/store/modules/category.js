@@ -4,12 +4,22 @@ export default {
   state: () => ({
     italianResults: [
       {
-        title: "Test food",
+        title: "Test italian recipe",
         image: "",
-      }
+      },
     ],
-    mexicanResults: [],
-    seafoodResults: [],
+    mexicanResults: [
+      {
+        title: "Test mexican result",
+        image: "",
+      },
+    ],
+    seafoodResults: [
+      {
+        title: "Test seafood result",
+        image: "",
+      },
+    ],
     mediterraneanResults: [],
     veganResults: [],
     vegetarianResults: [],
@@ -89,16 +99,11 @@ export default {
       }
     },
 
-    async fetchResultsByCategory({ commit }, category) {
-      let categories = [];
+    // async fetchResultsByCategory({ commit }, category) {
+    //   let categories = [];
 
-      if (category === "italian") {
-        console.log("test");
-      }
-
-      commit("setItalianResultState", categories);
-      console.log(categories);
-    },
+    //   commit("setItalianResultState", categories);
+    // },
   },
 
   mutations: {
