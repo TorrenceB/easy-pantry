@@ -2,24 +2,9 @@ import fetchRecipeClient from "@/util/fetchRecipeClient";
 
 export default {
   state: () => ({
-    italianResults: [
-      {
-        title: "Test italian recipe",
-        image: "",
-      },
-    ],
-    mexicanResults: [
-      {
-        title: "Test mexican result",
-        image: "",
-      },
-    ],
-    seafoodResults: [
-      {
-        title: "Test seafood result",
-        image: "",
-      },
-    ],
+    italianResults: [],
+    mexicanResults: [],
+    seafoodResults: [],
     mediterraneanResults: [],
     veganResults: [],
     vegetarianResults: [],
@@ -65,12 +50,14 @@ export default {
         console.error(e);
       }
     },
-    async fetchSeafoodResults() {
+    async fetchSeafoodResults({ commit }) {
       try {
         await fetchRecipeClient(
           "https://api.spoonacular.com/recipes/complexSearch",
           { query: "seafood" }
-        ).then((response) => console.log(response));
+        ).then((response) => {
+          commit("setSeafoodResultState", response["results"]);
+        });
       } catch (e) {
         console.error(e);
       }

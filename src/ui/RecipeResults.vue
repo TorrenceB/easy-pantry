@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { mapGetters /* mapActions */ } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "RecipeResults",
   props: {
@@ -82,8 +82,26 @@ export default {
     },
   },
   methods: {
-    // ...mapActions(["fetchResultsByCategory"]),
+    ...mapActions([
+      "fetchItalianResults",
+      "fetchMexicanResults",
+      "fetchSeafoodResults",
+    ]),
+    fetchRecipeByCategory(category) {
+      switch (category) {
+        case "italian":
+          return this.fetchItalianResults();
+        case "mexican":
+          return this.fetchMexicanResults();
+        case "seafood":
+          return this.fetchSeafoodResults();
+        default:
+          return [];
+      }
+    },
     init() {
+      this.fetchRecipeByCategory(this.category);
+
       this.isLoadingResults = false;
     },
   },
