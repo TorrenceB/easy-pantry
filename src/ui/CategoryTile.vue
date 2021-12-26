@@ -1,13 +1,17 @@
 <template>
-  <v-card :color="color" height="200px" @click="pushToRecipeListRoute">
+  <v-card :color="color" height="200px" @click="pushToResults(params)">
     <div class="text-center">
       <v-icon class="text-white mt-10" size="75">{{ icon }}</v-icon>
-      <v-card-title class="text-white justify-center pa-0">{{ title }}</v-card-title>
+      <v-card-title class="text-white justify-center pa-0">{{
+        title
+      }}</v-card-title>
     </div>
   </v-card>
 </template>
 
 <script>
+import router from "@/router/index";
+
 export default {
   name: "CategoryTile",
   props: {
@@ -20,8 +24,16 @@ export default {
     color: {
       type: String,
     },
-    pushToRecipeListRoute: {
-      type: Function,
+    params: {
+      type: Object,
+    },
+  },
+  methods: {
+    pushToResults(params) {
+      return router.push({
+        params,
+        name: "results",
+      });
     },
   },
 };

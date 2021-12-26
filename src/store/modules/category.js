@@ -24,6 +24,25 @@ export default {
   },
 
   actions: {
+    async fetchRecipeByCategory({ commit }, category) {
+      /* 
+        options = {
+          params: {...},
+          category: "italian",
+        }
+      */
+      try {
+        await fetchRecipeClient(
+          "https://api.spoonacular.com/recipes/complexSearch",
+          { cuisine: category }
+        ).then((res) => {
+          commit(/* setResultState */ res["results"]);
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    },
+
     async fetchItalianResults({ commit }) {
       try {
         await fetchRecipeClient(
@@ -85,12 +104,6 @@ export default {
         console.error(e);
       }
     },
-
-    // async fetchResultsByCategory({ commit }, category) {
-    //   let categories = [];
-
-    //   commit("setItalianResultState", categories);
-    // },
   },
 
   mutations: {

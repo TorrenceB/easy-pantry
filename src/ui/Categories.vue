@@ -7,7 +7,7 @@
           :title="category.title"
           :color="category.color"
           :icon="category.icon"
-          :pushToRecipeListRoute="category.route"
+          :params="category.params"
         />
       </v-col>
     </v-row>
@@ -16,7 +16,6 @@
 
 <script>
 import CategoryTile from "@/ui/CategoryTile";
-import router from "@/router/index";
 
 export default {
   name: "Categories",
@@ -29,67 +28,65 @@ export default {
         title: "Italian",
         icon: "mdi-pasta",
         color: "#E27D60",
-        route: () =>
-          router.push({
-            name: "results",
-            params: {
-              category: "italian",
-            },
-          }),
+        params: {
+          category: "italian",
+        },
       },
       {
         title: "Mexican",
         icon: "mdi-taco",
         color: "#41B3A3",
-        route: () =>
-          router.push({
-            name: "results",
-            params: {
-              category: "mexican",
-            },
-          }),
+        params: {
+          category: "mexican",
+        },
       },
       {
         title: "Seafood",
         icon: "mdi-fish",
         color: "#C38D9E",
-        route: () =>
-          router.push({
-            name: "results",
-            params: {
-              category: "seafood",
-            },
-          }),
+        params: {
+          category: "seafood",
+        },
       },
       {
         title: "Mediterranean",
         icon: "mdi-fruit-grapes-outline",
         color: "#69DDFF",
-        route: () => null,
+        params: {
+          category: "",
+        },
       },
       {
         title: "Vegan",
         icon: "mdi-food-apple",
         color: "#85DCBA",
-        route: () => null,
+        params: {
+          category: "",
+        },
       },
       {
         title: "Vegetarian",
         icon: "mdi-chili-mild",
         color: "#BFEDC1",
-        route: () => null,
+        params: {
+          category: "",
+        },
       },
       {
         title: "Greek",
         icon: "mdi-alphabet-greek",
         color: "#582630",
-        route: () => null,
+        params: {
+          category: "",
+        },
       },
       {
         title: "Quick & Easy",
         icon: "mdi-bike-fast",
         color: "#AD2E24",
-        route: () => null,
+        params: {
+          category: "",
+        },
       },
     ],
   }),
