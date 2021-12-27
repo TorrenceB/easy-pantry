@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container fluid class="d-md-flex">
     <Featured />
     <Categories />
   </v-container>

@@ -1,6 +1,6 @@
 <template>
   <v-container class="text-center">
-    <h2>Featured Recipe</h2>
+    <h2 class="pb-4">Featured Recipe</h2>
     <v-card class="pa-4">
       <v-img :src="featuredRecipe.image" :alt="featuredRecipe.title">
         <v-app-bar flat color="rgba(0, 0, 0, 0)">
