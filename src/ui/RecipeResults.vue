@@ -45,7 +45,7 @@ export default {
     },
   },
   data: () => ({
-    isLoadingResults: false,
+    isLoadingResults: true,
   }),
   computed: {
     ...mapGetters([
@@ -54,7 +54,7 @@ export default {
       "getSeafoodResults",
       "getMediterraneanResults",
       "getVeganResults",
-      "getVegitarianResults",
+      "getVegetarianResults",
       "getGreekResults",
       "getQuickResults",
     ]),
@@ -70,8 +70,8 @@ export default {
           return this.getMediterraneanResults;
         case "vegan":
           return this.getVeganResults;
-        case "vegitarian":
-          return this.getVegitarianResults;
+        case "vegetarian":
+          return this.getVegetarianResults;
         case "greek":
           return this.getGreekResults;
         case "quick":
@@ -82,23 +82,8 @@ export default {
     },
   },
   methods: {
-    ...mapActions([
-      "fetchItalianResults",
-      "fetchMexicanResults",
-      "fetchSeafoodResults",
-    ]),
-    fetchRecipeByCategory(category) {
-      switch (category) {
-        case "italian":
-          return this.fetchItalianResults();
-        case "mexican":
-          return this.fetchMexicanResults();
-        case "seafood":
-          return this.fetchSeafoodResults();
-        default:
-          return [];
-      }
-    },
+    ...mapActions(["fetchRecipeByCategory"]),
+
     init() {
       this.fetchRecipeByCategory(this.category);
 

@@ -25,81 +25,84 @@ export default {
 
   actions: {
     async fetchRecipeByCategory({ commit }, category) {
-      /* 
-        options = {
-          params: {...},
-          category: "italian",
-        }
-      */
+      let options = {};
+
+      switch (category) {
+        case "italian":
+          options = {
+            params: {
+              cuisine: "italian",
+            },
+            mutation: "setItalianResultState",
+          };
+          break;
+        case "mexican":
+          options = {
+            params: {
+              cuisine: "mexican",
+            },
+            mutation: "setMexicanResultState",
+          };
+          break;
+        case "seafood":
+          options = {
+            params: {
+              query: "seafood",
+            },
+            mutation: "setSeafoodResultState",
+          };
+          break;
+        case "mediterranean":
+          options = {
+            params: {
+              cuisine: "mediterranean",
+            },
+            mutation: "setMediterraneanResultState",
+          };
+          break;
+        case "vegan":
+          options = {
+            params: {
+              diet: "vegan",
+            },
+            mutation: "setVeganResultState",
+          };
+          break;
+        case "vegetarian":
+          options = {
+            params: {
+              diet: "vegetarian",
+            },
+            mutation: "setVegetarianResultState",
+          };
+          break;
+        case "greek":
+          options = {
+            params: {
+              cuisine: "greek",
+            },
+            mutation: "setGreekResultState",
+          };
+          break;
+        case "quick":
+          options = {
+            params: {
+              query: "easy",
+              maxReadyTime: 20,
+            },
+            mutation: "setQuickResultState",
+          };
+      }
+
       try {
         await fetchRecipeClient(
           "https://api.spoonacular.com/recipes/complexSearch",
-          { cuisine: category }
+          options.params
         ).then((res) => {
-          commit(/* setResultState */ res["results"]);
-        });
-      } catch (e) {
-        console.error(e);
-      }
-    },
+          console.log(res);
 
-    async fetchItalianResults({ commit }) {
-      try {
-        await fetchRecipeClient(
-          "https://api.spoonacular.com/recipes/complexSearch",
-          { cuisine: "italian" }
-        ).then((response) => {
-          console.log(response["results"]);
-
-          commit("setItalianResultState", response["results"]);
+          commit(options.mutation, res["results"]);
         });
-      } catch (e) {
-        console.error(e);
-      }
-    },
-    async fetchMexicanResults({ commit }) {
-      try {
-        await fetchRecipeClient(
-          "https://api.spoonacular.com/recipes/complexSearch",
-          { cuisine: "mexican" }
-        ).then((response) => {
-          commit("setMexicanResultState", response["results"]);
-        });
-      } catch (e) {
-        console.error(e);
-      }
-    },
-    async fetchSeafoodResults({ commit }) {
-      try {
-        await fetchRecipeClient(
-          "https://api.spoonacular.com/recipes/complexSearch",
-          { query: "seafood" }
-        ).then((response) => {
-          commit("setSeafoodResultState", response["results"]);
-        });
-      } catch (e) {
-        console.error(e);
-      }
-    },
-    async fetchMediterraneanResults() {
-      try {
-        await fetchRecipeClient(
-          "https://api.spoonacular.com/recipes/complexSearch",
-          { cuisine: "mediterranean" }
-        ).then((response) => console.log(response));
-      } catch (e) {
-        console.error(e);
-      }
-    },
-    async fetchVeganResults() {},
-    async fetchVegitarianResults() {},
-    async fetchGreekResults() {},
-    async fetchQuickResults() {
-      try {
-        await fetchRecipeClient(
-          "https://api.spoonacular.com/recipes/complexSearch",
-          { query: "easy", maxReadyTime: 20 }
-        ).then((response) => console.log(response));
       } catch (e) {
         console.error(e);
       }
@@ -119,6 +122,8 @@ export default {
       (state.veganResults = newResults),
     setVegetarianResultState: (state, newResults) =>
       (state.vegetarianResults = newResults),
+    setGreekResultState: (state, newResults) =>
+      (state.greekResults = newResults),
     setQuickResultState: (state, newResults) =>
       (state.quickResults = newResults),
   },

@@ -53,7 +53,7 @@ export default {
         icon: "mdi-fruit-grapes-outline",
         color: "#69DDFF",
         params: {
-          category: "",
+          category: "mediterranean",
         },
       },
       {
@@ -61,7 +61,7 @@ export default {
         icon: "mdi-food-apple",
         color: "#85DCBA",
         params: {
-          category: "",
+          category: "vegan",
         },
       },
       {
@@ -69,7 +69,7 @@ export default {
         icon: "mdi-chili-mild",
         color: "#BFEDC1",
         params: {
-          category: "",
+          category: "vegetarian",
         },
       },
       {
@@ -77,7 +77,7 @@ export default {
         icon: "mdi-alphabet-greek",
         color: "#582630",
         params: {
-          category: "",
+          category: "greek",
         },
       },
       {
@@ -85,7 +85,7 @@ export default {
         icon: "mdi-bike-fast",
         color: "#AD2E24",
         params: {
-          category: "",
+          category: "quick",
         },
       },
     ],
