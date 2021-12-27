@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import Featured from "@/ui/Featured";
-import Categories from "@/ui/Categories";
+import Featured from "@/ui/featured/Featured";
+import Categories from "@/ui/category/Categories";
 
 export default {
   name: "Landing",

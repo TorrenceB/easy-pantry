@@ -14,7 +14,9 @@ const routes = [
     path: "/results/:category",
     name: "results",
     component: () =>
-      import(/* webpackChunkName: RecipeResults*/ "@/ui/RecipeResults"),
+      import(
+        /* webpackChunkName: RecipeResults*/ "@/ui/category/RecipeResults"
+      ),
     props: true,
   },
 ];

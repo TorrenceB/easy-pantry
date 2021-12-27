@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import CategoryTile from "@/ui/CategoryTile";
+import CategoryTile from "@/ui/category/CategoryTile";
 
 export default {
   name: "Categories",
