@@ -1,5 +1,5 @@
 <template>
-  <v-container class="text-center text-md-left">
+  <v-container class="text-left">
     <h2 class="pb-4 text-md-h4">Featured Recipe</h2>
     <v-img :src="featuredRecipe.image" :alt="featuredRecipe.title">
       <v-app-bar flat color="rgba(0, 0, 0, 0)">
@@ -52,8 +52,8 @@ export default {
   computed: {
     ...mapGetters(["featuredRecipe"]),
   },
-  // created() {
-  //   this.fetchFeatured();
-  // },
+  created() {
+    this.fetchFeatured();
+  },
 };
 </script>

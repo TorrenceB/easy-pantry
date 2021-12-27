@@ -18,7 +18,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style >
 .font-lg {
   font-size: 2.5em;
 }
