@@ -92,6 +92,9 @@ export default {
             },
             mutation: "setQuickResultState",
           };
+          break;
+        default:
+          return options;
       }
 
       try {
@@ -99,8 +102,6 @@ export default {
           "https://api.spoonacular.com/recipes/complexSearch",
           options.params
         ).then((res) => {
-          console.log(res);
-
           commit(options.mutation, res["results"]);
         });
       } catch (e) {
