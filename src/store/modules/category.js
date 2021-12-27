@@ -25,84 +25,64 @@ export default {
 
   actions: {
     async fetchRecipeByCategory({ commit }, category) {
-      let options = {};
+      const categoryMap = {
+        italian: {
+          params: {
+            cuisine: "italian",
+          },
+          mutation: "setItalianResultState",
+        },
+        mexican: {
+          params: {
+            cuisine: "mexican",
+          },
+          mutation: "setMexicanResultState",
+        },
+        seafood: {
+          params: {
+            query: "seafood",
+          },
+          mutation: "setSeafoodResultState",
+        },
+        mediterranean: {
+          params: {
+            cuisine: "mediterranean",
+          },
+          mutation: "setMediterraneanResultState",
+        },
+        vegan: {
+          params: {
+            diet: "vegan",
+          },
+          mutation: "setVeganResultState",
+        },
+        vegetarian: {
+          params: {
+            diet: "vegetarian",
+          },
+          mutation: "setVegetarianResultState",
+        },
+        greek: {
+          params: {
+            cuisine: "greek",
+          },
+          mutation: "setGreekResultState",
+        },
+        quick: {
+          params: {
+            query: "easy",
+            maxReadyTime: 20,
+          },
+          mutation: "setQuickResultState",
+        },
+      };
 
-      switch (category) {
-        case "italian":
-          options = {
-            params: {
-              cuisine: "italian",
-            },
-            mutation: "setItalianResultState",
-          };
-          break;
-        case "mexican":
-          options = {
-            params: {
-              cuisine: "mexican",
-            },
-            mutation: "setMexicanResultState",
-          };
-          break;
-        case "seafood":
-          options = {
-            params: {
-              query: "seafood",
-            },
-            mutation: "setSeafoodResultState",
-          };
-          break;
-        case "mediterranean":
-          options = {
-            params: {
-              cuisine: "mediterranean",
-            },
-            mutation: "setMediterraneanResultState",
-          };
-          break;
-        case "vegan":
-          options = {
-            params: {
-              diet: "vegan",
-            },
-            mutation: "setVeganResultState",
-          };
-          break;
-        case "vegetarian":
-          options = {
-            params: {
-              diet: "vegetarian",
-            },
-            mutation: "setVegetarianResultState",
-          };
-          break;
-        case "greek":
-          options = {
-            params: {
-              cuisine: "greek",
-            },
-            mutation: "setGreekResultState",
-          };
-          break;
-        case "quick":
-          options = {
-            params: {
-              query: "easy",
-              maxReadyTime: 20,
-            },
-            mutation: "setQuickResultState",
-          };
-          break;
-        default:
-          return options;
-      }
-
-      try {
+      try {        
         await fetchRecipeClient(
           "https://api.spoonacular.com/recipes/complexSearch",
-          options.params
+          categoryMap[category].params
         ).then((res) => {
-          commit(options.mutation, res["results"]);
+          commit(categoryMap[category].mutation, res["results"]);
         });
       } catch (e) {
         console.error(e);
