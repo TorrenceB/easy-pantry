@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h2 class="text-center pb-4">Choose a cuisine</h2>
+    <h2 class="text-center text-md-left text-md-h4 pb-4">Choose a cuisine</h2>
     <v-row class="d-flex">
       <v-col cols="6" v-for="category in categories" :key="category.index">
         <CategoryTile
