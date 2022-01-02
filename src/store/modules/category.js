@@ -10,6 +10,7 @@ export default {
     vegetarianResults: [],
     greekResults: [],
     quickResults: [],
+    skilletResults: [],
   }),
 
   getters: {
@@ -21,6 +22,7 @@ export default {
     getVegetarianResults: (state) => state.vegetarianResults,
     getGreekResults: (state) => state.greekResults,
     getQuickResults: (state) => state.quickResults,
+    getSkilletResults: (state) => state.skilletResults,
   },
 
   actions: {
@@ -75,14 +77,20 @@ export default {
           },
           mutation: "setQuickResultState",
         },
+        skillet: {
+          params: {
+            query: "skillet",
+          },
+          mutation: "setSkilletResultState",
+        },
       };
 
-      try {        
+      try {
         await fetchRecipeClient(
           "https://api.spoonacular.com/recipes/complexSearch",
           categoryMap[category].params
-        ).then((res) => {
-          commit(categoryMap[category].mutation, res["results"]);
+        ).then((response) => {
+          commit(categoryMap[category].mutation, response["results"]);
         });
       } catch (e) {
         console.error(e);
@@ -107,5 +115,7 @@ export default {
       (state.greekResults = newResults),
     setQuickResultState: (state, newResults) =>
       (state.quickResults = newResults),
+    setSkilletResultState: (state, newResults) =>
+      (state.skilletResults = newResults),
   },
 };

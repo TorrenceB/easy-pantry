@@ -57,6 +57,7 @@ export default {
       "getVegetarianResults",
       "getGreekResults",
       "getQuickResults",
+      "getSkilletResults",
     ]),
     getCategories() {
       switch (this.category) {
@@ -76,6 +77,8 @@ export default {
           return this.getGreekResults;
         case "quick":
           return this.getQuickResults;
+        case "skillet":
+          return this.getSkilletResults;
         default:
           return [];
       }
