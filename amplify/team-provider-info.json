@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-easypantry-dev-172146-authRole",
+      "UnauthRoleArn": "arn:aws:iam::472281986439:role/amplify-easypantry-dev-172146-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::472281986439:role/amplify-easypantry-dev-172146-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-easypantry-dev-172146-deployment",
+      "UnauthRoleName": "amplify-easypantry-dev-172146-unauthRole",
+      "StackName": "amplify-easypantry-dev-172146",
+      "StackId": "arn:aws:cloudformation:us-east-1:472281986439:stack/amplify-easypantry-dev-172146/7526b8a0-7be2-11ec-b8d3-0a06e6b8ef69",
+      "AmplifyAppId": "d3n1vi9khilf9c"
+    },
+    "categories": {
+      "auth": {
+        "easypantry3b5fe6ce": {}
+      }
+    }
+  }
+}
