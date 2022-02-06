@@ -1,10 +1,6 @@
 import fetchRecipeClient from "@/util/fetchRecipeClient";
 
 export default {
-  /* 
-    Todo: Replace Greek with Skillet category
-  */
-
   state: () => ({
     italianResults: [],
     mexicanResults: [],

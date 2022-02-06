@@ -45,15 +45,23 @@ export default {
   name: "Featured",
   data: () => ({
     bookmarkIsChecked: false,
+    currentDay: new Date().getDay(),
   }),
   methods: {
     ...mapActions(["fetchFeatured"]),
+    /* Call method only on Mondays */
+    getFeaturedReciped() {
+      return this.currentDay === 1 ? this.fetchFeatured() : this.featuredRecipe;
+    },
+    init() {
+      this.getFeaturedReciped();
+    },
   },
   computed: {
     ...mapGetters(["featuredRecipe"]),
   },
   created() {
-    this.fetchFeatured();
+    this.init();
   },
 };
 </script>
