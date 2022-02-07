@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapMutations } from "vuex";
 
 export default {
   name: "Featured",
@@ -49,12 +49,28 @@ export default {
   }),
   methods: {
     ...mapActions(["fetchFeatured"]),
-    /* Call method only on Mondays */
-    getFeaturedReciped() {
-      return this.currentDay === 1 ? this.fetchFeatured() : this.featuredRecipe;
+    ...mapMutations({
+      updateFeaturedRecipe: "setFeaturedRecipeState",
+    }),
+
+    async updateFeaturedHandler() {
+      if (this.currentDay === 1) {
+        await this.fetchFeatured(); /* Call method only on Mondays */
+
+        localStorage.setItem(
+          "currentRecipe",
+          JSON.stringify(this.featuredRecipe)
+        );
+      } else {
+        const currentUserRecipe = localStorage.getItem("currentRecipe");
+
+        if (currentUserRecipe) {
+          this.updateFeaturedRecipe(JSON.parse(currentUserRecipe));
+        }
+      }
     },
     init() {
-      this.getFeaturedReciped();
+      this.updateFeaturedHandler();
     },
   },
   computed: {
