@@ -45,32 +45,28 @@ export default {
   name: "Featured",
   data: () => ({
     bookmarkIsChecked: false,
-    currentDay: new Date().getDay(),
   }),
   methods: {
     ...mapActions(["fetchFeatured"]),
-    ...mapMutations({
-      updateFeaturedRecipe: "setFeaturedRecipeState",
-    }),
+    ...mapMutations({ setRecipe: "setFeaturedRecipeState" }),
 
-    async updateFeaturedHandler() {
-      if (this.currentDay === 1) {
-        await this.fetchFeatured(); /* Call method only on Mondays */
+    async updateFeatured() {
+      /* Todo: Featured will be refreshed weekly */
+      const currentUserRecipe = localStorage.getItem("currentRecipe");
+
+      if (!currentUserRecipe) {
+        await this.fetchFeatured();
 
         localStorage.setItem(
           "currentRecipe",
           JSON.stringify(this.featuredRecipe)
         );
       } else {
-        const currentUserRecipe = localStorage.getItem("currentRecipe");
-
-        if (currentUserRecipe) {
-          this.updateFeaturedRecipe(JSON.parse(currentUserRecipe));
-        }
+        this.setRecipe(JSON.parse(currentUserRecipe));
       }
     },
     init() {
-      this.updateFeaturedHandler();
+      this.updateFeatured();
     },
   },
   computed: {
