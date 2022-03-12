@@ -1,6 +1,9 @@
 <template>
   <v-app>
-    <div v-if="!isSignedIn" class="center">
+    <lottie-vue-player autoplay loop :src="lottieAnimation">
+    </lottie-vue-player>
+
+    <!-- <div v-if="!isSignedIn" class="center">
       <amplify-authenticator> </amplify-authenticator>
     </div>
     <div v-if="isSignedIn">
@@ -26,13 +29,14 @@
       <v-main>
         <router-view />
       </v-main>
-    </div>
+    </div> -->
   </v-app>
 </template>
 
 <script>
 import { Auth } from "aws-amplify";
 import { components, AmplifyEventBus } from "aws-amplify-vue";
+import animation from "./assets/animations/wok-pan.json";
 
 export default {
   name: "App",
@@ -42,6 +46,7 @@ export default {
   data: () => ({
     isSignedIn: false,
     drawer: null,
+    lottieAnimation: JSON.stringify(animation),
   }),
   created() {
     this.findUser();

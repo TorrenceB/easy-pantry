@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@aws-amplify/ui-components": "^1.9.6",
+    "@lottiefiles/vue-lottie-player": "^1.0.5",
     "aws-amplify": "^4.3.12",
     "aws-amplify-vue": "^2.1.5",
     "core-js": "^3.6.5",
