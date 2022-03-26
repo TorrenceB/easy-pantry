@@ -1,8 +1,6 @@
 <template>
   <v-app>
-    <lottie-vue-player autoplay loop :src="lottieAnimation">
-    </lottie-vue-player>
-
+    <Splash />
     <!-- <div v-if="!isSignedIn" class="center">
       <amplify-authenticator> </amplify-authenticator>
     </div>
@@ -36,17 +34,18 @@
 <script>
 import { Auth } from "aws-amplify";
 import { components, AmplifyEventBus } from "aws-amplify-vue";
-import animation from "./assets/animations/wok-pan.json";
+
+import Splash from "@/ui/Splash";
 
 export default {
   name: "App",
   components: {
     ...components,
+    Splash,
   },
   data: () => ({
     isSignedIn: false,
     drawer: null,
-    lottieAnimation: JSON.stringify(animation),
   }),
   created() {
     this.findUser();
@@ -77,12 +76,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .font-lg {
   font-size: 2.5em;
 }
 
-.center {
-  margin: auto;
+.v-application--wrap {
+  justify-content: space-around !important;
 }
 </style>
