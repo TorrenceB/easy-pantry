@@ -1,7 +1,7 @@
 <template>
   <div class="center">
     <h1 class="text-center font-xxx-large">Easy Pantry</h1>
-    <p class="text-center font-medium font-opacity mt-2 px-14">
+    <p class="text-center font-small font-opacity px-10 mt-2 mb-0">
       Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta commodi
       harum recusandae ex maiores omnis debitis dolorem voluptatibus
       consequuntur nemo?
@@ -14,7 +14,7 @@
       :src="lottieAnimation"
     >
     </lottie-vue-player>
-    <button class="button">Get Cookin'</button>
+    <button class="button mt-2">Get Cookin'</button>
   </div>
 </template>
 <script>
@@ -35,30 +35,27 @@ export default {
 };
 </script>
 <style scoped>
-.center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-}
-
 .font-xxx-large {
   font-size: xxx-large;
 }
 
-.font-medium {
-  font-size: medium;
+.font-small {
+  font-size: small;
 }
 
 .font-opacity {
   opacity: 0.6;
 }
 
+.text-center {
+  text-align: center;
+}
+
 .button {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50%;
+  width: 60%;
   height: 4rem;
 
   background-color: #85dcba;

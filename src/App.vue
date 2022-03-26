@@ -81,7 +81,14 @@ export default {
   font-size: 2.5em;
 }
 
-.v-application--wrap {
-  justify-content: space-around !important;
+.center {
+  background-color: #121212;
+  color: white;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 </style>
