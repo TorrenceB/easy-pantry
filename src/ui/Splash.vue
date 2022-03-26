@@ -2,9 +2,7 @@
   <div class="center">
     <h1 class="text-center font-xxx-large">Easy Pantry</h1>
     <p class="text-center font-small font-opacity px-10 mt-2 mb-0">
-      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta commodi
-      harum recusandae ex maiores omnis debitis dolorem voluptatibus
-      consequuntur nemo?
+      Don't know what your next meal should be? You've come to the right place.
     </p>
     <lottie-vue-player
       autoplay
@@ -14,7 +12,9 @@
       :src="lottieAnimation"
     >
     </lottie-vue-player>
-    <button class="button mt-2">Get Cookin'</button>
+    <button class="button mt-2 px-4">
+      Get Cookin' <img src="@/assets/icons/previous-arrow.svg" />
+    </button>
   </div>
 </template>
 <script>
@@ -53,7 +53,7 @@ export default {
 
 .button {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   width: 60%;
   height: 4rem;

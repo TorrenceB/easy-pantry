@@ -82,10 +82,7 @@ export default {
 }
 
 .center {
-  background-color: #121212;
-  color: white;
   height: 100vh;
-
   display: flex;
   flex-direction: column;
   align-items: center;
