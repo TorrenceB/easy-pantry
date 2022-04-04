@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <Splash :isLoading="isLoading" />
-    <div v-if="!isLoading">
+    <div v-if="!isLoading" :class="{ fadein: !isLoading }">
       <div v-if="!isSignedIn" class="center">
         <amplify-authenticator> </amplify-authenticator>
       </div>
@@ -93,5 +93,18 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.fadein {
+  animation: fadeIn 5s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 </style>
