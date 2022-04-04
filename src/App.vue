@@ -1,33 +1,35 @@
 <template>
   <v-app>
-    <Splash />
-    <!-- <div v-if="!isSignedIn" class="center">
-      <amplify-authenticator> </amplify-authenticator>
+    <Splash :isLoading="isLoading" />
+    <div v-if="!isLoading">
+      <div v-if="!isSignedIn" class="center">
+        <amplify-authenticator> </amplify-authenticator>
+      </div>
+      <div v-if="isSignedIn">
+        <v-navigation-drawer v-model="drawer" app>
+          <v-list
+            class="d-flex flex-column justify-end align-center"
+            height="100%"
+          >
+            <v-list-item>
+              <amplify-sign-out></amplify-sign-out>
+            </v-list-item>
+          </v-list>
+        </v-navigation-drawer>
+        <v-app-bar dark app>
+          <v-app-bar-nav-icon
+            @click.stop="drawer = !drawer"
+            class="font-lg"
+          ></v-app-bar-nav-icon>
+          <v-spacer></v-spacer>
+          <v-app-bar-title class="font-lg">Easy Pantry</v-app-bar-title>
+          <v-spacer></v-spacer>
+        </v-app-bar>
+        <v-main>
+          <router-view />
+        </v-main>
+      </div>
     </div>
-    <div v-if="isSignedIn">
-      <v-navigation-drawer v-model="drawer" app>
-        <v-list
-          class="d-flex flex-column justify-end align-center"
-          height="100%"
-        >
-          <v-list-item>
-            <amplify-sign-out></amplify-sign-out>
-          </v-list-item>
-        </v-list>
-      </v-navigation-drawer>
-      <v-app-bar dark app>
-        <v-app-bar-nav-icon
-          @click.stop="drawer = !drawer"
-          class="font-lg"
-        ></v-app-bar-nav-icon>
-        <v-spacer></v-spacer>
-        <v-app-bar-title class="font-lg">Easy Pantry</v-app-bar-title>
-        <v-spacer></v-spacer>
-      </v-app-bar>
-      <v-main>
-        <router-view />
-      </v-main>
-    </div> -->
   </v-app>
 </template>
 
@@ -45,18 +47,22 @@ export default {
   },
   data: () => ({
     isSignedIn: false,
+    isLoading: true,
     drawer: null,
   }),
   created() {
-    this.findUser();
+    setTimeout(() => {
+      this.isLoading = false;
+      this.findUser();
 
-    AmplifyEventBus.$on("authState", (info) => {
-      if (info === "signedIn") {
-        this.findUser();
-      } else {
-        this.isSignedIn = false;
-      }
-    });
+      AmplifyEventBus.$on("authState", (info) => {
+        if (info === "signedIn") {
+          this.findUser();
+        } else {
+          this.isSignedIn = false;
+        }
+      });
+    }, 4000);
   },
   methods: {
     async findUser() {

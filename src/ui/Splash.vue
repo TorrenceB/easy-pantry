@@ -1,5 +1,5 @@
 <template>
-  <div class="center">
+  <div class="center overlay" :class="{ fadeout: !isLoading }">
     <h1 class="text-center font-xxx-large">Easy Pantry</h1>
     <p class="text-center font-small font-opacity px-10 mt-2 mb-0">
       Don't know what your next meal should be? You've come to the right place.
@@ -12,9 +12,6 @@
       :src="lottieAnimation"
     >
     </lottie-vue-player>
-    <button class="button mt-2 px-4">
-      Get Cookin' <img src="@/assets/icons/previous-arrow.svg" />
-    </button>
   </div>
 </template>
 <script>
@@ -22,6 +19,12 @@ import animation from "@/assets/animations/wok-pan.json";
 
 export default {
   name: "Splash",
+  props: {
+    isLoading: {
+      type: Boolean,
+      required: true,
+    },
+  },
   data: () => ({
     lottieAnimation: JSON.stringify(animation),
     animationOptions: {
@@ -51,17 +54,19 @@ export default {
   text-align: center;
 }
 
-.button {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  width: 60%;
-  height: 4rem;
+.overlay {
+  position: absolute;
+  z-index: 50;
+}
 
-  background-color: #85dcba;
-  font-size: 1.3rem;
-  font-weight: 700;
+.fadeout {
+  animation: fadeout 3s forwards;
+}
 
-  border-radius: 0.7rem;
+@keyframes fadeout {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
 </style>
