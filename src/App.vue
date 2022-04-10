@@ -3,7 +3,7 @@
     <Splash :isLoading="isLoading" />
     <div v-if="!isLoading" :class="{ fadein: !isLoading }">
       <div v-if="!isSignedIn" class="center">
-        <amplify-authenticator> </amplify-authenticator>
+        <amplify-authenticator class="clear-padding"> </amplify-authenticator>
       </div>
       <div v-if="isSignedIn">
         <v-navigation-drawer v-model="drawer" app>
@@ -21,8 +21,9 @@
             @click.stop="drawer = !drawer"
             class="font-lg"
           ></v-app-bar-nav-icon>
-          <v-spacer></v-spacer>
-          <v-app-bar-title class="font-lg">Easy Pantry</v-app-bar-title>
+          <v-app-bar-title class="text-xs font-weight-bold"
+            >Easy Pantry</v-app-bar-title
+          >
           <v-spacer></v-spacer>
         </v-app-bar>
         <v-main>
@@ -62,7 +63,7 @@ export default {
           this.isSignedIn = false;
         }
       });
-    }, 4000);
+    }, 6000);
   },
   methods: {
     async findUser() {
@@ -87,12 +88,20 @@ export default {
   font-size: 2.5em;
 }
 
+.clear-padding {
+  padding: 0 !important;
+}
+
 .center {
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.container {
+  padding: 0;
 }
 
 .fadein {
