@@ -17,13 +17,25 @@
     <v-row class="d-flex align-center pl-4 text-h5">
       <v-rating length="1" :value="1" color="orange" size="35"></v-rating>
       <div>
-        {{ featuredRecipe.aggregateLikes }}
+        <strong class="font-weight-bold">
+          {{ featuredRecipe.aggregateLikes }}
+        </strong>
       </div>
     </v-row>
-    <v-card-text class="text-left subtitle-1 mb-4 font-weight-bold">
-      Serves {{ featuredRecipe.servings }} . Ready in
-      {{ featuredRecipe.readyInMinutes }} minutes .
-      {{ featuredRecipe.healthScore }} Health Score
+    <v-card-text class="text-left subtitle-1 mb-4">
+      Serves
+      <strong class="font-weight-bold text-h6">{{
+        featuredRecipe.servings
+      }}</strong>
+      . Ready in
+      <strong class="font-weight-bold text-h6">{{
+        featuredRecipe.readyInMinutes
+      }}</strong>
+      minutes .
+      <strong class="font-weight-bold text-h6">{{
+        featuredRecipe.healthScore
+      }}</strong>
+      Health Score
     </v-card-text>
     <v-row class="justify-start px-6" v-if="featuredRecipe.tags">
       <v-chip
@@ -50,23 +62,24 @@ export default {
     ...mapActions(["fetchFeatured"]),
     ...mapMutations({ setRecipe: "setFeaturedRecipeState" }),
 
-    async updateFeatured() {
-      /* Todo: Featured will be refreshed weekly */
-      const currentUserRecipe = localStorage.getItem("currentRecipe");
+    // async updateFeatured() {
+    //   /* Todo: Featured will be refreshed weekly */
+    //   const currentUserRecipe = localStorage.getItem("currentRecipe");
 
-      if (!currentUserRecipe) {
-        await this.fetchFeatured();
+    //   if (!currentUserRecipe) {
+    //     await this.fetchFeatured();
 
-        localStorage.setItem(
-          "currentRecipe",
-          JSON.stringify(this.featuredRecipe)
-        );
-      } else {
-        this.setRecipe(JSON.parse(currentUserRecipe));
-      }
-    },
+    //     localStorage.setItem(
+    //       "currentRecipe",
+    //       JSON.stringify(this.featuredRecipe)
+    //     );
+    //   } else {
+    //     this.setRecipe(JSON.parse(currentUserRecipe));
+    //   }
+    // },
     init() {
-      this.updateFeatured();
+      // this.updateFeatured();
+      this.fetchFeatured();
     },
   },
   computed: {

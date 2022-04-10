@@ -3,7 +3,7 @@
     <Splash :isLoading="isLoading" />
     <div v-if="!isLoading" :class="{ fadein: !isLoading }">
       <div v-if="!isSignedIn" class="center">
-        <amplify-authenticator class="clear-padding"> </amplify-authenticator>
+        <amplify-authenticator> </amplify-authenticator>
       </div>
       <div v-if="isSignedIn">
         <v-navigation-drawer v-model="drawer" app>
@@ -35,6 +35,10 @@
 </template>
 
 <script>
+/* TODO
+  - fetchMeAMeal feature
+*/
+
 import { Auth } from "aws-amplify";
 import { components, AmplifyEventBus } from "aws-amplify-vue";
 
@@ -86,10 +90,6 @@ export default {
 <style scoped>
 .font-lg {
   font-size: 2.5em;
-}
-
-.clear-padding {
-  padding: 0 !important;
 }
 
 .center {
