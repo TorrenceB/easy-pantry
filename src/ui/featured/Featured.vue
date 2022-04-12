@@ -17,36 +17,35 @@
 
     <!-- Grid buckets -->
     <div class="bucket-wrapper">
-      <!-- <v-rating length="1" :value="1" color="orange" size="35"></v-rating> -->
-      <div class="flex-col py-1 bucket-bg-color rounded">
-        <p class="text-subtitle-2">Rating</p>
+      <div class="flex-col py-3 bucket-bg-color rounded">
         <strong class="font-weight-bold text-h6">
           {{ featuredRecipe.aggregateLikes }}
         </strong>
+        <p class="text-subtitle-2 mb-0">Rating</p>
       </div>
 
-      <div class="flex-col py-1 bucket-bg-color rounded">
-        <p class="text-subtitle-2">Servings</p>
+      <div class="flex-col py-3 bucket-bg-color rounded">
         <strong class="font-weight-bold text-h6">{{
           featuredRecipe.servings
         }}</strong>
+        <p class="text-subtitle-2 mb-0">Servings</p>
       </div>
-      <div class="flex-col py-1 bucket-bg-color rounded">
-        <p class="text-subtitle-2">Prepare</p>
-        <strong class="font-weight-bold text-h6">{{
-          featuredRecipe.readyInMinutes
-        }}</strong>
+      <div class="flex-col py-3 bucket-bg-color rounded">
+        <span class="d-flex align-center">
+          <strong class="font-weight-bold text-h6">{{
+            featuredRecipe.readyInMinutes
+          }}</strong>
+          <p class="text-caption mb-0 ml-1">Min</p>
+        </span>
+        <p class="text-subtitle-2 mb-0">Prepare</p>
       </div>
-      <div class="flex-col py-1 bucket-bg-color rounded">
-        <p class="text-subtitle-2">Health Score</p>
+      <div class="flex-col py-3 bucket-bg-color rounded">
         <strong class="font-weight-bold text-h6">{{
           featuredRecipe.healthScore
         }}</strong>
+        <p class="text-subtitle-2 mb-0">Health Score</p>
       </div>
     </div>
-    <!-- <v-card-text class="text-left subtitle-1 mb-4">
-      Serves . Ready in minutes . Health Score
-    </v-card-text> -->
     <div class="flex mt-4" v-if="featuredRecipe.tags">
       <v-chip
         v-for="tag in featuredRecipe.tags"
@@ -117,10 +116,12 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
 }
 
 .flex {
   display: flex;
   justify-content: start;
+  flex-wrap: wrap;
 }
 </style>
