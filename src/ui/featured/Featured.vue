@@ -14,30 +14,40 @@
     <v-card-title class="text-left text-h6 font-weight-bold">{{
       featuredRecipe.title
     }}</v-card-title>
-    <v-row class="d-flex align-center pl-4 text-h5">
-      <v-rating length="1" :value="1" color="orange" size="35"></v-rating>
-      <div>
-        <strong class="font-weight-bold">
+
+    <!-- Grid buckets -->
+    <div class="bucket-wrapper">
+      <!-- <v-rating length="1" :value="1" color="orange" size="35"></v-rating> -->
+      <div class="flex-col py-1 bucket-bg-color rounded">
+        <p class="text-subtitle-2">Rating</p>
+        <strong class="font-weight-bold text-h6">
           {{ featuredRecipe.aggregateLikes }}
         </strong>
       </div>
-    </v-row>
-    <v-card-text class="text-left subtitle-1 mb-4">
-      Serves
-      <strong class="font-weight-bold text-h6">{{
-        featuredRecipe.servings
-      }}</strong>
-      . Ready in
-      <strong class="font-weight-bold text-h6">{{
-        featuredRecipe.readyInMinutes
-      }}</strong>
-      minutes .
-      <strong class="font-weight-bold text-h6">{{
-        featuredRecipe.healthScore
-      }}</strong>
-      Health Score
-    </v-card-text>
-    <v-row class="justify-start px-6" v-if="featuredRecipe.tags">
+
+      <div class="flex-col py-1 bucket-bg-color rounded">
+        <p class="text-subtitle-2">Servings</p>
+        <strong class="font-weight-bold text-h6">{{
+          featuredRecipe.servings
+        }}</strong>
+      </div>
+      <div class="flex-col py-1 bucket-bg-color rounded">
+        <p class="text-subtitle-2">Prepare</p>
+        <strong class="font-weight-bold text-h6">{{
+          featuredRecipe.readyInMinutes
+        }}</strong>
+      </div>
+      <div class="flex-col py-1 bucket-bg-color rounded">
+        <p class="text-subtitle-2">Health Score</p>
+        <strong class="font-weight-bold text-h6">{{
+          featuredRecipe.healthScore
+        }}</strong>
+      </div>
+    </div>
+    <!-- <v-card-text class="text-left subtitle-1 mb-4">
+      Serves . Ready in minutes . Health Score
+    </v-card-text> -->
+    <div class="flex mt-4" v-if="featuredRecipe.tags">
       <v-chip
         v-for="tag in featuredRecipe.tags"
         :key="tag.index"
@@ -46,7 +56,7 @@
         outlined
         >{{ tag.toUpperCase() }}</v-chip
       >
-    </v-row>
+    </div>
   </v-container>
 </template>
 
@@ -90,3 +100,27 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.bucket-wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr;
+  column-gap: 0.25rem;
+}
+
+.bucket-bg-color {
+  background: rgb(65, 179, 163);
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flex {
+  display: flex;
+  justify-content: start;
+}
+</style>

@@ -37,6 +37,7 @@
 <script>
 /* TODO
   - fetchMeAMeal feature
+  - Add ingredients, return meal
 */
 
 import { Auth } from "aws-amplify";
