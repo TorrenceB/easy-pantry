@@ -27,15 +27,31 @@
           <v-spacer></v-spacer>
         </v-app-bar>
         <v-main>
-          <router-view />
+          <router-view v-slot="{ Component }">
+            <transition name="slide-left">
+              <component :is="Component" />
+            </transition>
+          </router-view>
         </v-main>
-        <v-bottom-navigation app grow
-          ><button><router-link to="/">Home</router-link></button
-          ><v-divider></v-divider
-          ><button>
-            <router-link to="/explore">Explore</router-link>
-          </button></v-bottom-navigation
-        >
+        <v-bottom-navigation class="bottom-nav" app grow
+          ><v-button
+            v-for="button in buttons"
+            :key="button.button"
+            class="button"
+            :class="{ active: active === button.button }"
+            @click="toggleActive(button)"
+            ><router-link class="link" :to="button.to"
+              ><SvgLoader
+                :styles="{
+                  height: '20',
+                  width: '20',
+                  fill: active === button.button ? 'black' : 'white',
+                }"
+                class="margin-right-quarter"
+              />{{ button.button }}</router-link
+            ></v-button
+          >
+        </v-bottom-navigation>
       </div>
     </div>
   </v-app>
@@ -51,18 +67,30 @@ import { Auth } from "aws-amplify";
 import { components, AmplifyEventBus } from "aws-amplify-vue";
 
 import Splash from "@/ui/Splash";
+import SvgLoader from "@/components/SvgLoader.vue";
 
 export default {
   name: "App",
   components: {
     ...components,
     Splash,
+    SvgLoader,
   },
   data: () => ({
     isSignedIn: false,
     isLoading: true,
     drawer: null,
+    active: "Home",
+    buttons: [
+      { button: "Home", to: "/", icon: require("@/assets/icons/home.svg") },
+      {
+        button: "Explore",
+        to: "/explore",
+        icon: require("@/assets/icons/chinese-food.svg"),
+      },
+    ],
   }),
+
   created() {
     setTimeout(() => {
       this.isLoading = false;
@@ -77,7 +105,19 @@ export default {
       });
     }, 6000);
   },
+  computed: {
+    styles() {
+      return {
+        width: "20",
+        height: "20",
+        fill: this.active ? "black" : "white",
+      };
+    },
+  },
   methods: {
+    toggleActive({ button }) {
+      this.active = button;
+    },
     async findUser() {
       try {
         const user = Auth.currentAuthenticatedUser();
@@ -106,6 +146,40 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.bottom-nav {
+  display: flex;
+  justify-content: space-around;
+  justify-items: center;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-weight: bolder;
+  color: #fff;
+}
+
+.margin-right-quarter {
+  margin-right: 0.25rem;
+}
+
+.active {
+  color: black;
+  background-color: #fff;
+  transition: all 250ms ease-in-out;
+  width: 100%;
+}
+
+.link {
+  display: flex;
+  justify-items: center;
+  text-decoration: none;
+  margin: auto;
+  color: inherit;
 }
 
 .container {

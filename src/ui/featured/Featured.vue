@@ -82,9 +82,9 @@ export default {
   computed: {
     ...mapGetters(["featuredRecipe"]),
   },
-  // created() {
-  //   this.init();
-  // },
+  created() {
+    // this.init();
+  },
 };
 </script>
 
