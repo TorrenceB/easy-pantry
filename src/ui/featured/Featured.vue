@@ -1,7 +1,11 @@
 <template>
   <v-container class="text-left">
     <h2 class="pb-4 text-md-h4">Featured Recipe</h2>
-    <v-img :src="featuredRecipe.image" :alt="featuredRecipe.title">
+    <v-img
+      :src="featuredRecipe.image"
+      :alt="featuredRecipe.title"
+      class="rounded"
+    >
       <v-app-bar flat color="rgba(0, 0, 0, 0)">
         <v-spacer></v-spacer>
         <v-btn icon @click="bookmarkIsChecked = !bookmarkIsChecked">
@@ -71,32 +75,16 @@ export default {
     ...mapActions(["fetchFeatured"]),
     ...mapMutations({ setRecipe: "setFeaturedRecipeState" }),
 
-    // async updateFeatured() {
-    //   /* Todo: Featured will be refreshed weekly */
-    //   const currentUserRecipe = localStorage.getItem("currentRecipe");
-
-    //   if (!currentUserRecipe) {
-    //     await this.fetchFeatured();
-
-    //     localStorage.setItem(
-    //       "currentRecipe",
-    //       JSON.stringify(this.featuredRecipe)
-    //     );
-    //   } else {
-    //     this.setRecipe(JSON.parse(currentUserRecipe));
-    //   }
-    // },
     init() {
-      // this.updateFeatured();
       this.fetchFeatured();
     },
   },
   computed: {
     ...mapGetters(["featuredRecipe"]),
   },
-  created() {
-    this.init();
-  },
+  // created() {
+  //   this.init();
+  // },
 };
 </script>
 

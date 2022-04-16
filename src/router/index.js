@@ -19,6 +19,12 @@ const routes = [
       ),
     props: true,
   },
+  {
+    path: "/explore",
+    name: "Explore",
+    component: () =>
+      import(/* webpackChunkName: Explore */ "@/ui/explore/Explore"),
+  },
 ];
 
 const router = new VueRouter({

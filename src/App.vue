@@ -29,6 +29,13 @@
         <v-main>
           <router-view />
         </v-main>
+        <v-bottom-navigation app grow
+          ><button><router-link to="/">Home</router-link></button
+          ><v-divider></v-divider
+          ><button>
+            <router-link to="/explore">Explore</router-link>
+          </button></v-bottom-navigation
+        >
       </div>
     </div>
   </v-app>
