@@ -42,6 +42,7 @@
             @click="toggleActive(button)"
             ><router-link class="link" :to="button.to"
               ><SvgLoader
+                :svg="button.svg"
                 :styles="{
                   height: '20',
                   width: '20',
@@ -70,6 +71,7 @@ import Splash from "@/ui/Splash";
 import SvgLoader from "@/components/SvgLoader.vue";
 
 export default {
+  /* Todo: Fix routing on active property */
   name: "App",
   components: {
     ...components,
@@ -82,11 +84,11 @@ export default {
     drawer: null,
     active: "Home",
     buttons: [
-      { button: "Home", to: "/", icon: require("@/assets/icons/home.svg") },
+      { button: "Home", to: "/", svg: "home" },
       {
         button: "Explore",
         to: "/explore",
-        icon: require("@/assets/icons/chinese-food.svg"),
+        svg: "chineseFood",
       },
     ],
   }),
@@ -104,15 +106,6 @@ export default {
         }
       });
     }, 6000);
-  },
-  computed: {
-    styles() {
-      return {
-        width: "20",
-        height: "20",
-        fill: this.active ? "black" : "white",
-      };
-    },
   },
   methods: {
     toggleActive({ button }) {
