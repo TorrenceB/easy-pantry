@@ -12,6 +12,13 @@ export default {
     getRecipesByIngredient: (state) => state.recipesByIngredient,
   },
   actions: {
+    /**
+     * @async
+     * @function fetchIngredientSuggestions
+     * @param { string } ingredient
+     * @return { Promise }
+     */
+
     fetchIngredientSuggestions: async ({ commit }, ingredient) => {
       try {
         await fetchRecipeClient(

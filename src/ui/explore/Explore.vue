@@ -8,6 +8,17 @@
       id="ingredient-search"
       placeholder="Example: Flour"
     />
+    <!-- Suggestions -->
+    <ul id="suggestions" class="suggestionsWrapper">
+      <li
+        class="suggestion"
+        v-for="suggestion in suggestions"
+        :key="suggestion.id"
+      >
+        {{ suggestion.name }}
+      </li>
+    </ul>
+
     <button @click="getIngredient()" class="button">
       <p class="flex">Search</p>
     </button>
@@ -36,6 +47,7 @@ export default {
     ...mapGetters({
       recipes: "getRecipesByIngredient",
       selectedIngredients: "getSelectedIngredients",
+      suggestions: "getIngredientSuggestions",
     }),
   },
   methods: {
@@ -87,5 +99,11 @@ export default {
   border-style: solid;
   border-color: #808080;
   border-radius: 0.75rem;
+}
+
+.suggestionsWrapper {
+}
+
+.suggestion {
 }
 </style>
