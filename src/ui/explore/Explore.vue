@@ -1,30 +1,22 @@
 <template>
   <div class="center">
     <h1>Find me a Recipe</h1>
-    <label for="ingredient-search" />
-    <input
-      v-model="ingredientSearchValue"
-      class="input my-2"
-      id="ingredient-search"
-      placeholder="Example: Flour"
-    />
     <!-- Suggestions -->
-    <ul id="suggestions" class="suggestionsWrapper">
-      <li
-        class="suggestion"
-        v-for="suggestion in suggestions"
-        :key="suggestion.id"
-      >
-        {{ suggestion.name }}
-      </li>
-    </ul>
+    <v-autocomplete
+      :search-input.sync="getIngredient"
+      :items="suggestions"
+      :loading="suggestionsIsLoading"
+      cache-items
+      label="Search Ingredients"
+      placeholder="Example:Flour"
+    ></v-autocomplete>
 
-    <button @click="getIngredient()" class="button">
+    <button class="button">
       <p class="flex">Search</p>
     </button>
-    <ul>
+    <!-- <ul>
       <li v-for="recipe in recipes" :key="recipe.id">{{ recipe }}</li>
-    </ul>
+    </ul> -->
   </div>
 </template>
 <script>
@@ -41,22 +33,19 @@ import { mapActions, mapGetters, mapMutations } from "vuex";
 export default {
   name: "Explore",
   data: () => ({
-    ingredientSearchValue: "",
+    getIngredient: null,
   }),
   computed: {
     ...mapGetters({
       recipes: "getRecipesByIngredient",
       selectedIngredients: "getSelectedIngredients",
       suggestions: "getIngredientSuggestions",
+      suggestionsIsLoading: "getSuggestionsIsLoading",
     }),
   },
   methods: {
     ...mapActions(["fetchRecipesByIngredient", "fetchIngredientSuggestions"]),
     ...mapMutations(["setSelectedIngredients"]),
-    /* Fetch suggestions */
-    getIngredient() {
-      this.fetchIngredientSuggestions(this.ingredientSearchValue);
-    },
     /* Push selected suggestion to selectedIngredients */
     setIngredients(ingredient) {
       this.setSelectedIngredients(ingredient);
@@ -64,6 +53,12 @@ export default {
     /* Fetch Recipes with selectedIngredients */
     getRecipes() {
       this.fetchRecipesByIngredient(this.selectedIngredients);
+    },
+  },
+  watch: {
+    /* Fetch suggestions */
+    getIngredient(value) {
+      this.fetchIngredientSuggestions(value);
     },
   },
 };
@@ -99,11 +94,5 @@ export default {
   border-style: solid;
   border-color: #808080;
   border-radius: 0.75rem;
-}
-
-.suggestionsWrapper {
-}
-
-.suggestion {
 }
 </style>
