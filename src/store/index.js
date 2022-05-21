@@ -10,6 +10,15 @@ export default new Vuex.Store({
   /* === TODO ===
     - Add user module
   */
+  state: () => ({
+    activePage: "Home",
+  }),
+  getters: {
+    getActivePage: (state) => state.activePage,
+  },
+  mutations: {
+    updateActivePage: (state, activePage) => (state.activePage = activePage),
+  },
   modules: {
     featured,
     category,

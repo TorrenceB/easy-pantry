@@ -1,6 +1,7 @@
 import fetchRecipeClient from "@/util/fetchRecipeClient";
 
 const featuredStore = {
+  namespaced: true,
   state: {
     featured: {},
   },

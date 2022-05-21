@@ -48,7 +48,7 @@ export default {
     isLoadingResults: true,
   }),
   computed: {
-    ...mapGetters([
+    ...mapGetters("category", [
       "getItalianResults",
       "getMexicanResults",
       "getSeafoodResults",
@@ -85,7 +85,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["fetchRecipeByCategory"]),
+    ...mapActions("category", ["fetchRecipeByCategory"]),
 
     init() {
       this.fetchRecipeByCategory(this.category);

@@ -1,6 +1,7 @@
 import fetchRecipeClient from "@/util/fetchRecipeClient";
 
 export default {
+  namespaced: true,
   state: () => ({
     ingredientSuggestions: [],
     selectedIngredients: [],
@@ -47,10 +48,6 @@ export default {
       }
     },
     fetchRecipesByIngredient: async ({ commit }, ingredients) => {
-      /* TODO
-        1. separate ingredients array into string of comma
-          separated strings
-      */
       try {
         await fetchRecipeClient(
           "https://api.spoonacular.com/recipes/findByIngredients",

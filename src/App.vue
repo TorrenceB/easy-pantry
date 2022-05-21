@@ -66,6 +66,7 @@
 
 import { Auth } from "aws-amplify";
 import { components, AmplifyEventBus } from "aws-amplify-vue";
+import { mapGetters, mapMutations } from "vuex";
 
 import Splash from "@/ui/Splash";
 import SvgLoader from "@/components/SvgLoader.vue";
@@ -82,7 +83,6 @@ export default {
     isSignedIn: false,
     isLoading: true,
     drawer: null,
-    active: "Home",
     buttons: [
       { button: "Home", to: "/", svg: "home" },
       {
@@ -92,6 +92,9 @@ export default {
       },
     ],
   }),
+  computed: {
+    ...mapGetters({ active: "getActivePage" }),
+  },
 
   created() {
     setTimeout(() => {
@@ -106,10 +109,13 @@ export default {
         }
       });
     }, 6000);
+
+    this.updateActivePage("Home");
   },
   methods: {
+    ...mapMutations(["updateActivePage"]),
     toggleActive({ button }) {
-      this.active = button;
+      this.updateActivePage(button);
     },
     async findUser() {
       try {

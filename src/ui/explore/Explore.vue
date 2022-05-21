@@ -48,7 +48,7 @@ export default {
     getIngredient: null,
   }),
   computed: {
-    ...mapGetters({
+    ...mapGetters("explore", {
       recipes: "getRecipesByIngredient",
       selectedIngredients: "getSelectedIngredients",
       suggestions: "getIngredientSuggestions",
@@ -59,8 +59,15 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["fetchRecipesByIngredient", "fetchIngredientSuggestions"]),
-    ...mapMutations(["addSelectedIngredients", "updateSelectedIngredients"]),
+    ...mapActions("explore", [
+      "fetchRecipesByIngredient",
+      "fetchIngredientSuggestions",
+    ]),
+    ...mapMutations("explore", [
+      "addSelectedIngredients",
+      "updateSelectedIngredients",
+    ]),
+    ...mapMutations(["updateActivePage"]),
     /* Fetch Recipes with selectedIngredients */
     getRecipes() {
       this.fetchRecipesByIngredient(this.selectedIngredients);
@@ -80,6 +87,9 @@ export default {
         ? this.updateSelectedIngredients(value)
         : this.updateSelectedIngredients([value]);
     },
+  },
+  created() {
+    this.updateActivePage("Explore");
   },
 };
 </script>

@@ -1,6 +1,7 @@
 import fetchRecipeClient from "@/util/fetchRecipeClient";
 
 export default {
+  namespaced: true,
   state: () => ({
     italianResults: [],
     mexicanResults: [],

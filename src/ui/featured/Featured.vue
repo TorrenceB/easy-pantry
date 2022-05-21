@@ -72,15 +72,15 @@ export default {
     bookmarkIsChecked: false,
   }),
   methods: {
-    ...mapActions(["fetchFeatured"]),
-    ...mapMutations({ setRecipe: "setFeaturedRecipeState" }),
+    ...mapActions("featured", ["fetchFeatured"]),
+    ...mapMutations("featured", { setRecipe: "setFeaturedRecipeState" }),
 
     init() {
       this.fetchFeatured();
     },
   },
   computed: {
-    ...mapGetters(["featuredRecipe"]),
+    ...mapGetters("featured", ["featuredRecipe"]),
   },
   created() {
     // this.init();
