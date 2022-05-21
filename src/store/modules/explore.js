@@ -9,9 +9,10 @@ export default {
   }),
   getters: {
     getIngredientSuggestions: (state) => {
-      /* Prop names must match w/ item props of v-autocomplete */
+      /* Prop names must match w/ item props of v-autocomplete: https://vuetifyjs.com/en/components/autocompletes/ */
       return state.ingredientSuggestions.map(({ id, name }) => ({
-        value: id,
+        id,
+        value: name,
         text: name,
         disabled: false,
       }));
@@ -69,10 +70,8 @@ export default {
       (state.ingredientSuggestions = ingredient),
     setRecipesByIngredient: (state, recipesByIngredient) =>
       (state.recipesByIngredient = recipesByIngredient),
-    setSelectedIngredients: (state, ingredient) => [
-      ...state.selectedIngredients,
-      ingredient,
-    ],
+    setSelectedIngredients: (state, ingredient) =>
+      state.selectedIngredients.push(...ingredient),
     setSuggestionsIsLoading: (state, isLoading) =>
       (state.suggestionsIsLoading = isLoading),
   },

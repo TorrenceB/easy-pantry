@@ -3,15 +3,18 @@
     <h1>Find me a Recipe</h1>
     <!-- Suggestions -->
     <v-autocomplete
+      v-model="selectedValue"
       :search-input.sync="getIngredient"
       :items="suggestions"
       :loading="suggestionsIsLoading"
       cache-items
       label="Search Ingredients"
       placeholder="Example:Flour"
+      chips
+      multiple
     ></v-autocomplete>
 
-    <button class="button">
+    <button @click="setIngredients(selectedValue)" class="button">
       <p class="flex">Search</p>
     </button>
     <!-- <ul>
@@ -26,13 +29,18 @@
   3. create dropdown & clickhandler for e.target.value
   4. add selected value to selected ingredients array
   5. Submit click handler: pass selectedIngredient list to fetchRecipes call
+
+  6. Chips
+  7. Configure AWS Backend
 */
 
 import { mapActions, mapGetters, mapMutations } from "vuex";
+// import debounce from "@/util/debounce";
 
 export default {
   name: "Explore",
   data: () => ({
+    selectedValue: null,
     getIngredient: null,
   }),
   computed: {
@@ -58,6 +66,10 @@ export default {
   watch: {
     /* Fetch suggestions */
     getIngredient(value) {
+      if (!value) {
+        return [];
+      }
+
       this.fetchIngredientSuggestions(value);
     },
   },
@@ -94,5 +106,9 @@ export default {
   border-style: solid;
   border-color: #808080;
   border-radius: 0.75rem;
+}
+
+.v-input {
+  flex: none;
 }
 </style>
