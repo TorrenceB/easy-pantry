@@ -11,15 +11,19 @@
       label="Search Ingredients"
       placeholder="Example:Flour"
       chips
+      deletable-chips
       multiple
     ></v-autocomplete>
 
-    <button @click="setIngredients(selectedValue)" class="button">
+    <button
+      @click="fetchRecipesByIngredient(parseSelectedIngredients)"
+      class="button"
+    >
       <p class="flex">Search</p>
     </button>
-    <!-- <ul>
-      <li v-for="recipe in recipes" :key="recipe.id">{{ recipe }}</li>
-    </ul> -->
+    <ul>
+      <li v-for="{ title, id } in recipes" :key="id">{{ title }}</li>
+    </ul>
   </div>
 </template>
 <script>
@@ -50,14 +54,13 @@ export default {
       suggestions: "getIngredientSuggestions",
       suggestionsIsLoading: "getSuggestionsIsLoading",
     }),
+    parseSelectedIngredients() {
+      return this.selectedIngredients.join("");
+    },
   },
   methods: {
     ...mapActions(["fetchRecipesByIngredient", "fetchIngredientSuggestions"]),
-    ...mapMutations(["setSelectedIngredients"]),
-    /* Push selected suggestion to selectedIngredients */
-    setIngredients(ingredient) {
-      this.setSelectedIngredients(ingredient);
-    },
+    ...mapMutations(["addSelectedIngredients", "updateSelectedIngredients"]),
     /* Fetch Recipes with selectedIngredients */
     getRecipes() {
       this.fetchRecipesByIngredient(this.selectedIngredients);
@@ -71,6 +74,11 @@ export default {
       }
 
       this.fetchIngredientSuggestions(value);
+    },
+    selectedValue(value) {
+      Array.isArray(value)
+        ? this.updateSelectedIngredients(value)
+        : this.updateSelectedIngredients([value]);
     },
   },
 };

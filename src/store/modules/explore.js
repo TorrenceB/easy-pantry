@@ -70,8 +70,10 @@ export default {
       (state.ingredientSuggestions = ingredient),
     setRecipesByIngredient: (state, recipesByIngredient) =>
       (state.recipesByIngredient = recipesByIngredient),
-    setSelectedIngredients: (state, ingredient) =>
-      state.selectedIngredients.push(...ingredient),
+    addSelectedIngredients: (state, ingredient) =>
+      state.selectedIngredients.push(ingredient),
+    updateSelectedIngredients: (state, selectedIngredients) =>
+      (state.selectedIngredients = selectedIngredients),
     setSuggestionsIsLoading: (state, isLoading) =>
       (state.suggestionsIsLoading = isLoading),
   },
