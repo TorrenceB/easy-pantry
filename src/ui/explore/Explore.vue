@@ -21,10 +21,16 @@
     >
       <p class="flex">Search</p>
     </button>
-    <ul>
+    <v-progress-circular
+      v-if="recipesIsLoading"
+      indeterminate
+      color="primary"
+    ></v-progress-circular>
+    <ul v-else>
       <li v-for="{ title, id } in recipes" :key="id">{{ title }}</li>
     </ul>
   </div>
+  <!-- Empty State -->
 </template>
 <script>
 /* TODO
@@ -39,7 +45,7 @@
 */
 
 import { mapActions, mapGetters, mapMutations } from "vuex";
-// import debounce from "@/util/debounce";
+import debounce from "@/util/debounce";
 
 export default {
   name: "Explore",
@@ -53,7 +59,9 @@ export default {
       selectedIngredients: "getSelectedIngredients",
       suggestions: "getIngredientSuggestions",
       suggestionsIsLoading: "getSuggestionsIsLoading",
+      recipesIsLoading: "getRecipesIsLoading",
     }),
+    /* API call requires request to be comma separated list */
     parseSelectedIngredients() {
       return this.selectedIngredients.join("");
     },
@@ -80,7 +88,7 @@ export default {
         return [];
       }
 
-      this.fetchIngredientSuggestions(value);
+      debounce(this.fetchIngredientSuggestions(value), 1000);
     },
     selectedValue(value) {
       Array.isArray(value)

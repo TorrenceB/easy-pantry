@@ -7,6 +7,7 @@ export default {
     selectedIngredients: [],
     recipesByIngredient: [],
     suggestionsIsLoading: false,
+    recipesIsLoading: false,
   }),
   getters: {
     getIngredientSuggestions: (state) => {
@@ -21,6 +22,7 @@ export default {
     getSelectedIngredients: (state) => state.selectedIngredients,
     getRecipesByIngredient: (state) => state.recipesByIngredient,
     getSuggestionsIsLoading: (state) => state.suggestionsIsLoading,
+    getRecipesIsLoading: (state) => state.recipesIsLoading,
   },
   actions: {
     /**
@@ -48,6 +50,8 @@ export default {
       }
     },
     fetchRecipesByIngredient: async ({ commit }, ingredients) => {
+      commit("setRecipesIsLoading", true);
+
       try {
         await fetchRecipeClient(
           "https://api.spoonacular.com/recipes/findByIngredients",
@@ -56,9 +60,12 @@ export default {
           console.log(res);
 
           commit("setRecipesByIngredient", res);
+          commit("setRecipesIsLoading", false);
         });
       } catch (err) {
         console.error(err);
+
+        commit("setRecipesIsLoading", false);
       }
     },
   },
@@ -68,10 +75,12 @@ export default {
     setRecipesByIngredient: (state, recipesByIngredient) =>
       (state.recipesByIngredient = recipesByIngredient),
     addSelectedIngredients: (state, ingredient) =>
-      state.selectedIngredients.push(ingredient),
+      state.selectedIngredients.push(...ingredient),
     updateSelectedIngredients: (state, selectedIngredients) =>
       (state.selectedIngredients = selectedIngredients),
     setSuggestionsIsLoading: (state, isLoading) =>
       (state.suggestionsIsLoading = isLoading),
+    setRecipesIsLoading: (state, isLoading) =>
+      (state.recipesIsLoading = isLoading),
   },
 };

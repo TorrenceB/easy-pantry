@@ -59,11 +59,6 @@
 </template>
 
 <script>
-/* TODO
-  - fetchMeAMeal feature
-  - Add ingredients, return meal
-*/
-
 import { Auth } from "aws-amplify";
 import { components, AmplifyEventBus } from "aws-amplify-vue";
 import { mapGetters, mapMutations } from "vuex";
@@ -72,7 +67,6 @@ import Splash from "@/ui/Splash";
 import SvgLoader from "@/components/SvgLoader.vue";
 
 export default {
-  /* Todo: Fix routing on active property */
   name: "App",
   components: {
     ...components,
