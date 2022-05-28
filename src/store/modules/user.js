@@ -50,8 +50,7 @@ export default {
      *
      * @returns { promise }
      */
-    async signUp({ username, password, name, email } = {}) {
-      console.log({ username, password, name, email });
+    async signUp(_, { username, password, name, email } = {}) {
       try {
         const { user } = await Auth.signUp({
           username,

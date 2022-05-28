@@ -37,7 +37,6 @@ export default {
         email: this.user.email,
       };
 
-      console.log({ user });
       this.signUp(user);
     },
   },
