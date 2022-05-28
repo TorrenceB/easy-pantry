@@ -7,13 +7,15 @@
       <input class="input" v-model="user.email" placeholder="Email" />
       <input class="input" v-model="user.password" placeholder="Password" />
 
-      <button class="button">
+      <button @click="handleSignUp" class="button">
         Submit
       </button>
     </form>
   </div>
 </template>
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "SignUp",
   data: () => ({
@@ -25,6 +27,25 @@ export default {
       password: "",
     },
   }),
+  methods: {
+    ...mapActions("user", ["signUp"]),
+    handleSignUp() {
+      const user = {
+        username: this.user.userName,
+        password: this.user.password,
+        name: this.fullName,
+        email: this.user.email,
+      };
+
+      console.log({ user });
+      this.signUp(user);
+    },
+  },
+  computed: {
+    fullName() {
+      return `${this.user.firstName} ${this.user.lastName}`;
+    },
+  },
 };
 </script>
 <style scoped>

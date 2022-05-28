@@ -46,16 +46,20 @@ export default {
 
     /**
      * @function signup
+     * @param { object } user
      *
      * @returns { promise }
      */
-    async signUp({ userName, password, attributes: { email } } = {}) {
+    async signUp({ username, password, name, email } = {}) {
+      console.log({ username, password, name, email });
       try {
-        const { user } = Auth.signUp({
-          userName,
+        const { user } = await Auth.signUp({
+          username,
           password,
           attributes: {
+            name,
             email,
+            preferred_username: username,
           },
         });
 
