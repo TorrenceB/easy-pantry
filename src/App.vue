@@ -3,7 +3,7 @@
     <Splash :isLoading="isLoading" />
     <div v-if="!isLoading" :class="{ fadein: !isLoading }">
       <div v-if="!isSignedIn" class="center">
-        <amplify-authenticator> </amplify-authenticator>
+        <SignUp />
       </div>
       <div v-if="isSignedIn">
         <v-navigation-drawer v-model="drawer" app>
@@ -59,10 +59,10 @@
 </template>
 
 <script>
-import { Auth } from "aws-amplify";
 import { components, AmplifyEventBus } from "aws-amplify-vue";
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
 
+import SignUp from "@/ui/authentication/SignUp.vue";
 import Splash from "@/ui/Splash";
 import SvgLoader from "@/components/SvgLoader.vue";
 
@@ -72,9 +72,9 @@ export default {
     ...components,
     Splash,
     SvgLoader,
+    SignUp,
   },
   data: () => ({
-    isSignedIn: false,
     isLoading: true,
     drawer: null,
     buttons: [
@@ -88,18 +88,20 @@ export default {
   }),
   computed: {
     ...mapGetters({ active: "getActivePage" }),
+    ...mapGetters("user", { isSignedIn: "getAuthState" }),
   },
 
   created() {
     setTimeout(() => {
       this.isLoading = false;
-      this.findUser();
 
       AmplifyEventBus.$on("authState", (info) => {
+        console.log(info);
+
         if (info === "signedIn") {
-          this.findUser();
+          this.fetchUser();
         } else {
-          this.isSignedIn = false;
+          this.updateAuthState(false);
         }
       });
     }, 6000);
@@ -107,22 +109,12 @@ export default {
     this.updateActivePage("Home");
   },
   methods: {
+    init() {},
+    ...mapActions("user", ["fetchUser"]),
     ...mapMutations(["updateActivePage"]),
+    ...mapMutations("user", ["updateAuthState"]),
     toggleActive({ button }) {
       this.updateActivePage(button);
-    },
-    async findUser() {
-      try {
-        const user = Auth.currentAuthenticatedUser();
-
-        user.then((res) => {
-          this.isSignedIn = true;
-
-          console.log(res);
-        });
-      } catch (error) {
-        console.error(error);
-      }
     },
   },
 };

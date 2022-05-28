@@ -1,6 +1,6 @@
 {
   "auth": {
-    "easypantry365c2001": {
+    "EasyPantry": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -9,7 +9,9 @@
         "socialProviders": [],
         "usernameAttributes": [],
         "signupAttributes": [
-          "EMAIL"
+          "EMAIL",
+          "NAME",
+          "PREFERRED_USERNAME"
         ],
         "passwordProtectionSettings": {
           "passwordPolicyMinLength": 8,
