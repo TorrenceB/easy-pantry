@@ -33,7 +33,8 @@ export default {
       const user = {
         username: this.user.userName,
         password: this.user.password,
-        name: this.fullName,
+        firstName: this.user.firstName,
+        lastName: this.user.lastName,
         email: this.user.email,
       };
 

@@ -5,6 +5,7 @@ input AMPLIFY {
 } # FOR TESTING ONLY!
 type User @model {
   id: ID!
+  userName: String
   firstName: String
   lastName: String
   email: String

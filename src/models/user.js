@@ -1,15 +1,15 @@
-export default class User {
-  constructor(
-    firstName = "",
-    lastName = "",
-    email = "",
-    id = 0,
-    favorites = []
-  ) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.email = email;
-    this.id = id;
-    this.favorites = favorites;
-  }
+export default function User({
+  firstName = "",
+  lastName = "",
+  email = "",
+  id = null,
+  favorites = [],
+}) {
+  return {
+    firstName,
+    lastName,
+    email,
+    id,
+    favorites,
+  };
 }
