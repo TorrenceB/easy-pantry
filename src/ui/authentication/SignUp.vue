@@ -5,7 +5,12 @@
       <input class="input" v-model="user.lastName" placeholder="Last Name" />
       <input class="input" v-model="user.userName" placeholder="Username" />
       <input class="input" v-model="user.email" placeholder="Email" />
-      <input class="input" v-model="user.password" placeholder="Password" />
+      <input
+        class="input"
+        v-model="user.password"
+        placeholder="Password"
+        type="password"
+      />
 
       <button @click="handleSignUp" class="button">
         Submit

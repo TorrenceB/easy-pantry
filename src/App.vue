@@ -2,10 +2,13 @@
   <v-app>
     <Splash :isLoading="isLoading" />
     <div v-if="!isLoading" :class="{ fadein: !isLoading }">
-      <div v-if="!isSignedIn" class="center">
-        <SignUp />
+      <div v-if="!isAuthenticated" class="center">
+        <SignUp v-if="!toggle" />
+        <SignIn v-if="toggle" />
+
+        <button @click="toggle = !toggle" class="button">Toggle Auth</button>
       </div>
-      <div v-if="isSignedIn">
+      <div v-if="isAuthenticated">
         <v-navigation-drawer v-model="drawer" app>
           <v-list
             class="d-flex flex-column justify-end align-center"
@@ -63,6 +66,7 @@ import { components, AmplifyEventBus } from "aws-amplify-vue";
 import { mapGetters, mapMutations, mapActions } from "vuex";
 
 import SignUp from "@/ui/authentication/SignUp.vue";
+import SignIn from "@/ui/authentication/SignIn.vue";
 import Splash from "@/ui/Splash";
 import SvgLoader from "@/components/SvgLoader.vue";
 
@@ -73,9 +77,11 @@ export default {
     Splash,
     SvgLoader,
     SignUp,
+    SignIn,
   },
   data: () => ({
     isLoading: true,
+    toggle: false,
     drawer: null,
     buttons: [
       { button: "Home", to: "/", svg: "home" },
@@ -88,7 +94,7 @@ export default {
   }),
   computed: {
     ...mapGetters({ active: "getActivePage" }),
-    ...mapGetters("user", { isSignedIn: "getAuthState" }),
+    ...mapGetters("user", { isAuthencated: "getAuthenticatedState" }),
   },
 
   created() {
@@ -140,12 +146,16 @@ export default {
 }
 
 .button {
+  margin-top: 10px;
   display: flex;
   justify-content: center;
-  width: 100%;
-  height: 100%;
-  font-weight: bolder;
+  align-items: center;
+  width: 35%;
+  height: 3rem;
   color: #fff;
+  font-weight: bolder;
+  background-color: rgb(65, 179, 163);
+  border-radius: 0.75rem;
 }
 
 .margin-right-quarter {

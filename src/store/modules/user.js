@@ -1,15 +1,16 @@
 import { Auth, API, graphqlOperation } from "aws-amplify";
 import { createUser } from "@/graphql/mutations.js";
+import { getUser } from "@/graphql/queries.js";
 
 export default {
   namespaced: true,
   state: () => ({
     user: null,
-    authState: false,
+    isAuthenticated: false,
   }),
   getters: {
     getUser: (state) => state.user,
-    getAuthState: (state) => state.authState,
+    getAuthenticatedState: (state) => state.isAuthenticated,
   },
   actions: {
     /**
@@ -87,7 +88,28 @@ export default {
      *
      * @returns { promise }
      */
-    async signIn() {},
+    async signIn({ commit }, { userName, password } = {}) {
+      try {
+        const user = await Auth.signIn(userName, password);
+
+        console.log(user);
+
+        /* Find authenticated user in db & update state */
+        if (user) {
+          const {
+            data: { getUser: currentUser },
+          } = await API.graphql(
+            graphqlOperation(getUser, { id: user.attributes.sub })
+          );
+
+          console.log(currentUser);
+
+          commit("updateUser", currentUser);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    },
 
     /**
      * @async
@@ -95,10 +117,17 @@ export default {
      *
      * @returns { promise }
      */
-    async signOut() {},
+    async signOut() {
+      try {
+        await Auth.signOut();
+      } catch (err) {
+        console.error(err);
+      }
+    },
   },
   mutations: {
     updateUser: (state, user) => (state.user = user),
-    updateAuthState: (state, authState) => (state.authState = authState),
+    updateAuthState: (state, isAuthenticated) =>
+      (state.isAuthenticated = isAuthenticated),
   },
 };
