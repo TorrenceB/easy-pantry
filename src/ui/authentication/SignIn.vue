@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="center">
+    <h1>Login</h1>
     <form class="d-flex flex-column justify-center align-center">
       <input class="input" v-model="user.userName" placeholder="Username" />
       <input
@@ -57,5 +58,13 @@ export default {
   font-weight: bolder;
   background-color: rgb(65, 179, 163);
   border-radius: 0.75rem;
+}
+
+.center {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 </style>

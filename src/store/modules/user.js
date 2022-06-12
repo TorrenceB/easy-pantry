@@ -18,7 +18,7 @@ export default {
      *
      * @returns { promise }
      */
-    async fetchUser({ commit }) {
+    async fetchUser() {
       try {
         const user = await Auth.currentAuthenticatedUser();
 
@@ -27,11 +27,11 @@ export default {
           // commit("updateUser", user);
         }
 
-        commit("updateAuthState", true);
+        // commit("updateAuthState", true);
       } catch (e) {
         console.error(e);
 
-        commit("updateAuthState", false);
+        // commit("updateAuthState", false);
       }
     },
 
@@ -75,8 +75,11 @@ export default {
         console.log(newUser);
 
         commit("updateUser", newUser);
+        commit("updateAuthState", true);
       } catch (e) {
         console.error(e);
+
+        commit("updateAuthState", false);
       }
     },
 
@@ -92,8 +95,6 @@ export default {
       try {
         const user = await Auth.signIn(userName, password);
 
-        console.log(user);
-
         /* Find authenticated user in db & update state */
         if (user) {
           const {
@@ -105,9 +106,12 @@ export default {
           console.log(currentUser);
 
           commit("updateUser", currentUser);
+          commit("updateAuthState", true);
         }
       } catch (err) {
         console.error(err);
+
+        commit("updateAuthState", false);
       }
     },
 
@@ -117,9 +121,11 @@ export default {
      *
      * @returns { promise }
      */
-    async signOut() {
+    async signOut({ commit }) {
       try {
         await Auth.signOut();
+
+        commit("updateAuthState", false);
       } catch (err) {
         console.error(err);
       }
