@@ -18,20 +18,23 @@ export default {
      *
      * @returns { promise }
      */
-    async fetchUser() {
+    async fetchUser({ commit }) {
       try {
         const user = await Auth.currentAuthenticatedUser();
 
         if (user) {
-          /* find user in db using userSub and commit to state  */
-          // commit("updateUser", user);
+          const {
+            data: { getUser: currentUser },
+          } = await API.graphql(
+            graphqlOperation(getUser, { id: user.attributes.sub })
+          );
+
+          console.log(currentUser);
+
+          commit("updateUser", currentUser);
         }
-
-        // commit("updateAuthState", true);
-      } catch (e) {
-        console.error(e);
-
-        // commit("updateAuthState", false);
+      } catch (err) {
+        console.error("!", "fetchUser:user.js", err);
       }
     },
 
@@ -73,9 +76,6 @@ export default {
         } = await API.graphql(graphqlOperation(createUser, { input: dbUser }));
 
         console.log(newUser);
-
-        commit("updateUser", newUser);
-        commit("updateAuthState", true);
       } catch (e) {
         console.error(e);
 
@@ -126,6 +126,7 @@ export default {
         await Auth.signOut();
 
         commit("updateAuthState", false);
+        commit("updateUser", null);
       } catch (err) {
         console.error(err);
       }

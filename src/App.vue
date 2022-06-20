@@ -17,7 +17,6 @@
 
 <script>
 import { components } from "aws-amplify-vue";
-import { mapActions } from "vuex";
 
 import SignUp from "@/ui/authentication/SignUp.vue";
 import SignIn from "@/ui/authentication/SignIn.vue";
@@ -46,7 +45,6 @@ export default {
   },
   methods: {
     init() {},
-    ...mapActions("user", ["fetchUser"]),
   },
 };
 </script>

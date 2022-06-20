@@ -66,16 +66,14 @@ export default {
 }
 
 .button {
-  margin-top: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 35%;
-  height: 3rem;
+  height: 100%;
   color: #fff;
   font-weight: bolder;
   background-color: rgb(65, 179, 163);
-  border-radius: 0.75rem;
 }
 
 .active {

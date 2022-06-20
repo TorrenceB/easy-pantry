@@ -64,6 +64,8 @@ router.beforeEach(async (to, from, next) => {
 router.beforeEach(async (to, from, next) => {
   if (to.matched.some((record) => record.meta.guest)) {
     if (store.getters["user/getAuthenticatedState"]) {
+      this.$store.dispatch("user/fetchUser");
+
       next({ name: "Landing" });
 
       return;

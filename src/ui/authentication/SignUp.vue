@@ -16,6 +16,11 @@
       <button @click="handleSignUp" class="button">
         Submit
       </button>
+
+      <div class="d-flex mt-4">
+        <p class="mx-2">Already have an account?</p>
+        <router-link to="/signIn">Sign In</router-link>
+      </div>
     </form>
   </div>
 </template>
@@ -35,7 +40,7 @@ export default {
   }),
   methods: {
     ...mapActions("user", ["signUp"]),
-    handleSignUp() {
+    async handleSignUp() {
       const user = {
         username: this.user.userName,
         password: this.user.password,
@@ -44,7 +49,13 @@ export default {
         email: this.user.email,
       };
 
-      this.signUp(user);
+      try {
+        await this.signUp(user);
+
+        this.$router.push({ name: "SignIn" });
+      } catch (err) {
+        console.error("!", "handleSignUp:SignUp.vue", err);
+      }
     },
   },
   computed: {

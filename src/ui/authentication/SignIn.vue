@@ -13,6 +13,11 @@
       <button @click="handleSignIn" class="button">
         Submit
       </button>
+
+      <div class="d-flex mt-4">
+        <p class="mx-2">New to Easy Pantry?</p>
+        <router-link to="/signUp">Sign Up</router-link>
+      </div>
     </form>
   </div>
 </template>
