@@ -31,8 +31,14 @@ export default {
   },
   methods: {
     ...mapActions("user", ["signOut"]),
-    handleSignOut() {
-      this.signOut();
+    async handleSignOut() {
+      try {
+        await this.signOut();
+
+        this.$router.push({ name: "SignIn" });
+      } catch (err) {
+        console.error("!", "handleSignOut:Drawer.vue", err);
+      }
     },
   },
 };

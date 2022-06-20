@@ -50,12 +50,11 @@ const router = new VueRouter({
 
 router.beforeEach(async (to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (store.getters["user/getAuthenticatedState"]) {
-      next();
-
+    if (to.name !== "SignIn" && !store.getters["user/getAuthenticatedState"]) {
+      next({ name: "SignIn" });
       return;
     } else {
-      next({ name: "SignIn" });
+      next();
     }
   } else {
     next();

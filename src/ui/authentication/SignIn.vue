@@ -29,13 +29,19 @@ export default {
   }),
   methods: {
     ...mapActions("user", ["signIn"]),
-    handleSignIn() {
+    async handleSignIn() {
       const user = {
         userName: this.user.userName,
         password: this.user.password,
       };
 
-      this.signIn(user);
+      try {
+        await this.signIn(user);
+
+        this.$router.push({ name: "Landing" });
+      } catch (err) {
+        console.error("!", "handleSignIn:signIn.vue", err);
+      }
     },
   },
 };

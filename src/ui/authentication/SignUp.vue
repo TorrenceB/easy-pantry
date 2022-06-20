@@ -1,5 +1,6 @@
 <template>
   <div class="center">
+    <h1>Register</h1>
     <form class="d-flex flex-column justify-center align-center">
       <input class="input" v-model="user.firstName" placeholder="First Name" />
       <input class="input" v-model="user.lastName" placeholder="Last Name" />
