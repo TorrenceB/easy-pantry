@@ -41,6 +41,7 @@ const routes = [
     name: "Explore",
     component: () =>
       import(/* webpackChunkName: Explore */ "@/ui/explore/Explore"),
+    meta: { requiresAuth: true },
   },
 ];
 

@@ -18,8 +18,6 @@
 <script>
 import { components } from "aws-amplify-vue";
 
-import SignUp from "@/ui/authentication/SignUp.vue";
-import SignIn from "@/ui/authentication/SignIn.vue";
 import Splash from "@/ui/Splash";
 import Drawer from "@/components/Drawer.vue";
 import BottomNav from "@/components/BottomNav.vue";
@@ -29,8 +27,6 @@ export default {
   components: {
     ...components,
     Splash,
-    SignUp,
-    SignIn,
     Drawer,
     BottomNav,
   },
