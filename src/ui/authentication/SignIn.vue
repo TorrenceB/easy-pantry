@@ -11,7 +11,11 @@
       />
 
       <button @click="handleSignIn" class="button">
-        Submit
+        <v-progress-circular
+          v-if="isFetching"
+          indeterminate
+        ></v-progress-circular>
+        <span v-else>Submit</span>
       </button>
 
       <div class="d-flex mt-4">
@@ -22,7 +26,7 @@
   </div>
 </template>
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "SignIn",
@@ -32,6 +36,9 @@ export default {
       password: "",
     },
   }),
+  computed: {
+    ...mapGetters("user", { isFetching: "getIsFetching" }),
+  },
   methods: {
     ...mapActions("user", ["signIn"]),
     async handleSignIn() {

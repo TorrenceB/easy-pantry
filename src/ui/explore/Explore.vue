@@ -1,49 +1,72 @@
 <template>
-  <div class="center">
-    <h1>Find me a Recipe</h1>
-    <!-- Suggestions -->
-    <v-autocomplete
-      v-model="selectedValue"
-      :search-input.sync="getIngredient"
-      :items="suggestions"
-      :loading="suggestionsIsLoading"
-      cache-items
-      label="Search Ingredients"
-      placeholder="Example:Flour"
-      chips
-      deletable-chips
-      multiple
-    ></v-autocomplete>
+  <v-container class="center">
+    <h2 class="pb-4 text-md-h4">Find a Recipe</h2>
 
-    <button
-      @click="fetchRecipesByIngredient(parseSelectedIngredients)"
-      class="button"
-    >
-      <p class="flex">Search</p>
-    </button>
-    <v-progress-circular
+    <!-- Suggestions -->
+    <div class="search-container mb-4">
+      <div class="d-flex mb-4">
+        <div class="icon">
+          <v-icon class="text-white" size="40">mdi-pasta</v-icon>
+        </div>
+        <div class="d-flex flex-column mx-4">
+          <p class="ma-0 font-weight-bold">Search Ingredients</p>
+          <p class="ma-0 text-body-2 text--secondary">
+            Find Recipes using ingredients from your pantry
+          </p>
+        </div>
+      </div>
+
+      <v-autocomplete
+        v-model="selectedValue"
+        :search-input.sync="getIngredient"
+        :items="suggestions"
+        :loading="suggestionsIsLoading"
+        cache-items
+        label="Search Ingredients"
+        placeholder="Example:Flour"
+        chips
+        deletable-chips
+        multiple
+        hide-no-data
+        hide-selected
+        hide-details
+        outlined
+      >
+        <template v-slot:append>
+          <button
+            @click="fetchRecipesByIngredient(parseSelectedIngredients)"
+            class="button"
+          >
+            Search
+          </button>
+        </template>
+      </v-autocomplete>
+    </div>
+
+    <!-- Favorites Carousel -->
+    <h3 class="d-flex">Favorites</h3>
+    <v-carousel :height="300" hide-delimiters>
+      <v-carousel-item></v-carousel-item>
+    </v-carousel>
+
+    <!-- Suggested Recipes Carousel -->
+    <h3 class="d-flex">Suggested</h3>
+    <v-carousel :height="300" hide-delimiters>
+      <v-carousel-item></v-carousel-item>
+    </v-carousel>
+
+    <!-- <v-progress-circular
       v-if="recipesIsLoading"
       indeterminate
       color="primary"
     ></v-progress-circular>
     <ul v-else>
       <li v-for="{ title, id } in recipes" :key="id">{{ title }}</li>
-    </ul>
-  </div>
+    </ul> -->
+  </v-container>
   <!-- Empty State -->
 </template>
 <script>
-/* TODO
-  1. Call getIngredient() onInput
-  2. wrap getIngredient with a debounce function
-  3. create dropdown & clickhandler for e.target.value
-  4. add selected value to selected ingredients array
-  5. Submit click handler: pass selectedIngredient list to fetchRecipes call
-
-  6. Chips
-  7. Configure AWS Backend
-*/
-
 import { mapActions, mapGetters, mapMutations } from "vuex";
 import debounce from "@/util/debounce";
 
@@ -112,29 +135,26 @@ export default {
 .button {
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 55%;
-  height: 3rem;
   color: #fff;
   font-weight: bolder;
-  background-color: rgb(65, 179, 163);
   border-radius: 0.75rem;
 }
 
-.flex {
-  display: flex;
-  justify-content: center;
-  margin: auto;
-}
-
-.input {
-  color: #fff;
+.search-container {
+  width: 100%;
   padding: 0.5rem;
   border-style: solid;
+  border-width: thin;
   border-color: #808080;
   border-radius: 0.75rem;
 }
 
-.v-input {
-  flex: none;
+.icon {
+  background-color: #41b3a3;
+  border-radius: 0.5em;
+  height: 50%;
+  padding: 0.25em;
 }
 </style>

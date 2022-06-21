@@ -6,10 +6,12 @@ export default {
   namespaced: true,
   state: () => ({
     user: null,
+    isFetching: false,
     isAuthenticated: false,
   }),
   getters: {
     getUser: (state) => state.user,
+    getIsFetching: (state) => state.isFetching,
     getAuthenticatedState: (state) => state.isAuthenticated,
   },
   actions: {
@@ -93,6 +95,8 @@ export default {
      */
     async signIn({ commit }, { userName, password } = {}) {
       try {
+        commit("setIsFetching", true);
+
         const user = await Auth.signIn(userName, password);
 
         /* Find authenticated user in db & update state */
@@ -107,6 +111,7 @@ export default {
 
           commit("updateUser", currentUser);
           commit("updateAuthState", true);
+          commit("setIsFetching", false);
         }
       } catch (err) {
         console.error(err);
@@ -136,5 +141,6 @@ export default {
     updateUser: (state, user) => (state.user = user),
     updateAuthState: (state, isAuthenticated) =>
       (state.isAuthenticated = isAuthenticated),
+    setIsFetching: (state, isFetching) => (state.isFetching = isFetching),
   },
 };
