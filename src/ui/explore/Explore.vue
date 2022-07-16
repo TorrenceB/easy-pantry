@@ -44,15 +44,34 @@
     </div>
 
     <!-- Favorites Carousel -->
-    <h3 class="d-flex">Favorites</h3>
+    <!-- <h3 class="d-flex">Favorites</h3>
     <v-carousel :height="300" hide-delimiters>
       <v-carousel-item></v-carousel-item>
-    </v-carousel>
+    </v-carousel> -->
 
     <!-- Suggested Recipes Carousel -->
     <h3 class="d-flex">Suggested</h3>
     <v-carousel :height="300" hide-delimiters>
-      <v-carousel-item></v-carousel-item>
+      <v-carousel-item
+        v-for="{ title, id, image } in recipes"
+        :key="id"
+        class="card"
+      >
+        <v-btn
+          icon
+          @click="bookmarkIsChecked = !bookmarkIsChecked"
+          class="card_favorite-icon"
+        >
+          <v-icon :color="bookmarkIsChecked ? '#ff6600' : '#fff'" size="60">
+            mdi-cards-heart
+          </v-icon>
+        </v-btn>
+
+        <v-img :src="image" :alt="title" class="card_image"> </v-img>
+        <p class="card_title">
+          {{ title }}
+        </p>
+      </v-carousel-item>
     </v-carousel>
 
     <!-- <v-progress-circular
@@ -73,6 +92,7 @@ import debounce from "@/util/debounce";
 export default {
   name: "Explore",
   data: () => ({
+    bookmarkIsChecked: false,
     selectedValue: null,
     getIngredient: null,
   }),
@@ -156,5 +176,32 @@ export default {
   border-radius: 0.5em;
   height: 50%;
   padding: 0.25em;
+}
+
+.card {
+  position: relative;
+  margin: 0.5em 0;
+}
+
+.card_title {
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  margin: 1em 1em;
+
+  font-weight: 800;
+  font-size: large;
+}
+
+.card_image {
+  opacity: 0.5;
+  border-radius: 0.5em;
+}
+
+.card_favorite-icon {
+  z-index: 10;
+  position: absolute;
+  right: 1.5em;
+  top: 1em;
 }
 </style>
