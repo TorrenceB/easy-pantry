@@ -1,23 +1,38 @@
 <template>
   <v-container class="text-left">
     <h2 class="pb-4 text-md-h4">Featured Recipe</h2>
-    <v-img
-      :src="featuredRecipe.image"
-      :alt="featuredRecipe.title"
-      class="rounded"
-    >
-      <v-app-bar flat color="rgba(0, 0, 0, 0)">
-        <v-spacer></v-spacer>
-        <v-btn icon @click="bookmarkIsChecked = !bookmarkIsChecked">
-          <v-icon :color="bookmarkIsChecked ? '#ff6600' : '#fff'" size="60">
-            mdi-cards-heart
+
+    <div class="card">
+      <v-btn
+        icon
+        @click="bookmarkIsChecked = !bookmarkIsChecked"
+        class="card_favorite-icon"
+      >
+        <v-icon :color="bookmarkIsChecked ? '#ff6600' : '#fff'" size="60">
+          mdi-cards-heart
+        </v-icon>
+      </v-btn>
+
+      <v-img
+        :src="featuredRecipe.image"
+        :alt="featuredRecipe.title"
+        class="card_image"
+      >
+      </v-img>
+      <div class="card_footer-container">
+        <span class="card_title">
+          {{ featuredRecipe.title }}
+        </span>
+
+        <v-btn icon>
+          <span>View</span>
+
+          <v-icon size="30">
+            mdi-arrow-right-bold
           </v-icon>
         </v-btn>
-      </v-app-bar>
-    </v-img>
-    <v-card-title class="text-left text-h6 font-weight-bold">{{
-      featuredRecipe.title
-    }}</v-card-title>
+      </div>
+    </div>
 
     <!-- Grid buckets -->
     <div class="bucket-wrapper">
@@ -83,7 +98,7 @@ export default {
     ...mapGetters("featured", ["featuredRecipe"]),
   },
   created() {
-    // this.init();
+    this.init();
   },
 };
 </script>
@@ -111,5 +126,42 @@ export default {
   display: flex;
   justify-content: start;
   flex-wrap: wrap;
+}
+
+.card {
+  position: relative;
+  margin: 0.5em 0;
+}
+
+.card_title {
+  display: flex;
+
+  font-weight: 800;
+  font-size: large;
+}
+
+.card_image {
+  opacity: 0.5;
+  border-radius: 0.5em;
+}
+
+.card_favorite-icon {
+  z-index: 10;
+  position: absolute;
+  right: 1.5em;
+  top: 1em;
+}
+
+.card_footer-container {
+  z-index: 10;
+  position: absolute;
+  bottom: 0;
+  margin: 1em 0;
+  padding: 0 1.5em;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 </style>

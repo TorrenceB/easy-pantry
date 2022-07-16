@@ -68,9 +68,19 @@
         </v-btn>
 
         <v-img :src="image" :alt="title" class="card_image"> </v-img>
-        <p class="card_title">
-          {{ title }}
-        </p>
+        <div class="card_footer-container">
+          <span class="card_title">
+            {{ title }}
+          </span>
+
+          <v-btn icon>
+            <span>View</span>
+
+            <v-icon size="30">
+              mdi-arrow-right-bold
+            </v-icon>
+          </v-btn>
+        </div>
       </v-carousel-item>
     </v-carousel>
 
@@ -185,9 +195,6 @@ export default {
 
 .card_title {
   display: flex;
-  position: absolute;
-  bottom: 0;
-  margin: 1em 1em;
 
   font-weight: 800;
   font-size: large;
@@ -203,5 +210,18 @@ export default {
   position: absolute;
   right: 1.5em;
   top: 1em;
+}
+
+.card_footer-container {
+  z-index: 10;
+  position: absolute;
+  bottom: 0;
+  margin: 1em 0;
+  padding: 0 1.5em;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 </style>
