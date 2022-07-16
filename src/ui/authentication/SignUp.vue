@@ -2,18 +2,39 @@
   <div class="center">
     <h1>Register</h1>
     <form class="d-flex flex-column justify-center align-center">
-      <input class="input" v-model="user.firstName" placeholder="First Name" />
-      <input class="input" v-model="user.lastName" placeholder="Last Name" />
-      <input class="input" v-model="user.userName" placeholder="Username" />
-      <input class="input" v-model="user.email" placeholder="Email" />
+      <input
+        class="input"
+        v-model="user.firstName"
+        placeholder="First Name"
+        name="firstName"
+      />
+      <input
+        class="input"
+        v-model="user.lastName"
+        placeholder="Last Name"
+        name="lastName"
+      />
+      <input
+        class="input"
+        v-model="user.username"
+        placeholder="Username"
+        name="username"
+      />
+      <input
+        class="input"
+        v-model="user.email"
+        placeholder="Email"
+        name="email"
+      />
       <input
         class="input"
         v-model="user.password"
         placeholder="Password"
         type="password"
+        name="password"
       />
 
-      <button @click="handleSignUp" class="button">
+      <button @click.prevent="handleSignUp" class="button">
         Submit
       </button>
 
@@ -33,7 +54,7 @@ export default {
     user: {
       firstName: "",
       lastName: "",
-      userName: "",
+      username: "",
       email: "",
       password: "",
     },
@@ -41,13 +62,14 @@ export default {
   methods: {
     ...mapActions("user", ["signUp"]),
     async handleSignUp() {
-      const user = {
-        username: this.user.userName,
-        password: this.user.password,
-        firstName: this.user.firstName,
-        lastName: this.user.lastName,
-        email: this.user.email,
-      };
+      const user = Object.entries(this.user).reduce(
+        (userObj, [key, value] = []) => {
+          userObj[key] = value;
+
+          return userObj;
+        },
+        {}
+      );
 
       try {
         await this.signUp(user);
