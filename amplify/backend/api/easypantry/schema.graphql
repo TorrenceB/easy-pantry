@@ -5,11 +5,12 @@ input AMPLIFY {
 } # FOR TESTING ONLY!
 type User @model {
   id: ID!
-  userName: String
   firstName: String
   lastName: String
   email: String
-  favorites: [Recipe]
+  userName: String
+  favorites: [Recipe] @hasMany(fields: ["id"])
+  featuredRecipe: Recipe @hasOne(fields: ["id"])
 }
 
 type Recipe @model {
@@ -19,5 +20,4 @@ type Recipe @model {
   instructions: String
   summary: String
   diets: [String]
-  attributes: [String]
 }

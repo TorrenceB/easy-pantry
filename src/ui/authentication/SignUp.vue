@@ -60,7 +60,7 @@ export default {
     },
   }),
   methods: {
-    ...mapActions("user", ["signUp"]),
+    ...mapActions("auth", ["signUp"]),
     async handleSignUp() {
       const user = Object.entries(this.user).reduce(
         (userObj, [key, value] = []) => {

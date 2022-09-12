@@ -5,20 +5,22 @@ export const getUser = /* GraphQL */ `
   query GetUser($id: ID!) {
     getUser(id: $id) {
       id
-      userName
       firstName
       lastName
       email
+      userName
       favorites {
-        id
-        title
-        image
-        instructions
-        summary
-        diets
-        attributes
-        createdAt
-        updatedAt
+        items {
+          id
+          title
+          image
+          instructions
+          summary
+          diets
+          createdAt
+          updatedAt
+        }
+        nextToken
       }
       createdAt
       updatedAt
@@ -34,20 +36,12 @@ export const listUsers = /* GraphQL */ `
     listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        userName
         firstName
         lastName
         email
+        userName
         favorites {
-          id
-          title
-          image
-          instructions
-          summary
-          diets
-          attributes
-          createdAt
-          updatedAt
+          nextToken
         }
         createdAt
         updatedAt
@@ -65,7 +59,6 @@ export const getRecipe = /* GraphQL */ `
       instructions
       summary
       diets
-      attributes
       createdAt
       updatedAt
     }
@@ -85,7 +78,6 @@ export const listRecipes = /* GraphQL */ `
         instructions
         summary
         diets
-        attributes
         createdAt
         updatedAt
       }

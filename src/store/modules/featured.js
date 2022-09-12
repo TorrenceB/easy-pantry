@@ -1,4 +1,5 @@
 import fetchRecipeClient from "@/util/fetchRecipeClient";
+// import Recipe from "@/models/recipe.js";
 
 const featuredStore = {
   namespaced: true,
@@ -40,6 +41,22 @@ const featuredStore = {
         console.error(e);
       }
     },
+
+    /* Create random recipe in db & associate with user */
+    // async create({}, recipe) {
+    //   // const userRecipe = {
+    //   //   id: recipe.id,
+    //   //   title: recipe.title,
+    //   //   image: recipe.image,
+    //   //   instructions: recipe.instructions,
+    //   //   summary: recipe.summary,
+    //   //   diets: recipe.diets,
+    //   //   attributes: recipe.tags,
+    //   // };
+    //   const userRecipe = Recipe(recipe);
+
+    //   /*  */
+    // },
   },
   mutations: {
     setFeaturedRecipeState: (state, newFeaturedRecipe) => {

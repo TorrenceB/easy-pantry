@@ -37,10 +37,10 @@ export default {
     },
   }),
   computed: {
-    ...mapGetters("user", { isFetching: "getIsFetching" }),
+    ...mapGetters("auth", { isFetching: "getIsFetching" }),
   },
   methods: {
-    ...mapActions("user", ["signIn"]),
+    ...mapActions("auth", ["signIn"]),
     async handleSignIn() {
       const user = {
         userName: this.user.userName,

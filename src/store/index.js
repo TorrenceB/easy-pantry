@@ -1,5 +1,6 @@
 import Vuex from "vuex";
 import Vue from "vue";
+import auth from "@/store/modules/auth";
 import user from "@/store/modules/user";
 import featured from "@/store/modules/featured";
 import category from "@/store/modules/category";
@@ -8,9 +9,6 @@ import explore from "@/store/modules/explore";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  /* === TODO ===
-    - Add user module
-  */
   state: () => ({
     activePage: "Home",
   }),
@@ -21,6 +19,7 @@ export default new Vuex.Store({
     updateActivePage: (state, activePage) => (state.activePage = activePage),
   },
   modules: {
+    auth,
     user,
     featured,
     category,

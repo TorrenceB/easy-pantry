@@ -8,20 +8,22 @@ export const createUser = /* GraphQL */ `
   ) {
     createUser(input: $input, condition: $condition) {
       id
-      userName
       firstName
       lastName
       email
+      userName
       favorites {
-        id
-        title
-        image
-        instructions
-        summary
-        diets
-        attributes
-        createdAt
-        updatedAt
+        items {
+          id
+          title
+          image
+          instructions
+          summary
+          diets
+          createdAt
+          updatedAt
+        }
+        nextToken
       }
       createdAt
       updatedAt
@@ -35,20 +37,22 @@ export const updateUser = /* GraphQL */ `
   ) {
     updateUser(input: $input, condition: $condition) {
       id
-      userName
       firstName
       lastName
       email
+      userName
       favorites {
-        id
-        title
-        image
-        instructions
-        summary
-        diets
-        attributes
-        createdAt
-        updatedAt
+        items {
+          id
+          title
+          image
+          instructions
+          summary
+          diets
+          createdAt
+          updatedAt
+        }
+        nextToken
       }
       createdAt
       updatedAt
@@ -62,20 +66,22 @@ export const deleteUser = /* GraphQL */ `
   ) {
     deleteUser(input: $input, condition: $condition) {
       id
-      userName
       firstName
       lastName
       email
+      userName
       favorites {
-        id
-        title
-        image
-        instructions
-        summary
-        diets
-        attributes
-        createdAt
-        updatedAt
+        items {
+          id
+          title
+          image
+          instructions
+          summary
+          diets
+          createdAt
+          updatedAt
+        }
+        nextToken
       }
       createdAt
       updatedAt
@@ -94,7 +100,6 @@ export const createRecipe = /* GraphQL */ `
       instructions
       summary
       diets
-      attributes
       createdAt
       updatedAt
     }
@@ -112,7 +117,6 @@ export const updateRecipe = /* GraphQL */ `
       instructions
       summary
       diets
-      attributes
       createdAt
       updatedAt
     }
@@ -130,7 +134,6 @@ export const deleteRecipe = /* GraphQL */ `
       instructions
       summary
       diets
-      attributes
       createdAt
       updatedAt
     }

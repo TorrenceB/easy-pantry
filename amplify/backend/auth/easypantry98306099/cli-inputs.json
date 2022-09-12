@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "testAuthIdentityPool",
+    "identityPoolName": "easypantry98306099_identitypool_98306099",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "easypa7e578122",
-    "userPoolName": "EasyPantry",
+    "resourceNameTruncated": "easypa98306099",
+    "userPoolName": "easypantry98306099_userpool_98306099",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -20,27 +20,25 @@
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
-      "email",
-      "name",
-      "preferred_username"
+      "email"
     ],
     "aliasAttributes": [],
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
-    "userpoolClientWriteAttributes": [],
-    "userpoolClientReadAttributes": [],
-    "userpoolClientLambdaRole": "EasyPa7e578122_userpoolclient_lambda_role",
+    "userpoolClientWriteAttributes": [
+      "email"
+    ],
+    "userpoolClientReadAttributes": [
+      "email"
+    ],
+    "userpoolClientLambdaRole": "easypa98306099_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "7e578122",
-    "resourceName": "EasyPantry",
+    "sharedId": "98306099",
+    "resourceName": "easypantry98306099",
     "authSelections": "identityPoolAndUserPool",
-    "serviceName": "Cognito",
-    "useDefault": "manual",
-    "userPoolGroups": false,
+    "useDefault": "default",
     "userPoolGroupList": [],
-    "adminQueries": false,
-    "thirdPartyAuth": false,
-    "authProviders": [],
+    "serviceName": "Cognito",
     "usernameCaseSensitive": false,
     "useEnabledMfas": true
   }

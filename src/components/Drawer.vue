@@ -27,10 +27,10 @@ export default {
     drawer: null,
   }),
   computed: {
-    ...mapGetters("user", { isAuthenticated: "getAuthenticatedState" }),
+    ...mapGetters("auth", { isAuthenticated: "getAuthenticatedState" }),
   },
   methods: {
-    ...mapActions("user", ["signOut"]),
+    ...mapActions("auth", ["signOut"]),
     async handleSignOut() {
       try {
         await this.signOut();

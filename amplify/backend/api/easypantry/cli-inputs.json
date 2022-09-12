@@ -3,7 +3,6 @@
   "serviceConfiguration": {
     "apiName": "easypantry",
     "serviceName": "AppSync",
-    "gqlSchemaPath": "/Users/torrencebrown/Projects/vue_playground/easy-pantry/amplify/backend/api/easypantry/schema.graphql",
     "defaultAuthType": {
       "mode": "API_KEY",
       "expirationTime": 7

@@ -45,7 +45,7 @@ export default {
   }),
   computed: {
     ...mapGetters({ active: "getActivePage" }),
-    ...mapGetters("user", { isAuthenticated: "getAuthenticatedState" }),
+    ...mapGetters("auth", { isAuthenticated: "getAuthenticatedState" }),
   },
   methods: {
     ...mapMutations(["updateActivePage"]),

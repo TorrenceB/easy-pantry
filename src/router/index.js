@@ -51,7 +51,7 @@ const router = new VueRouter({
 
 router.beforeEach(async (to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (to.name !== "SignIn" && !store.getters["user/getAuthenticatedState"]) {
+    if (to.name !== "SignIn" && !store.getters["auth/getAuthenticatedState"]) {
       next({ name: "SignIn" });
       return;
     } else {
@@ -64,8 +64,8 @@ router.beforeEach(async (to, from, next) => {
 
 router.beforeEach(async (to, from, next) => {
   if (to.matched.some((record) => record.meta.guest)) {
-    if (store.getters["user/getAuthenticatedState"]) {
-      this.$store.dispatch("user/fetchUser");
+    if (store.getters["auth/getAuthenticatedState"]) {
+      this.$store.dispatch("auth/fetchUser");
 
       next({ name: "Landing" });
 

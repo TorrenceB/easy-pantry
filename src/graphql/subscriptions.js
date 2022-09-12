@@ -5,20 +5,22 @@ export const onCreateUser = /* GraphQL */ `
   subscription OnCreateUser {
     onCreateUser {
       id
-      userName
       firstName
       lastName
       email
+      userName
       favorites {
-        id
-        title
-        image
-        instructions
-        summary
-        diets
-        attributes
-        createdAt
-        updatedAt
+        items {
+          id
+          title
+          image
+          instructions
+          summary
+          diets
+          createdAt
+          updatedAt
+        }
+        nextToken
       }
       createdAt
       updatedAt
@@ -29,20 +31,22 @@ export const onUpdateUser = /* GraphQL */ `
   subscription OnUpdateUser {
     onUpdateUser {
       id
-      userName
       firstName
       lastName
       email
+      userName
       favorites {
-        id
-        title
-        image
-        instructions
-        summary
-        diets
-        attributes
-        createdAt
-        updatedAt
+        items {
+          id
+          title
+          image
+          instructions
+          summary
+          diets
+          createdAt
+          updatedAt
+        }
+        nextToken
       }
       createdAt
       updatedAt
@@ -53,20 +57,22 @@ export const onDeleteUser = /* GraphQL */ `
   subscription OnDeleteUser {
     onDeleteUser {
       id
-      userName
       firstName
       lastName
       email
+      userName
       favorites {
-        id
-        title
-        image
-        instructions
-        summary
-        diets
-        attributes
-        createdAt
-        updatedAt
+        items {
+          id
+          title
+          image
+          instructions
+          summary
+          diets
+          createdAt
+          updatedAt
+        }
+        nextToken
       }
       createdAt
       updatedAt
@@ -82,7 +88,6 @@ export const onCreateRecipe = /* GraphQL */ `
       instructions
       summary
       diets
-      attributes
       createdAt
       updatedAt
     }
@@ -97,7 +102,6 @@ export const onUpdateRecipe = /* GraphQL */ `
       instructions
       summary
       diets
-      attributes
       createdAt
       updatedAt
     }
@@ -112,7 +116,6 @@ export const onDeleteRecipe = /* GraphQL */ `
       instructions
       summary
       diets
-      attributes
       createdAt
       updatedAt
     }

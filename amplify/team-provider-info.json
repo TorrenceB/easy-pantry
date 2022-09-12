@@ -1,20 +1,19 @@
 {
   "staging": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-easypantry-staging-222530-authRole",
-      "UnauthRoleArn": "arn:aws:iam::472281986439:role/amplify-easypantry-staging-222530-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::472281986439:role/amplify-easypantry-staging-222530-authRole",
+      "AuthRoleName": "amplify-easypantry-staging-192927-authRole",
+      "UnauthRoleArn": "arn:aws:iam::472281986439:role/amplify-easypantry-staging-192927-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::472281986439:role/amplify-easypantry-staging-192927-authRole",
       "Region": "us-west-2",
-      "DeploymentBucketName": "amplify-easypantry-staging-222530-deployment",
-      "UnauthRoleName": "amplify-easypantry-staging-222530-unauthRole",
-      "StackName": "amplify-easypantry-staging-222530",
-      "StackId": "arn:aws:cloudformation:us-west-2:472281986439:stack/amplify-easypantry-staging-222530/ec310ac0-d954-11ec-9e63-0af4dfc9ebb5",
-      "AmplifyAppId": "d3tuueyyqak4q3"
+      "DeploymentBucketName": "amplify-easypantry-staging-192927-deployment",
+      "UnauthRoleName": "amplify-easypantry-staging-192927-unauthRole",
+      "StackName": "amplify-easypantry-staging-192927",
+      "StackId": "arn:aws:cloudformation:us-west-2:472281986439:stack/amplify-easypantry-staging-192927/0d5d5120-3208-11ed-abbd-02418adb739b",
+      "AmplifyAppId": "d53gk282nsxrm"
     },
     "categories": {
       "auth": {
-        "easypantry365c2001": {},
-        "EasyPantry": {}
+        "easypantry98306099": {}
       }
     }
   }
