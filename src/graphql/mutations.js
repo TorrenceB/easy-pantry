@@ -20,10 +20,37 @@ export const createUser = /* GraphQL */ `
           instructions
           summary
           diets
+          readyInMinutes
+          healthScore
+          servings
+          aggregateLikes
           createdAt
           updatedAt
         }
         nextToken
+      }
+      featuredRecipe {
+        id
+        title
+        image
+        instructions
+        summary
+        diets
+        readyInMinutes
+        healthScore
+        servings
+        aggregateLikes
+        user {
+          id
+          firstName
+          lastName
+          email
+          userName
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
       }
       createdAt
       updatedAt
@@ -49,10 +76,37 @@ export const updateUser = /* GraphQL */ `
           instructions
           summary
           diets
+          readyInMinutes
+          healthScore
+          servings
+          aggregateLikes
           createdAt
           updatedAt
         }
         nextToken
+      }
+      featuredRecipe {
+        id
+        title
+        image
+        instructions
+        summary
+        diets
+        readyInMinutes
+        healthScore
+        servings
+        aggregateLikes
+        user {
+          id
+          firstName
+          lastName
+          email
+          userName
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
       }
       createdAt
       updatedAt
@@ -78,10 +132,37 @@ export const deleteUser = /* GraphQL */ `
           instructions
           summary
           diets
+          readyInMinutes
+          healthScore
+          servings
+          aggregateLikes
           createdAt
           updatedAt
         }
         nextToken
+      }
+      featuredRecipe {
+        id
+        title
+        image
+        instructions
+        summary
+        diets
+        readyInMinutes
+        healthScore
+        servings
+        aggregateLikes
+        user {
+          id
+          firstName
+          lastName
+          email
+          userName
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
       }
       createdAt
       updatedAt
@@ -100,6 +181,36 @@ export const createRecipe = /* GraphQL */ `
       instructions
       summary
       diets
+      readyInMinutes
+      healthScore
+      servings
+      aggregateLikes
+      user {
+        id
+        firstName
+        lastName
+        email
+        userName
+        favorites {
+          nextToken
+        }
+        featuredRecipe {
+          id
+          title
+          image
+          instructions
+          summary
+          diets
+          readyInMinutes
+          healthScore
+          servings
+          aggregateLikes
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -117,6 +228,36 @@ export const updateRecipe = /* GraphQL */ `
       instructions
       summary
       diets
+      readyInMinutes
+      healthScore
+      servings
+      aggregateLikes
+      user {
+        id
+        firstName
+        lastName
+        email
+        userName
+        favorites {
+          nextToken
+        }
+        featuredRecipe {
+          id
+          title
+          image
+          instructions
+          summary
+          diets
+          readyInMinutes
+          healthScore
+          servings
+          aggregateLikes
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -134,6 +275,36 @@ export const deleteRecipe = /* GraphQL */ `
       instructions
       summary
       diets
+      readyInMinutes
+      healthScore
+      servings
+      aggregateLikes
+      user {
+        id
+        firstName
+        lastName
+        email
+        userName
+        favorites {
+          nextToken
+        }
+        featuredRecipe {
+          id
+          title
+          image
+          instructions
+          summary
+          diets
+          readyInMinutes
+          healthScore
+          servings
+          aggregateLikes
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }

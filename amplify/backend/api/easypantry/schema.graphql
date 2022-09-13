@@ -20,4 +20,9 @@ type Recipe @model {
   instructions: String
   summary: String
   diets: [String]
+  readyInMinutes: Int
+  healthScore: Int
+  servings: Int
+  aggregateLikes: Int
+  user: User @belongsTo
 }

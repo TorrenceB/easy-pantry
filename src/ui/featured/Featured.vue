@@ -65,14 +65,14 @@
         <p class="text-subtitle-2 mb-0">Health Score</p>
       </div>
     </div>
-    <div class="flex mt-4" v-if="featuredRecipe.tags">
+    <div class="flex mt-4" v-if="featuredRecipe.diets">
       <v-chip
-        v-for="tag in featuredRecipe.tags"
-        :key="tag.index"
+        v-for="diet in featuredRecipe.diets"
+        :key="diet.index"
         class="text-h6 mr-2 mb-4"
         color="#E27D60"
         outlined
-        >{{ tag.toUpperCase() }}</v-chip
+        >{{ diet.toUpperCase() }}</v-chip
       >
     </div>
   </v-container>

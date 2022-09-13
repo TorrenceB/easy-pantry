@@ -17,10 +17,37 @@ export const getUser = /* GraphQL */ `
           instructions
           summary
           diets
+          readyInMinutes
+          healthScore
+          servings
+          aggregateLikes
           createdAt
           updatedAt
         }
         nextToken
+      }
+      featuredRecipe {
+        id
+        title
+        image
+        instructions
+        summary
+        diets
+        readyInMinutes
+        healthScore
+        servings
+        aggregateLikes
+        user {
+          id
+          firstName
+          lastName
+          email
+          userName
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
       }
       createdAt
       updatedAt
@@ -43,6 +70,20 @@ export const listUsers = /* GraphQL */ `
         favorites {
           nextToken
         }
+        featuredRecipe {
+          id
+          title
+          image
+          instructions
+          summary
+          diets
+          readyInMinutes
+          healthScore
+          servings
+          aggregateLikes
+          createdAt
+          updatedAt
+        }
         createdAt
         updatedAt
       }
@@ -59,6 +100,36 @@ export const getRecipe = /* GraphQL */ `
       instructions
       summary
       diets
+      readyInMinutes
+      healthScore
+      servings
+      aggregateLikes
+      user {
+        id
+        firstName
+        lastName
+        email
+        userName
+        favorites {
+          nextToken
+        }
+        featuredRecipe {
+          id
+          title
+          image
+          instructions
+          summary
+          diets
+          readyInMinutes
+          healthScore
+          servings
+          aggregateLikes
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -78,6 +149,19 @@ export const listRecipes = /* GraphQL */ `
         instructions
         summary
         diets
+        readyInMinutes
+        healthScore
+        servings
+        aggregateLikes
+        user {
+          id
+          firstName
+          lastName
+          email
+          userName
+          createdAt
+          updatedAt
+        }
         createdAt
         updatedAt
       }
