@@ -1,11 +1,51 @@
-// import { API, graphqlOperation } from "aws-amplify";
-// import { updateUser } from "../../graphql/mutations";
+import { API, graphqlOperation } from "aws-amplify";
+import { getUser } from "../../graphql/queries";
+import { updateUser, createUser } from "../../graphql/mutations";
 
 export default {
-  state: () => ({}),
-  getters: {},
-  mutations: {},
+  namespaced: true,
+  state: () => ({
+    user: null,
+  }),
+  getters: {
+    getUser: (state) => state.user,
+  },
+  mutations: {
+    updateUser: (state, user) => (state.user = user),
+  },
   actions: {
-    // async update({}, user) {},
+    async fetch({ commit }, id) {
+      try {
+        const { data } = await API.graphql(graphqlOperation(getUser, { id }));
+
+        commit("updateUser", data.getUser);
+      } catch (err) {
+        console.error("!", "@state:user::fetch", err);
+      }
+    },
+    async create(_, user) {
+      try {
+        const { data } = await API.graphql(
+          graphqlOperation(createUser, { input: user })
+        );
+
+        console.log("Created User: ", data.createUser);
+      } catch (err) {
+        console.error("!", "@state:user::create", err);
+      }
+    },
+    async update({ commit }, user) {
+      try {
+        const { data } = await API.graphql(
+          graphqlOperation(updateUser, {
+            input: user,
+          })
+        );
+
+        commit("updateUser", data.updateUser);
+      } catch (err) {
+        console.error("!", "@state:user::update", err);
+      }
+    },
   },
 };

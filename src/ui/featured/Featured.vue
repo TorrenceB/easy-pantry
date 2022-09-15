@@ -98,7 +98,7 @@ export default {
     ...mapGetters("featured", ["featuredRecipe"]),
   },
   created() {
-    this.init();
+    // this.init();
   },
 };
 </script>

@@ -1,16 +1,12 @@
-import { Auth, API, graphqlOperation } from "aws-amplify";
-import { createUser } from "@/graphql/mutations.js";
-import { getUser } from "@/graphql/queries.js";
+import { Auth } from "aws-amplify";
 
 export default {
   namespaced: true,
   state: () => ({
-    user: null,
     isFetching: false,
     isAuthenticated: false,
   }),
   getters: {
-    getUser: (state) => state.user,
     getIsFetching: (state) => state.isFetching,
     getAuthenticatedState: (state) => state.isAuthenticated,
   },
@@ -20,20 +16,12 @@ export default {
      *
      * @returns { promise }
      */
-    async fetchUser({ commit }) {
+    async fetchUser({ dispatch }) {
       try {
         const user = await Auth.currentAuthenticatedUser();
 
         if (user) {
-          const {
-            data: { getUser: currentUser },
-          } = await API.graphql(
-            graphqlOperation(getUser, { id: user.attributes.sub })
-          );
-
-          console.log(currentUser);
-
-          commit("updateUser", currentUser);
+          dispatch("user/fetch", user.attributes.sub, { root: true });
         }
       } catch (err) {
         console.error("!", "fetchUser:user.js", err);
@@ -49,7 +37,7 @@ export default {
      * @returns { promise }
      */
     async signUp(
-      { commit },
+      { commit, dispatch },
       { username, password, firstName, lastName, email } = {}
     ) {
       try {
@@ -72,12 +60,7 @@ export default {
           email: email,
         };
 
-        /* commit createUser mutation */
-        const {
-          data: { createUser: newUser },
-        } = await API.graphql(graphqlOperation(createUser, { input: dbUser }));
-
-        console.log(newUser);
+        dispatch("user/create", dbUser, { root: true });
       } catch (e) {
         console.error(e);
 
@@ -93,7 +76,7 @@ export default {
      *
      * @returns { promise }
      */
-    async signIn({ commit }, { userName, password } = {}) {
+    async signIn({ commit, dispatch }, { userName, password } = {}) {
       try {
         commit("setIsFetching", true);
 
@@ -101,15 +84,8 @@ export default {
 
         /* Find authenticated user in db & update state */
         if (user) {
-          const {
-            data: { getUser: currentUser },
-          } = await API.graphql(
-            graphqlOperation(getUser, { id: user.attributes.sub })
-          );
+          dispatch("user/fetch", user.attributes.sub, { root: true });
 
-          console.log(currentUser);
-
-          commit("updateUser", currentUser);
           commit("updateAuthState", true);
           commit("setIsFetching", false);
         }
@@ -131,14 +107,13 @@ export default {
         await Auth.signOut();
 
         commit("updateAuthState", false);
-        commit("updateUser", null);
+        commit("user/updateUser", null, { root: true });
       } catch (err) {
         console.error(err);
       }
     },
   },
   mutations: {
-    updateUser: (state, user) => (state.user = user),
     updateAuthState: (state, isAuthenticated) =>
       (state.isAuthenticated = isAuthenticated),
     setIsFetching: (state, isFetching) => (state.isFetching = isFetching),
