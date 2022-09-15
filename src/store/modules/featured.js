@@ -3,6 +3,7 @@ import Recipe from "@/models/recipe.js";
 
 import { API, graphqlOperation } from "aws-amplify";
 import { createRecipe } from "../../graphql/mutations";
+import { getRecipe } from "../../graphql/queries";
 
 const featuredStore = {
   namespaced: true,
@@ -45,6 +46,16 @@ const featuredStore = {
       }
     },
 
+    async get({ commit }, id) {
+      try {
+        const { data } = await API.graphql(graphqlOperation(getRecipe, { id }));
+
+        commit("setFeaturedRecipe", data.getRecipe);
+      } catch (err) {
+        console.error("!", "@state:featured::get", err);
+      }
+    },
+
     async create({ commit }, recipe) {
       const featuredRecipe = Recipe(recipe);
 
@@ -60,7 +71,7 @@ const featuredStore = {
     },
   },
   mutations: {
-    setFeaturedRecipeState: (state, newFeaturedRecipe) => {
+    setFeaturedRecipe: (state, newFeaturedRecipe) => {
       state.featured = newFeaturedRecipe;
     },
   },

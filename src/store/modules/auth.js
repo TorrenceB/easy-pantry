@@ -24,7 +24,7 @@ export default {
           dispatch("user/fetch", user.attributes.sub, { root: true });
         }
       } catch (err) {
-        console.error("!", "fetchUser:user.js", err);
+        console.error("!", "@state:auth::fetchUser", err);
       }
     },
 
@@ -61,8 +61,8 @@ export default {
         };
 
         dispatch("user/create", dbUser, { root: true });
-      } catch (e) {
-        console.error(e);
+      } catch (err) {
+        console.error("!", "@state:auth::signUp", err);
 
         commit("updateAuthState", false);
       }
@@ -90,7 +90,7 @@ export default {
           commit("setIsFetching", false);
         }
       } catch (err) {
-        console.error(err);
+        console.error("!", "@state:auth::signIn", err);
 
         commit("updateAuthState", false);
       }
@@ -109,7 +109,7 @@ export default {
         commit("updateAuthState", false);
         commit("user/updateUser", null, { root: true });
       } catch (err) {
-        console.error(err);
+        console.error("!", "@state:auth::signOut", err);
       }
     },
   },
