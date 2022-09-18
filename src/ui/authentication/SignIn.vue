@@ -15,7 +15,7 @@
           v-if="isFetching"
           indeterminate
         ></v-progress-circular>
-        <span v-else>Submit</span>
+        <span v-else>Login</span>
       </button>
 
       <div class="d-flex mt-4">

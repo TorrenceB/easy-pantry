@@ -64,7 +64,7 @@ const featuredStore = {
           graphqlOperation(createRecipe, { input: featuredRecipe })
         );
 
-        commit("setFeaturedRecipeState", data.createRecipe);
+        commit("setFeaturedRecipe", data.createRecipe);
       } catch (err) {
         console.error("!", "@state:featured::create", err);
       }

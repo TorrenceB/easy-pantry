@@ -11,16 +11,18 @@
         <div class="d-flex flex-column mx-4">
           <p class="ma-0 font-weight-bold">Search Ingredients</p>
           <p class="ma-0 text-body-2 text--secondary">
-            Find Recipes using ingredients from your pantry
+            Search recipes by ingredient or nutrients such as
+            <strong>pasta</strong> or <strong>protein</strong>.
           </p>
         </div>
       </div>
 
       <v-autocomplete
         v-model="selectedValue"
-        :search-input.sync="getIngredient"
+        :search-input.sync="query"
         :items="suggestions"
         :loading="suggestionsIsLoading"
+        :menu-props="{ closeOnContentClick: true, closeOnClick: true }"
         cache-items
         label="Search Ingredients"
         placeholder="Example:Flour"
@@ -31,67 +33,19 @@
         hide-selected
         hide-details
         outlined
+        min-height="0"
       >
-        <template v-slot:append>
-          <button
-            @click="fetchRecipesByIngredient(parseSelectedIngredients)"
-            class="button"
-          >
-            Search
-          </button>
-        </template>
       </v-autocomplete>
+
+      <button @click="fetchRecipes(parseSelectedIngredients)" class="button">
+        <span v-if="!fetchingRecipes">Search</span>
+        <v-progress-circular v-else indeterminate></v-progress-circular>
+      </button>
     </div>
 
-    <!-- Favorites Carousel -->
-    <!-- <h3 class="d-flex">Favorites</h3>
-    <v-carousel :height="300" hide-delimiters>
-      <v-carousel-item></v-carousel-item>
-    </v-carousel> -->
-
-    <!-- Suggested Recipes Carousel -->
-    <h3 class="d-flex">Suggested</h3>
-    <v-carousel :height="300" hide-delimiters>
-      <v-carousel-item
-        v-for="{ title, id, image } in recipes"
-        :key="id"
-        class="card"
-      >
-        <v-btn
-          icon
-          @click="bookmarkIsChecked = !bookmarkIsChecked"
-          class="card_favorite-icon"
-        >
-          <v-icon :color="bookmarkIsChecked ? '#ff6600' : '#fff'" size="60">
-            mdi-cards-heart
-          </v-icon>
-        </v-btn>
-
-        <v-img :src="image" :alt="title" class="card_image"> </v-img>
-        <div class="card_footer-container">
-          <span class="card_title">
-            {{ title }}
-          </span>
-
-          <v-btn icon>
-            <span>View</span>
-
-            <v-icon size="30">
-              mdi-arrow-right-bold
-            </v-icon>
-          </v-btn>
-        </div>
-      </v-carousel-item>
-    </v-carousel>
-
-    <!-- <v-progress-circular
-      v-if="recipesIsLoading"
-      indeterminate
-      color="primary"
-    ></v-progress-circular>
-    <ul v-else>
-      <li v-for="{ title, id } in recipes" :key="id">{{ title }}</li>
-    </ul> -->
+    <div class="my-4">
+      <Recipe v-for="recipe in recipes" :recipe="recipe" :key="recipe.id" />
+    </div>
   </v-container>
   <!-- Empty State -->
 </template>
@@ -99,58 +53,65 @@
 import { mapActions, mapGetters, mapMutations } from "vuex";
 import debounce from "@/util/debounce";
 
+import Recipe from "@/components/Recipe";
+
 export default {
   name: "Explore",
+  components: {
+    Recipe,
+  },
   data: () => ({
     bookmarkIsChecked: false,
     selectedValue: null,
-    getIngredient: null,
+    query: null,
+    debounceSuggestions: null,
   }),
   computed: {
     ...mapGetters("explore", {
-      recipes: "getRecipesByIngredient",
+      recipes: "getRecipes",
+      fetchingRecipes: "getFetchingRecipes",
       selectedIngredients: "getSelectedIngredients",
       suggestions: "getIngredientSuggestions",
       suggestionsIsLoading: "getSuggestionsIsLoading",
-      recipesIsLoading: "getRecipesIsLoading",
     }),
     /* API call requires request to be comma separated list */
     parseSelectedIngredients() {
-      return this.selectedIngredients.join("");
+      return this.selectedIngredients.join(",");
     },
   },
   methods: {
-    ...mapActions("explore", [
-      "fetchRecipesByIngredient",
-      "fetchIngredientSuggestions",
-    ]),
+    ...mapActions("explore", ["fetchIngredientSuggestions", "fetchRecipes"]),
     ...mapMutations("explore", [
       "addSelectedIngredients",
       "updateSelectedIngredients",
+      "setIngredientSuggestions",
     ]),
     ...mapMutations(["updateActivePage"]),
-    /* Fetch Recipes with selectedIngredients */
-    getRecipes() {
-      this.fetchRecipesByIngredient(this.selectedIngredients);
-    },
   },
   watch: {
-    /* Fetch suggestions */
-    getIngredient(value) {
+    query(value) {
       if (!value) {
-        return [];
+        this.setIngredientSuggestions([]);
+        return;
       }
 
-      debounce(this.fetchIngredientSuggestions(value), 1000);
+      this.setIngredientSuggestions([]);
+      this.debounceSuggestions(value);
     },
     selectedValue(value) {
-      Array.isArray(value)
-        ? this.updateSelectedIngredients(value)
-        : this.updateSelectedIngredients([value]);
+      this.updateSelectedIngredients(value);
+      this.query = "";
     },
   },
   created() {
     this.updateActivePage("Explore");
+
+    this.debounceSuggestions = debounce((value) => {
+      this.fetchIngredientSuggestions(value);
+    }, 1000);
+  },
+  beforeUnmount() {
+    this.debounceSuggestions.cancel();
   },
 };
 </script>
@@ -166,10 +127,13 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 55%;
+  width: 100%;
+  height: 3rem;
   color: #fff;
   font-weight: bolder;
-  border-radius: 0.75rem;
+  background-color: rgb(65, 179, 163);
+  border-radius: 0.5rem;
+  margin: 1rem 0 0;
 }
 
 .search-container {

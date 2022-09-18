@@ -1,13 +1,14 @@
 import fetchRecipeClient from "@/util/fetchRecipeClient";
+import Recipe from "@/models/recipe";
 
 export default {
   namespaced: true,
   state: () => ({
+    recipes: [],
     ingredientSuggestions: [],
     selectedIngredients: [],
-    recipesByIngredient: [],
     suggestionsIsLoading: false,
-    recipesIsLoading: false,
+    fetchingRecipes: false,
   }),
   getters: {
     getIngredientSuggestions: (state) => {
@@ -19,6 +20,8 @@ export default {
         disabled: false,
       }));
     },
+    getRecipes: (state) => state.recipes,
+    getFetchingRecipes: (state) => state.fetchingRecipes,
     getSelectedIngredients: (state) => state.selectedIngredients,
     getRecipesByIngredient: (state) => state.recipesByIngredient,
     getSuggestionsIsLoading: (state) => state.suggestionsIsLoading,
@@ -36,51 +39,88 @@ export default {
       try {
         commit("setSuggestionsIsLoading", true);
 
-        await fetchRecipeClient(
+        const {
+          results,
+        } = await fetchRecipeClient(
           "https://api.spoonacular.com/food/ingredients/search",
           { query: ingredient }
-        ).then(({ results }) => {
-          console.log(results);
+        );
+        console.log(results);
 
-          commit("setIngredientSuggestions", results);
-          commit("setSuggestionsIsLoading", false);
-        });
+        commit("setIngredientSuggestions", results);
+        commit("setSuggestionsIsLoading", false);
       } catch (err) {
         console.error(err);
       }
     },
-    fetchRecipesByIngredient: async ({ commit }, ingredients) => {
-      commit("setRecipesIsLoading", true);
+    /**
+     * @async
+     * @function fetchRecipes
+     * @desc fetch recipes with complex search endpoint
+     *
+     * @params { object } context
+     * @params { string } query
+     *
+     * @returns { promise }
+     */
+    async fetchRecipes({ commit, dispatch }, query) {
+      commit("setFetchingRecipes", true);
 
       try {
-        await fetchRecipeClient(
-          "https://api.spoonacular.com/recipes/findByIngredients",
-          { ingredients }
-        ).then((res) => {
-          console.log(res);
+        const {
+          results,
+        } = await fetchRecipeClient(
+          "https://api.spoonacular.com/recipes/complexSearch",
+          { query, number: 2 }
+        );
 
-          commit("setRecipesByIngredient", res);
-          commit("setRecipesIsLoading", false);
-        });
+        const enrichRecipeResults = await Promise.all(
+          results.map(async ({ id }) => {
+            const recipe = await dispatch("getSingleRecipe", id);
+
+            return Recipe(recipe);
+          })
+        );
+
+        commit("setRecipes", enrichRecipeResults);
+        commit("setFetchingRecipes", false);
       } catch (err) {
-        console.error(err);
+        console.error("!", "@state:explore:fetchRecipes", err);
 
-        commit("setRecipesIsLoading", false);
+        commit("setFetchingRecipes", false);
+      }
+    },
+    /**
+     * @async
+     * @function getSingleRecipe
+     * @desc query for single recipe data
+     *
+     * @param { object } context
+     * @param { number } id
+     */
+    async getSingleRecipe(_, id) {
+      try {
+        const recipe = await fetchRecipeClient(
+          `https://api.spoonacular.com/recipes/${id}/information`
+        );
+
+        return recipe;
+      } catch (err) {
+        console.error("!", "@state:explore::getSingleRecipe", err);
       }
     },
   },
   mutations: {
+    setRecipes: (state, recipes) => (state.recipes = recipes),
+    setFetchingRecipes: (state, fetchingRecipes) =>
+      (state.fetchingRecipes = fetchingRecipes),
     setIngredientSuggestions: (state, ingredient) =>
       (state.ingredientSuggestions = ingredient),
-    setRecipesByIngredient: (state, recipesByIngredient) =>
-      (state.recipesByIngredient = recipesByIngredient),
+    setSuggestionsIsLoading: (state, isLoading) =>
+      (state.suggestionsIsLoading = isLoading),
     addSelectedIngredients: (state, ingredient) =>
       state.selectedIngredients.push(...ingredient),
     updateSelectedIngredients: (state, selectedIngredients) =>
       (state.selectedIngredients = selectedIngredients),
-    setSuggestionsIsLoading: (state, isLoading) =>
-      (state.suggestionsIsLoading = isLoading),
-    setRecipesIsLoading: (state, isLoading) =>
-      (state.recipesIsLoading = isLoading),
   },
 };

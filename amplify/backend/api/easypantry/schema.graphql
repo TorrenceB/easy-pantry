@@ -24,5 +24,6 @@ type Recipe @model {
   healthScore: Int
   servings: Int
   aggregateLikes: Int
+  sourceUrl: String
   user: User @belongsTo
 }
