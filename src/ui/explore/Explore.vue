@@ -43,17 +43,37 @@
       </button>
     </div>
 
-    <div class="my-4">
+    <div v-if="recipes.length > 0" class="my-4">
       <Recipe v-for="recipe in recipes" :recipe="recipe" :key="recipe.id" />
     </div>
+    <!-- Empty State -->
+    <div v-else class="empty-state__container">
+      <lottie-vue-player
+        :src="vegetableAnimation.animation"
+        :background-color="vegetableAnimation.options.backgroundColor"
+        :style="vegetableAnimation.options.styles"
+        loop
+        autoplay
+      >
+      </lottie-vue-player>
+      <div class="d-flex flex-column align-center">
+        <h3 class="text-h6 text--primary my-2">
+          There are no results to display
+        </h3>
+        <p class="text-subtitle-2 text--secondary px-16">
+          To find recipes to add to your pantry, type a few ingredients into the
+          search bar above and press "Search".
+        </p>
+      </div>
+    </div>
   </v-container>
-  <!-- Empty State -->
 </template>
 <script>
 import { mapActions, mapGetters, mapMutations } from "vuex";
 import debounce from "@/util/debounce";
 
 import Recipe from "@/components/Recipe";
+import animation from "@/assets/animations/vegetables";
 
 export default {
   name: "Explore",
@@ -65,6 +85,16 @@ export default {
     selectedValue: null,
     query: null,
     debounceSuggestions: null,
+    vegetableAnimation: {
+      animation: JSON.stringify(animation),
+      options: {
+        backgroundColor: "#121212",
+        styles: {
+          all: "unset",
+          height: "none",
+        },
+      },
+    },
   }),
   computed: {
     ...mapGetters("explore", {
@@ -117,7 +147,6 @@ export default {
 </script>
 <style scoped>
 .center {
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -152,40 +181,7 @@ export default {
   padding: 0.25em;
 }
 
-.card {
-  position: relative;
-  margin: 0.5em 0;
-}
-
-.card_title {
-  display: flex;
-
-  font-weight: 800;
-  font-size: large;
-}
-
-.card_image {
-  opacity: 0.5;
-  border-radius: 0.5em;
-}
-
-.card_favorite-icon {
-  z-index: 10;
-  position: absolute;
-  right: 1.5em;
-  top: 1em;
-}
-
-.card_footer-container {
-  z-index: 10;
-  position: absolute;
-  bottom: 0;
-  margin: 1em 0;
-  padding: 0 1.5em;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
+.empty-state__container {
+  height: 12.5rem;
 }
 </style>

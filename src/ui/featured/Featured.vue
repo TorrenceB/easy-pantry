@@ -1,8 +1,8 @@
 <template>
   <v-container class="text-left">
     <h2 class="pb-4 text-md-h4">Featured Recipe</h2>
-
-    <div class="card">
+    <Recipe :recipe="featuredRecipe" />
+    <!-- <div class="card">
       <v-btn
         icon
         @click="bookmarkIsChecked = !bookmarkIsChecked"
@@ -32,10 +32,10 @@
           </v-icon>
         </v-btn>
       </div>
-    </div>
+    </div> -->
 
     <!-- Grid buckets -->
-    <div class="bucket-wrapper">
+    <!-- <div class="bucket-wrapper">
       <div class="flex-col py-3 bucket-bg-color rounded">
         <strong class="font-weight-bold text-h6">
           {{ featuredRecipe.aggregateLikes }}
@@ -64,7 +64,7 @@
         }}</strong>
         <p class="text-subtitle-2 mb-0">Health Score</p>
       </div>
-    </div>
+    </div> -->
     <div class="flex mt-4" v-if="featuredRecipe.diets">
       <v-chip
         v-for="diet in featuredRecipe.diets"
@@ -80,9 +80,13 @@
 
 <script>
 import { mapGetters, mapActions, mapMutations } from "vuex";
+import Recipe from "@/components/Recipe";
 
 export default {
   name: "Featured",
+  components: {
+    Recipe,
+  },
   data: () => ({
     bookmarkIsChecked: false,
   }),
@@ -98,7 +102,7 @@ export default {
     ...mapGetters("featured", ["featuredRecipe"]),
   },
   created() {
-    // this.init();
+    this.init();
   },
 };
 </script>

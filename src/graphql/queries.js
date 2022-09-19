@@ -21,6 +21,7 @@ export const getUser = /* GraphQL */ `
           healthScore
           servings
           aggregateLikes
+          sourceUrl
           createdAt
           updatedAt
         }
@@ -37,6 +38,7 @@ export const getUser = /* GraphQL */ `
         healthScore
         servings
         aggregateLikes
+        sourceUrl
         user {
           id
           firstName
@@ -81,6 +83,7 @@ export const listUsers = /* GraphQL */ `
           healthScore
           servings
           aggregateLikes
+          sourceUrl
           createdAt
           updatedAt
         }
@@ -104,6 +107,7 @@ export const getRecipe = /* GraphQL */ `
       healthScore
       servings
       aggregateLikes
+      sourceUrl
       user {
         id
         firstName
@@ -124,6 +128,7 @@ export const getRecipe = /* GraphQL */ `
           healthScore
           servings
           aggregateLikes
+          sourceUrl
           createdAt
           updatedAt
         }
@@ -153,6 +158,7 @@ export const listRecipes = /* GraphQL */ `
         healthScore
         servings
         aggregateLikes
+        sourceUrl
         user {
           id
           firstName

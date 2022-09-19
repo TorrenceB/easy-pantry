@@ -24,6 +24,7 @@ export const createUser = /* GraphQL */ `
           healthScore
           servings
           aggregateLikes
+          sourceUrl
           createdAt
           updatedAt
         }
@@ -40,6 +41,7 @@ export const createUser = /* GraphQL */ `
         healthScore
         servings
         aggregateLikes
+        sourceUrl
         user {
           id
           firstName
@@ -80,6 +82,7 @@ export const updateUser = /* GraphQL */ `
           healthScore
           servings
           aggregateLikes
+          sourceUrl
           createdAt
           updatedAt
         }
@@ -96,6 +99,7 @@ export const updateUser = /* GraphQL */ `
         healthScore
         servings
         aggregateLikes
+        sourceUrl
         user {
           id
           firstName
@@ -136,6 +140,7 @@ export const deleteUser = /* GraphQL */ `
           healthScore
           servings
           aggregateLikes
+          sourceUrl
           createdAt
           updatedAt
         }
@@ -152,6 +157,7 @@ export const deleteUser = /* GraphQL */ `
         healthScore
         servings
         aggregateLikes
+        sourceUrl
         user {
           id
           firstName
@@ -185,6 +191,7 @@ export const createRecipe = /* GraphQL */ `
       healthScore
       servings
       aggregateLikes
+      sourceUrl
       user {
         id
         firstName
@@ -205,6 +212,7 @@ export const createRecipe = /* GraphQL */ `
           healthScore
           servings
           aggregateLikes
+          sourceUrl
           createdAt
           updatedAt
         }
@@ -232,6 +240,7 @@ export const updateRecipe = /* GraphQL */ `
       healthScore
       servings
       aggregateLikes
+      sourceUrl
       user {
         id
         firstName
@@ -252,6 +261,7 @@ export const updateRecipe = /* GraphQL */ `
           healthScore
           servings
           aggregateLikes
+          sourceUrl
           createdAt
           updatedAt
         }
@@ -279,6 +289,7 @@ export const deleteRecipe = /* GraphQL */ `
       healthScore
       servings
       aggregateLikes
+      sourceUrl
       user {
         id
         firstName
@@ -299,6 +310,7 @@ export const deleteRecipe = /* GraphQL */ `
           healthScore
           servings
           aggregateLikes
+          sourceUrl
           createdAt
           updatedAt
         }
