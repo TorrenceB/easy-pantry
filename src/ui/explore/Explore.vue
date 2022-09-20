@@ -44,7 +44,12 @@
     </div>
 
     <div v-if="recipes.length > 0" class="my-4">
-      <Recipe v-for="recipe in recipes" :recipe="recipe" :key="recipe.id" />
+      <Recipe
+        v-for="recipe in recipes"
+        :recipe="recipe"
+        :key="recipe.id"
+        :defaultTruncateState="false"
+      />
     </div>
     <!-- Empty State -->
     <div v-else class="empty-state__container">

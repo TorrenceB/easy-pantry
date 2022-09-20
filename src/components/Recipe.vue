@@ -5,7 +5,7 @@
     <v-card-subtitle class="bucket-wrapper">
       <div
         v-for="(metric, metricName) in recipeMetrics"
-        :key="metric"
+        :key="metricName"
         class="d-flex flex-column justify-center align-center bucket-bg-color rounded"
       >
         <strong class="text-h5 text--primary font-weight-bold pt-1">{{
@@ -16,10 +16,18 @@
         }}</span>
       </div>
     </v-card-subtitle>
-    <v-card-text v-html="recipe.summary" class="text-body-2"></v-card-text>
-    <v-card-actions>
+    <v-card-text
+      v-html="recipe.summary"
+      class="text-body-2"
+      :class="{ 'text-truncate': truncate }"
+    ></v-card-text>
+    <v-card-actions class="d-flex justify-space-between">
       <v-btn color="primary" text
         ><a :href="recipe.sourceUrl">View Recipe</a></v-btn
+      >
+      <v-btn @click="toggleTruncate" color="primary" text
+        ><span v-if="truncate">See More</span
+        ><span v-else>See Less</span></v-btn
       >
     </v-card-actions>
   </v-card>
@@ -32,7 +40,14 @@ export default {
       type: Object,
       default: () => {},
     },
+    defaultTruncateState: {
+      type: Boolean,
+      default: true,
+    },
   },
+  data: () => ({
+    truncate: true,
+  }),
   computed: {
     recipeMetrics() {
       const metricData = Object.entries(this.recipe).filter(([key, value]) => {
@@ -63,6 +78,14 @@ export default {
       };
     },
   },
+  methods: {
+    toggleTruncate() {
+      this.truncate = !this.truncate;
+    },
+  },
+  created() {
+    this.truncate = this.defaultTruncateState;
+  },
 };
 </script>
 <style scoped>
@@ -71,7 +94,7 @@ export default {
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: 1fr;
   column-gap: 0.25rem;
-  margin-top: 0.25rem;
+  margin-top: 0.5rem;
 }
 
 .bucket-bg-color {

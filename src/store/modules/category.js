@@ -1,4 +1,5 @@
 import fetchRecipeClient from "@/util/fetchRecipeClient";
+import Recipe from "@/models/recipe";
 
 export default {
   namespaced: true,
@@ -6,28 +7,24 @@ export default {
     italianResults: [],
     mexicanResults: [],
     seafoodResults: [],
-    mediterraneanResults: [],
     veganResults: [],
     vegetarianResults: [],
-    greekResults: [],
     quickResults: [],
-    skilletResults: [],
+    isFetchingResults: false,
   }),
 
   getters: {
     getItalianResults: (state) => state.italianResults,
     getMexicanResults: (state) => state.mexicanResults,
     getSeafoodResults: (state) => state.seafoodResults,
-    getMediterraneanResults: (state) => state.mediterraneanResults,
     getVeganResults: (state) => state.veganResults,
     getVegetarianResults: (state) => state.vegetarianResults,
-    getGreekResults: (state) => state.greekResults,
     getQuickResults: (state) => state.quickResults,
-    getSkilletResults: (state) => state.skilletResults,
+    getIsFetchingResults: (state) => state.isFetchingResults,
   },
 
   actions: {
-    async fetchRecipeByCategory({ commit }, category) {
+    async fetchRecipeByCategory({ commit, dispatch }, category) {
       const categoryMap = {
         italian: {
           params: {
@@ -47,12 +44,6 @@ export default {
           },
           mutation: "setSeafoodResultState",
         },
-        mediterranean: {
-          params: {
-            cuisine: "mediterranean",
-          },
-          mutation: "setMediterraneanResultState",
-        },
         vegan: {
           params: {
             diet: "vegan",
@@ -65,12 +56,7 @@ export default {
           },
           mutation: "setVegetarianResultState",
         },
-        greek: {
-          params: {
-            cuisine: "greek",
-          },
-          mutation: "setGreekResultState",
-        },
+
         quick: {
           params: {
             query: "easy",
@@ -78,23 +64,31 @@ export default {
           },
           mutation: "setQuickResultState",
         },
-        skillet: {
-          params: {
-            query: "skillet",
-          },
-          mutation: "setSkilletResultState",
-        },
       };
 
+      commit("setIsFetchingResults", true);
+
       try {
-        await fetchRecipeClient(
+        const { results } = await fetchRecipeClient(
           "https://api.spoonacular.com/recipes/complexSearch",
           categoryMap[category].params
-        ).then((response) => {
-          commit(categoryMap[category].mutation, response["results"]);
-        });
+        );
+
+        const enrichRecipeResults = await Promise.all(
+          results.map(async ({ id }) => {
+            const recipe = await dispatch("explore/getSingleRecipe", id, {
+              root: true,
+            });
+
+            return Recipe(recipe);
+          })
+        );
+
+        commit(categoryMap[category].mutation, enrichRecipeResults);
+        commit("setIsFetchingResults", false);
       } catch (e) {
         console.error(e);
+        commit("setIsFetchingResults", false);
       }
     },
   },
@@ -106,17 +100,15 @@ export default {
       (state.mexicanResults = newResults),
     setSeafoodResultState: (state, newResults) =>
       (state.seafoodResults = newResults),
-    setMediterraneanResultState: (state, newResults) =>
-      (state.mediterraneanResults = newResults),
     setVeganResultState: (state, newResults) =>
       (state.veganResults = newResults),
     setVegetarianResultState: (state, newResults) =>
       (state.vegetarianResults = newResults),
-    setGreekResultState: (state, newResults) =>
-      (state.greekResults = newResults),
     setQuickResultState: (state, newResults) =>
       (state.quickResults = newResults),
     setSkilletResultState: (state, newResults) =>
       (state.skilletResults = newResults),
+    setIsFetchingResults: (state, isFetchingResults) =>
+      (state.isFetchingResults = isFetchingResults),
   },
 };

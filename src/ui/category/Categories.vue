@@ -49,11 +49,11 @@ export default {
         },
       },
       {
-        title: "Mediterranean",
-        icon: "mdi-fruit-grapes-outline",
-        color: "#69DDFF",
+        title: "Quick & Easy",
+        icon: "mdi-bike-fast",
+        color: "#AD2E24",
         params: {
-          category: "mediterranean",
+          category: "quick",
         },
       },
       {
@@ -67,25 +67,9 @@ export default {
       {
         title: "Vegetarian",
         icon: "mdi-chili-mild",
-        color: "#BFEDC1",
+        color: "#69DDFF",
         params: {
           category: "vegetarian",
-        },
-      },
-      {
-        title: "Greek",
-        icon: "mdi-alphabet-greek",
-        color: "#582630",
-        params: {
-          category: "greek",
-        },
-      },
-      {
-        title: "Quick & Easy",
-        icon: "mdi-bike-fast",
-        color: "#AD2E24",
-        params: {
-          category: "quick",
         },
       },
     ],

@@ -2,69 +2,6 @@
   <v-container class="text-left">
     <h2 class="pb-4 text-md-h4">Featured Recipe</h2>
     <Recipe :recipe="featuredRecipe" />
-    <!-- <div class="card">
-      <v-btn
-        icon
-        @click="bookmarkIsChecked = !bookmarkIsChecked"
-        class="card_favorite-icon"
-      >
-        <v-icon :color="bookmarkIsChecked ? '#ff6600' : '#fff'" size="60">
-          mdi-cards-heart
-        </v-icon>
-      </v-btn>
-
-      <v-img
-        :src="featuredRecipe.image"
-        :alt="featuredRecipe.title"
-        class="card_image"
-      >
-      </v-img>
-      <div class="card_footer-container">
-        <span class="card_title">
-          {{ featuredRecipe.title }}
-        </span>
-
-        <v-btn icon>
-          <span>View</span>
-
-          <v-icon size="30">
-            mdi-arrow-right-bold
-          </v-icon>
-        </v-btn>
-      </div>
-    </div> -->
-
-    <!-- Grid buckets -->
-    <!-- <div class="bucket-wrapper">
-      <div class="flex-col py-3 bucket-bg-color rounded">
-        <strong class="font-weight-bold text-h6">
-          {{ featuredRecipe.aggregateLikes }}
-        </strong>
-        <p class="text-subtitle-2 mb-0">Rating</p>
-      </div>
-
-      <div class="flex-col py-3 bucket-bg-color rounded">
-        <strong class="font-weight-bold text-h6">{{
-          featuredRecipe.servings
-        }}</strong>
-        <p class="text-subtitle-2 mb-0">Servings</p>
-      </div>
-      <div class="flex-col py-3 bucket-bg-color rounded">
-        <span class="d-flex align-center">
-          <strong class="font-weight-bold text-h6">{{
-            featuredRecipe.readyInMinutes
-          }}</strong>
-          <p class="text-caption mb-0 ml-1">Min</p>
-        </span>
-        <p class="text-subtitle-2 mb-0">Prepare</p>
-      </div>
-      <div class="flex-col py-3 bucket-bg-color rounded">
-        <strong class="font-weight-bold text-h6">{{
-          featuredRecipe.healthScore
-        }}</strong>
-        <p class="text-subtitle-2 mb-0">Health Score</p>
-      </div>
-    </div> -->
     <div class="flex mt-4" v-if="featuredRecipe.diets">
       <v-chip
         v-for="diet in featuredRecipe.diets"
@@ -95,7 +32,9 @@ export default {
     ...mapMutations("featured", { setRecipe: "setFeaturedRecipeState" }),
 
     init() {
-      this.fetchFeatured();
+      if (Object.entries(this.featuredRecipe).length === 0) {
+        this.fetchFeatured();
+      }
     },
   },
   computed: {
