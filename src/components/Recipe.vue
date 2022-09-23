@@ -53,6 +53,8 @@
   </v-card>
 </template>
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "Recipe",
   props: {
@@ -99,15 +101,26 @@ export default {
     },
   },
   methods: {
+    ...mapActions("user", ["setFavorites"]),
     toggleTruncate() {
       this.truncate = !this.truncate;
     },
-    addToFavorites() {
-      this.$toast("Added to Favorites!", {
-        timeout: 3000,
-        type: "success",
-        position: "bottom-center",
-      });
+    async addToFavorites() {
+      const { status, message } = await this.setFavorites(this.recipe);
+
+      if (status === "added") {
+        this.$toast(message, {
+          timeout: 3000,
+          type: "success",
+          position: "bottom-center",
+        });
+      } else if (status === "alreadyFavorited") {
+        this.$toast(message, {
+          timeout: 3000,
+          type: "info",
+          position: "bottom-center",
+        });
+      }
     },
   },
   created() {
