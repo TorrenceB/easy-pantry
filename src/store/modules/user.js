@@ -13,8 +13,14 @@ export default {
   },
   mutations: {
     updateUser: (state, user) => (state.user = user),
-    updateUserFavorites: (state, recipe) =>
-      state.user.favorites.items.push(recipe),
+    addToFavorites: (state, recipe) => state.user.favorites.items.push(recipe),
+    removeFromFavorites: (state, id) => {
+      const filtered = state.user.favorites.items.filter(
+        (recipe) => recipe.id !== id
+      );
+
+      return (state.user.favorites.items = filtered);
+    },
   },
   actions: {
     async fetch({ commit }, id) {
@@ -50,23 +56,22 @@ export default {
         console.error("!", "@state:user::update", err);
       }
     },
-    async setFavorites({ commit, getters }, recipe) {
-      const recipeAlreadyFavorited = await getters["getUserFavorites"].some(
-        ({ id }) => recipe.id === id
-      );
-      if (!recipeAlreadyFavorited) {
-        commit("updateUserFavorites", recipe);
+    async createFavorite({ commit }, recipe) {
+      commit("addToFavorites", recipe);
+      // await dispatch("update", state.user);
 
-        return {
-          status: "added",
-          message: `${recipe.title} added to favorites!`,
-        };
-      } else {
-        return {
-          status: "alreadyFavorited",
-          message: "This recipe has already been favorited!",
-        };
-      }
+      return {
+        status: "created",
+        message: `${recipe.title} added to favorites!`,
+      };
+    },
+    async deleteFavorite({ commit }, { id }) {
+      commit("removeFromFavorites", id);
+
+      return {
+        status: "deleted",
+        message: "This recipe has been removed!",
+      };
     },
   },
 };

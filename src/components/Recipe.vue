@@ -1,14 +1,6 @@
 <template>
   <v-card class="my-4" shaped>
-    <v-img :src="recipe.image" height="150">
-      <!-- <v-row class="d-flex mt-auto">
-        <div class="rounded border border-white px-4 pt-2">
-          <v-btn color="green" outlined>
-            <v-icon size="44">mdi-heart-outline</v-icon> Add To Favorites
-          </v-btn>
-        </div>
-      </v-row> -->
-    </v-img>
+    <v-img :src="recipe.image" height="150"> </v-img>
     <v-card-title>{{ recipe.title }}</v-card-title>
     <v-card-subtitle class="bucket-wrapper">
       <div
@@ -26,14 +18,14 @@
     </v-card-subtitle>
     <v-row class="d-flex justify-center my-1 mx-4">
       <v-btn
-        @click="addToFavorites"
+        @click="favoritesButton.action"
         color="#41b3a3"
         width="100%"
         outlined
         large
       >
-        <v-icon size="28">mdi-heart-outline</v-icon>
-        <span class="px-2">Add To Favorites</span>
+        <v-icon size="28">{{ favoritesButton.icon }}</v-icon>
+        <span class="px-2">{{ favoritesButton.text }}</span>
       </v-btn>
     </v-row>
     <v-card-text
@@ -53,7 +45,7 @@
   </v-card>
 </template>
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Recipe",
@@ -71,6 +63,25 @@ export default {
     truncate: true,
   }),
   computed: {
+    ...mapGetters("user", { favorites: "getUserFavorites" }),
+    recipeAlreadyFavorited() {
+      return this.favorites.some(({ id }) => this.recipe.id === id);
+    },
+    favoritesButton() {
+      if (!this.recipeAlreadyFavorited) {
+        return {
+          action: this.addFavorite,
+          icon: "mdi-heart-outline",
+          text: "Add to Favorites",
+        };
+      } else {
+        return {
+          action: this.removeFavorite,
+          icon: "mdi-trash-can-outline",
+          text: "Remove from Favorites",
+        };
+      }
+    },
     recipeMetrics() {
       const metricData = Object.entries(this.recipe).filter(([key, value]) => {
         const metrics = {
@@ -101,26 +112,27 @@ export default {
     },
   },
   methods: {
-    ...mapActions("user", ["setFavorites"]),
+    ...mapActions("user", ["createFavorite", "deleteFavorite"]),
     toggleTruncate() {
       this.truncate = !this.truncate;
     },
-    async addToFavorites() {
-      const { status, message } = await this.setFavorites(this.recipe);
+    async addFavorite() {
+      const { message } = await this.createFavorite(this.recipe);
 
-      if (status === "added") {
-        this.$toast(message, {
-          timeout: 3000,
-          type: "success",
-          position: "bottom-center",
-        });
-      } else if (status === "alreadyFavorited") {
-        this.$toast(message, {
-          timeout: 3000,
-          type: "info",
-          position: "bottom-center",
-        });
-      }
+      this.$toast(message, {
+        timeout: 3000,
+        type: "success",
+        position: "bottom-center",
+      });
+    },
+    async removeFavorite() {
+      const { message } = await this.deleteFavorite(this.recipe);
+
+      this.$toast(message, {
+        timeout: 3000,
+        type: "info",
+        position: "bottom-center",
+      });
     },
   },
   created() {
