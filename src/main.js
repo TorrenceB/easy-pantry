@@ -3,6 +3,7 @@ import App from "./App.vue";
 import vuetify from "./plugins/vuetify";
 import router from "./router";
 import store from "@/store/index";
+import toast from "@/plugins/toast";
 
 import Amplify, * as AmplifyModules from "aws-amplify";
 import awsconfig from "./aws-exports";
@@ -20,5 +21,6 @@ new Vue({
   vuetify,
   store,
   router,
+  toast,
   render: (h) => h(App),
 }).$mount("#app");

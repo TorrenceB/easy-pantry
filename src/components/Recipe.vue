@@ -1,6 +1,14 @@
 <template>
   <v-card class="my-4" shaped>
-    <v-img :src="recipe.image" height="150"></v-img>
+    <v-img :src="recipe.image" height="150">
+      <!-- <v-row class="d-flex mt-auto">
+        <div class="rounded border border-white px-4 pt-2">
+          <v-btn color="green" outlined>
+            <v-icon size="44">mdi-heart-outline</v-icon> Add To Favorites
+          </v-btn>
+        </div>
+      </v-row> -->
+    </v-img>
     <v-card-title>{{ recipe.title }}</v-card-title>
     <v-card-subtitle class="bucket-wrapper">
       <div
@@ -16,6 +24,18 @@
         }}</span>
       </div>
     </v-card-subtitle>
+    <v-row class="d-flex justify-center my-1 mx-4">
+      <v-btn
+        @click="addToFavorites"
+        color="#41b3a3"
+        width="100%"
+        outlined
+        large
+      >
+        <v-icon size="28">mdi-heart-outline</v-icon>
+        <span class="px-2">Add To Favorites</span>
+      </v-btn>
+    </v-row>
     <v-card-text
       v-html="recipe.summary"
       class="text-body-2"
@@ -73,7 +93,7 @@ export default {
       return {
         Likes: aggregateLikes,
         Servings: servings,
-        Prepare: readyInMinutes,
+        "Prepare(Min)": readyInMinutes,
         "Health Score": healthScore,
       };
     },
@@ -81,6 +101,13 @@ export default {
   methods: {
     toggleTruncate() {
       this.truncate = !this.truncate;
+    },
+    addToFavorites() {
+      this.$toast("Added to Favorites!", {
+        timeout: 3000,
+        type: "success",
+        position: "bottom-center",
+      });
     },
   },
   created() {

@@ -86,7 +86,6 @@ export default {
     Recipe,
   },
   data: () => ({
-    bookmarkIsChecked: false,
     selectedValue: null,
     query: null,
     debounceSuggestions: null,
