@@ -2,6 +2,7 @@ import Vuex from "vuex";
 import Vue from "vue";
 import auth from "@/store/modules/auth";
 import user from "@/store/modules/user";
+import recipe from "@/store/modules/recipe";
 import featured from "@/store/modules/featured";
 import category from "@/store/modules/category";
 import explore from "@/store/modules/explore";
@@ -24,5 +25,6 @@ export default new Vuex.Store({
     featured,
     category,
     explore,
+    recipe,
   },
 });

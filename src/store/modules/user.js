@@ -1,12 +1,6 @@
 import { API, graphqlOperation } from "aws-amplify";
 import { getUser } from "../../graphql/queries";
-import {
-  updateUser,
-  createUser,
-  updateRecipe,
-  // createRecipe,
-} from "../../graphql/mutations";
-import Recipe from "@/models/recipe.js";
+import { updateUser, createUser } from "../../graphql/mutations";
 
 export default {
   namespaced: true,
@@ -62,17 +56,19 @@ export default {
         console.error("!", "@state:user::update", err);
       }
     },
-    async createFavorite({ commit, rootGetters }, recipe) {
+    async createFavorite({ commit, rootGetters, dispatch }, recipe) {
       const { id: userID } = rootGetters["user/getUser"];
-      const newRecipe = Recipe(recipe);
-      const input = Object.assign(newRecipe, { userID }, {});
+      const input = {
+        id: recipe.id,
+        userID,
+      };
 
       try {
-        const { data } = await API.graphql(
-          graphqlOperation(updateRecipe, { input })
-        );
+        const updatedRecipe = await dispatch("recipe/update", input, {
+          root: true,
+        });
 
-        commit("addToFavorites", data.updateRecipe);
+        commit("addToFavorites", updatedRecipe);
 
         return {
           status: "created",
@@ -87,18 +83,18 @@ export default {
         };
       }
     },
-    async deleteFavorite({ commit }, { id }) {
-      const input = {
+    async deleteFavorite({ commit, dispatch }, { id }) {
+      const recipe = {
         id,
         userID: null,
       };
 
       try {
-        const { data } = await API.graphql(
-          graphqlOperation(updateRecipe, { input })
-        );
+        const updatedRecipe = await dispatch("recipe/update", recipe, {
+          root: true,
+        });
 
-        commit("removeFromFavorites", data.updateRecipe.id);
+        commit("removeFromFavorites", updatedRecipe.id);
 
         return {
           status: "deleted",

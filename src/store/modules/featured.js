@@ -1,9 +1,4 @@
 import fetchRecipeClient from "@/util/fetchRecipeClient";
-import Recipe from "@/models/recipe.js";
-
-import { API, graphqlOperation } from "aws-amplify";
-import { createRecipe } from "../../graphql/mutations";
-import { getRecipe } from "../../graphql/queries";
 
 const featuredStore = {
   namespaced: true,
@@ -46,25 +41,23 @@ const featuredStore = {
       }
     },
 
-    async get({ commit }, id) {
+    async get({ commit, dispatch }, id) {
       try {
-        const { data } = await API.graphql(graphqlOperation(getRecipe, { id }));
+        const recipe = await dispatch("recipe/get", id, { root: true });
 
-        commit("setFeaturedRecipe", data.getRecipe);
+        commit("setFeaturedRecipe", recipe);
       } catch (err) {
         console.error("!", "@state:featured::get", err);
       }
     },
 
-    async create({ commit }, recipe) {
-      const featuredRecipe = Recipe(recipe);
-
+    async create({ commit, dispatch }, recipe) {
       try {
-        const { data } = await API.graphql(
-          graphqlOperation(createRecipe, { input: featuredRecipe })
-        );
+        const createdRecipe = await dispatch("recipe/create", recipe, {
+          root: true,
+        });
 
-        commit("setFeaturedRecipe", data.createRecipe);
+        commit("setFeaturedRecipe", createdRecipe);
       } catch (err) {
         console.error("!", "@state:featured::create", err);
       }

@@ -76,7 +76,9 @@ export default {
 
         const enrichRecipeResults = await Promise.all(
           results.map(async ({ id }) => {
-            const recipe = await dispatch("getSingleRecipe", id);
+            const recipe = await dispatch("recipe/fetchFromAPI", id, {
+              root: true,
+            });
 
             return Recipe(recipe);
           })
@@ -88,25 +90,6 @@ export default {
         console.error("!", "@state:explore:fetchRecipes", err);
 
         commit("setFetchingRecipes", false);
-      }
-    },
-    /**
-     * @async
-     * @function getSingleRecipe
-     * @desc query for single recipe data
-     *
-     * @param { object } context
-     * @param { number } id
-     */
-    async getSingleRecipe(_, id) {
-      try {
-        const recipe = await fetchRecipeClient(
-          `https://api.spoonacular.com/recipes/${id}/information`
-        );
-
-        return recipe;
-      } catch (err) {
-        console.error("!", "@state:explore::getSingleRecipe", err);
       }
     },
   },

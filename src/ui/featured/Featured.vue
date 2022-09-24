@@ -33,7 +33,6 @@ export default {
 
     init() {
       if (Object.entries(this.featuredRecipe).length === 0) {
-        // this.fetchFeatured();
         this.get(639628);
       }
     },
