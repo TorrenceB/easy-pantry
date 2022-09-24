@@ -12,6 +12,7 @@ export const getUser = /* GraphQL */ `
       favorites {
         items {
           id
+          userID
           title
           image
           instructions
@@ -29,6 +30,7 @@ export const getUser = /* GraphQL */ `
       }
       featuredRecipe {
         id
+        userID
         title
         image
         instructions
@@ -39,15 +41,6 @@ export const getUser = /* GraphQL */ `
         servings
         aggregateLikes
         sourceUrl
-        user {
-          id
-          firstName
-          lastName
-          email
-          userName
-          createdAt
-          updatedAt
-        }
         createdAt
         updatedAt
       }
@@ -74,6 +67,7 @@ export const listUsers = /* GraphQL */ `
         }
         featuredRecipe {
           id
+          userID
           title
           image
           instructions
@@ -98,6 +92,7 @@ export const getRecipe = /* GraphQL */ `
   query GetRecipe($id: ID!) {
     getRecipe(id: $id) {
       id
+      userID
       title
       image
       instructions
@@ -108,33 +103,6 @@ export const getRecipe = /* GraphQL */ `
       servings
       aggregateLikes
       sourceUrl
-      user {
-        id
-        firstName
-        lastName
-        email
-        userName
-        favorites {
-          nextToken
-        }
-        featuredRecipe {
-          id
-          title
-          image
-          instructions
-          summary
-          diets
-          readyInMinutes
-          healthScore
-          servings
-          aggregateLikes
-          sourceUrl
-          createdAt
-          updatedAt
-        }
-        createdAt
-        updatedAt
-      }
       createdAt
       updatedAt
     }
@@ -149,6 +117,7 @@ export const listRecipes = /* GraphQL */ `
     listRecipes(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        userID
         title
         image
         instructions
@@ -159,15 +128,6 @@ export const listRecipes = /* GraphQL */ `
         servings
         aggregateLikes
         sourceUrl
-        user {
-          id
-          firstName
-          lastName
-          email
-          userName
-          createdAt
-          updatedAt
-        }
         createdAt
         updatedAt
       }

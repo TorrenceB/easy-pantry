@@ -9,12 +9,13 @@ type User @model {
   lastName: String
   email: String
   userName: String
-  favorites: [Recipe] @hasMany(fields: ["id"])
+  favorites: [Recipe] @hasMany(indexName: "byUser", fields: ["id"])
   featuredRecipe: Recipe @hasOne(fields: ["id"])
 }
 
 type Recipe @model {
   id: ID!
+  userID: ID @index(name: "byUser")
   title: String
   image: String
   instructions: String
@@ -25,5 +26,4 @@ type Recipe @model {
   servings: Int
   aggregateLikes: Int
   sourceUrl: String
-  user: User @belongsTo
 }

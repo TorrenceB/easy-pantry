@@ -1,6 +1,12 @@
 import { API, graphqlOperation } from "aws-amplify";
 import { getUser } from "../../graphql/queries";
-import { updateUser, createUser } from "../../graphql/mutations";
+import {
+  updateUser,
+  createUser,
+  updateRecipe,
+  // createRecipe,
+} from "../../graphql/mutations";
+import Recipe from "@/models/recipe.js";
 
 export default {
   namespaced: true,
@@ -9,7 +15,7 @@ export default {
   }),
   getters: {
     getUser: (state) => state.user,
-    getUserFavorites: (state) => state.user.favorites.items,
+    getUserFavorites: (state) => state.user?.favorites.items,
   },
   mutations: {
     updateUser: (state, user) => (state.user = user),
@@ -56,22 +62,56 @@ export default {
         console.error("!", "@state:user::update", err);
       }
     },
-    async createFavorite({ commit }, recipe) {
-      commit("addToFavorites", recipe);
-      // await dispatch("update", state.user);
+    async createFavorite({ commit, rootGetters }, recipe) {
+      const { id: userID } = rootGetters["user/getUser"];
+      const newRecipe = Recipe(recipe);
+      const input = Object.assign(newRecipe, { userID }, {});
 
-      return {
-        status: "created",
-        message: `${recipe.title} added to favorites!`,
-      };
+      try {
+        const { data } = await API.graphql(
+          graphqlOperation(updateRecipe, { input })
+        );
+
+        commit("addToFavorites", data.updateRecipe);
+
+        return {
+          status: "created",
+          message: `${recipe.title} added to favorites!`,
+        };
+      } catch (err) {
+        console.error(err);
+
+        return {
+          status: "error",
+          message: `Oops, there was an error adding this recipe!`,
+        };
+      }
     },
     async deleteFavorite({ commit }, { id }) {
-      commit("removeFromFavorites", id);
-
-      return {
-        status: "deleted",
-        message: "This recipe has been removed!",
+      const input = {
+        id,
+        userID: null,
       };
+
+      try {
+        const { data } = await API.graphql(
+          graphqlOperation(updateRecipe, { input })
+        );
+
+        commit("removeFromFavorites", data.updateRecipe.id);
+
+        return {
+          status: "deleted",
+          message: "This recipe has been removed from favorites!",
+        };
+      } catch (err) {
+        console.error("!", "@state:user::deleteFavorite", err);
+
+        return {
+          status: "error",
+          message: `Oops, there was an error adding this recipe!`,
+        };
+      }
     },
   },
 };

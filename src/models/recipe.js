@@ -1,5 +1,6 @@
 const Recipe = ({
-  id = 0,
+  id = null,
+  userID = null,
   title = "",
   image = "",
   instructions = "",
@@ -12,6 +13,7 @@ const Recipe = ({
   sourceUrl = "",
 }) => ({
   id,
+  userID,
   title,
   image,
   instructions,

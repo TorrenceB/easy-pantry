@@ -28,12 +28,13 @@ export default {
     bookmarkIsChecked: false,
   }),
   methods: {
-    ...mapActions("featured", ["fetchFeatured"]),
+    ...mapActions("featured", ["fetchFeatured", "get"]),
     ...mapMutations("featured", { setRecipe: "setFeaturedRecipeState" }),
 
     init() {
       if (Object.entries(this.featuredRecipe).length === 0) {
-        this.fetchFeatured();
+        // this.fetchFeatured();
+        this.get(639628);
       }
     },
   },

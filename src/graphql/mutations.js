@@ -15,6 +15,7 @@ export const createUser = /* GraphQL */ `
       favorites {
         items {
           id
+          userID
           title
           image
           instructions
@@ -32,6 +33,7 @@ export const createUser = /* GraphQL */ `
       }
       featuredRecipe {
         id
+        userID
         title
         image
         instructions
@@ -42,15 +44,6 @@ export const createUser = /* GraphQL */ `
         servings
         aggregateLikes
         sourceUrl
-        user {
-          id
-          firstName
-          lastName
-          email
-          userName
-          createdAt
-          updatedAt
-        }
         createdAt
         updatedAt
       }
@@ -73,6 +66,7 @@ export const updateUser = /* GraphQL */ `
       favorites {
         items {
           id
+          userID
           title
           image
           instructions
@@ -90,6 +84,7 @@ export const updateUser = /* GraphQL */ `
       }
       featuredRecipe {
         id
+        userID
         title
         image
         instructions
@@ -100,15 +95,6 @@ export const updateUser = /* GraphQL */ `
         servings
         aggregateLikes
         sourceUrl
-        user {
-          id
-          firstName
-          lastName
-          email
-          userName
-          createdAt
-          updatedAt
-        }
         createdAt
         updatedAt
       }
@@ -131,6 +117,7 @@ export const deleteUser = /* GraphQL */ `
       favorites {
         items {
           id
+          userID
           title
           image
           instructions
@@ -148,6 +135,7 @@ export const deleteUser = /* GraphQL */ `
       }
       featuredRecipe {
         id
+        userID
         title
         image
         instructions
@@ -158,15 +146,6 @@ export const deleteUser = /* GraphQL */ `
         servings
         aggregateLikes
         sourceUrl
-        user {
-          id
-          firstName
-          lastName
-          email
-          userName
-          createdAt
-          updatedAt
-        }
         createdAt
         updatedAt
       }
@@ -182,6 +161,7 @@ export const createRecipe = /* GraphQL */ `
   ) {
     createRecipe(input: $input, condition: $condition) {
       id
+      userID
       title
       image
       instructions
@@ -192,33 +172,6 @@ export const createRecipe = /* GraphQL */ `
       servings
       aggregateLikes
       sourceUrl
-      user {
-        id
-        firstName
-        lastName
-        email
-        userName
-        favorites {
-          nextToken
-        }
-        featuredRecipe {
-          id
-          title
-          image
-          instructions
-          summary
-          diets
-          readyInMinutes
-          healthScore
-          servings
-          aggregateLikes
-          sourceUrl
-          createdAt
-          updatedAt
-        }
-        createdAt
-        updatedAt
-      }
       createdAt
       updatedAt
     }
@@ -231,6 +184,7 @@ export const updateRecipe = /* GraphQL */ `
   ) {
     updateRecipe(input: $input, condition: $condition) {
       id
+      userID
       title
       image
       instructions
@@ -241,33 +195,6 @@ export const updateRecipe = /* GraphQL */ `
       servings
       aggregateLikes
       sourceUrl
-      user {
-        id
-        firstName
-        lastName
-        email
-        userName
-        favorites {
-          nextToken
-        }
-        featuredRecipe {
-          id
-          title
-          image
-          instructions
-          summary
-          diets
-          readyInMinutes
-          healthScore
-          servings
-          aggregateLikes
-          sourceUrl
-          createdAt
-          updatedAt
-        }
-        createdAt
-        updatedAt
-      }
       createdAt
       updatedAt
     }
@@ -280,6 +207,7 @@ export const deleteRecipe = /* GraphQL */ `
   ) {
     deleteRecipe(input: $input, condition: $condition) {
       id
+      userID
       title
       image
       instructions
@@ -290,33 +218,6 @@ export const deleteRecipe = /* GraphQL */ `
       servings
       aggregateLikes
       sourceUrl
-      user {
-        id
-        firstName
-        lastName
-        email
-        userName
-        favorites {
-          nextToken
-        }
-        featuredRecipe {
-          id
-          title
-          image
-          instructions
-          summary
-          diets
-          readyInMinutes
-          healthScore
-          servings
-          aggregateLikes
-          sourceUrl
-          createdAt
-          updatedAt
-        }
-        createdAt
-        updatedAt
-      }
       createdAt
       updatedAt
     }

@@ -65,7 +65,13 @@ export default {
   computed: {
     ...mapGetters("user", { favorites: "getUserFavorites" }),
     recipeAlreadyFavorited() {
-      return this.favorites.some(({ id }) => this.recipe.id === id);
+      if (this.favorites) {
+        return this.favorites.some(
+          ({ id }) => this.recipe.id.toString() === id
+        );
+      } else {
+        return [];
+      }
     },
     favoritesButton() {
       if (!this.recipeAlreadyFavorited) {
@@ -117,22 +123,38 @@ export default {
       this.truncate = !this.truncate;
     },
     async addFavorite() {
-      const { message } = await this.createFavorite(this.recipe);
+      const { message, status } = await this.createFavorite(this.recipe);
 
-      this.$toast(message, {
-        timeout: 3000,
-        type: "success",
-        position: "bottom-center",
-      });
+      if (status === "created") {
+        this.$toast(message, {
+          timeout: 3000,
+          type: "success",
+          position: "bottom-center",
+        });
+      } else if (status === "error") {
+        this.$toast(message, {
+          timeout: 3000,
+          type: "error",
+          position: "bottom-center",
+        });
+      }
     },
     async removeFavorite() {
-      const { message } = await this.deleteFavorite(this.recipe);
+      const { message, status } = await this.deleteFavorite(this.recipe);
 
-      this.$toast(message, {
-        timeout: 3000,
-        type: "info",
-        position: "bottom-center",
-      });
+      if (status === "deleted") {
+        this.$toast(message, {
+          timeout: 3000,
+          type: "info",
+          position: "bottom-center",
+        });
+      } else if (status === "error") {
+        this.$toast(message, {
+          timeout: 3000,
+          type: "error",
+          position: "bottom-center",
+        });
+      }
     },
   },
   created() {
