@@ -1,19 +1,36 @@
 <template>
   <div v-if="isAuthenticated">
-    <v-navigation-drawer v-model="drawer" app>
-      <v-list
-        class="d-flex flex-column justify-end align-center"
-        height="100%"
-        nav
-      >
-        <v-list-item class="w-full flex-grow-0">
-          <button @click="goToFavorites" class="button">My Favorites</button>
-        </v-list-item>
-        <v-list-item class="w-full">
-          <button @click="handleSignOut" class="button">Sign Out</button>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
+    <v-card>
+      <v-navigation-drawer v-model="drawer" app>
+        <v-card class="d-flex flex-column align-center pt-2">
+          <v-avatar color="teal" size="64"
+            ><span class="text-h5">{{ userInitials }}</span></v-avatar
+          >
+          <v-card-title v-if="user">
+            {{ user.firstName }} {{ user.lastName }}</v-card-title
+          >
+          <v-card-subtitle v-if="user">{{ user.email }}</v-card-subtitle>
+        </v-card>
+        <v-list height="100%" nav class="mt-8">
+          <v-list-item width="100%">
+            <button @click="go('landing')" class="button">
+              <v-icon class="pl-6 pr-2">mdi-food-apple-outline</v-icon>Cuisines
+            </button>
+          </v-list-item>
+          <v-list-item width="100%">
+            <button @click="go('favorites')" class="button">
+              <v-icon class="pl-6 pr-2">mdi-heart-outline</v-icon>
+              My Favorites
+            </button>
+          </v-list-item>
+          <v-list-item width="100%">
+            <button @click="handleSignOut" class="button">
+              <v-icon class="pl-6 pr-2">mdi-logout-variant</v-icon>Sign Out
+            </button>
+          </v-list-item>
+        </v-list>
+      </v-navigation-drawer>
+    </v-card>
     <v-app-bar dark app>
       <v-app-bar-nav-icon
         @click.stop="drawer = !drawer"
@@ -35,11 +52,26 @@ export default {
   }),
   computed: {
     ...mapGetters("auth", { isAuthenticated: "getAuthenticatedState" }),
+    ...mapGetters("user", { user: "getUser" }),
+    userInitials() {
+      if (this.user) {
+        const first = this.user.firstName.charAt(0);
+        const last = this.user.lastName.charAt(0);
+
+        return `${first}${last}`;
+      } else {
+        return null;
+      }
+    },
   },
   methods: {
     ...mapActions("auth", ["signOut"]),
-    goToFavorites() {
-      this.$router.push({ name: "Favorites" });
+    go(name) {
+      const route = {
+        landing: "Landing",
+        favorites: "Favorites",
+      };
+      this.$router.push({ name: route[name] });
     },
     async handleSignOut() {
       try {
@@ -58,13 +90,8 @@ export default {
   font-size: 2.5em;
 }
 
-.w-full {
-  width: 100%;
-}
-
 .button {
   display: flex;
-  justify-content: center;
   align-items: center;
   width: 100%;
   height: 3rem;

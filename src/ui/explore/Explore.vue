@@ -51,26 +51,15 @@
         :defaultTruncateState="false"
       />
     </div>
-    <!-- Empty State -->
-    <div v-else class="empty-state__container">
-      <lottie-vue-player
-        :src="vegetableAnimation.animation"
-        :background-color="vegetableAnimation.options.backgroundColor"
-        :style="vegetableAnimation.options.styles"
-        loop
-        autoplay
-      >
-      </lottie-vue-player>
-      <div class="d-flex flex-column align-center">
-        <h3 class="text-h6 text--primary my-2">
-          There are no results to display
-        </h3>
-        <p class="text-subtitle-2 text--secondary px-16">
-          To find recipes to add to your pantry, type a few ingredients into the
-          search bar above and press "Search".
-        </p>
-      </div>
-    </div>
+    <EmptyState v-else>
+      <h3 class="text-h6 text--primary my-2">
+        There are no results to display
+      </h3>
+      <p class="text-subtitle-2 text--secondary px-16">
+        To find recipes to add to your pantry, type a few ingredients into the
+        search bar above and press "Search".
+      </p>
+    </EmptyState>
   </v-container>
 </template>
 <script>
@@ -78,27 +67,18 @@ import { mapActions, mapGetters, mapMutations } from "vuex";
 import debounce from "@/util/debounce";
 
 import Recipe from "@/components/Recipe";
-import animation from "@/assets/animations/vegetables";
+import EmptyState from "@/components/EmptyState";
 
 export default {
   name: "Explore",
   components: {
     Recipe,
+    EmptyState,
   },
   data: () => ({
     selectedValue: null,
     query: null,
     debounceSuggestions: null,
-    vegetableAnimation: {
-      animation: JSON.stringify(animation),
-      options: {
-        backgroundColor: "#121212",
-        styles: {
-          all: "unset",
-          height: "none",
-        },
-      },
-    },
   }),
   computed: {
     ...mapGetters("explore", {
@@ -183,9 +163,5 @@ export default {
   border-radius: 0.5em;
   height: 50%;
   padding: 0.25em;
-}
-
-.empty-state__container {
-  height: 12.5rem;
 }
 </style>
