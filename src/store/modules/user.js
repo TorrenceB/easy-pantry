@@ -68,7 +68,7 @@ export default {
         });
         /* Check if recipe exists in DB */
         if (getRecipe) {
-          /* If it does, just update */
+          /* If it does, update */
           const updatedRecipe = await dispatch("recipe/update", input, {
             root: true,
           });
@@ -88,7 +88,7 @@ export default {
           message: `${recipe.title} added to favorites!`,
         };
       } catch (err) {
-        console.error(err);
+        console.error("!", "@state:user::createFavorite", err);
 
         return {
           status: "error",

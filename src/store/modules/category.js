@@ -1,5 +1,4 @@
 import fetchRecipeClient from "@/util/fetchRecipeClient";
-import Recipe from "@/models/recipe";
 
 export default {
   namespaced: true,
@@ -74,17 +73,21 @@ export default {
           categoryMap[category].params
         );
 
-        const enrichRecipeResults = await Promise.all(
+        const recipeResults = await Promise.all(
           results.map(async ({ id }) => {
-            const recipe = await dispatch("explore/getSingleRecipe", id, {
+            const recipe = await dispatch("recipe/fetchFromAPI", id, {
               root: true,
             });
 
-            return Recipe(recipe);
+            const dbRecipe = await dispatch("recipe/create", recipe, {
+              root: true,
+            });
+
+            return dbRecipe;
           })
         );
 
-        commit(categoryMap[category].mutation, enrichRecipeResults);
+        commit(categoryMap[category].mutation, recipeResults);
         commit("setIsFetchingResults", false);
       } catch (e) {
         console.error(e);
@@ -106,8 +109,6 @@ export default {
       (state.vegetarianResults = newResults),
     setQuickResultState: (state, newResults) =>
       (state.quickResults = newResults),
-    setSkilletResultState: (state, newResults) =>
-      (state.skilletResults = newResults),
     setIsFetchingResults: (state, isFetchingResults) =>
       (state.isFetchingResults = isFetchingResults),
   },

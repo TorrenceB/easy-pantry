@@ -126,35 +126,26 @@ export default {
       const { message, status } = await this.createFavorite(this.recipe);
 
       if (status === "created") {
-        this.$toast(message, {
-          timeout: 3000,
-          type: "success",
-          position: "bottom-center",
-        });
+        this.showToast(message, "success");
       } else if (status === "error") {
-        this.$toast(message, {
-          timeout: 3000,
-          type: "error",
-          position: "bottom-center",
-        });
+        this.showToast(message, "error");
       }
     },
     async removeFavorite() {
       const { message, status } = await this.deleteFavorite(this.recipe);
 
       if (status === "deleted") {
-        this.$toast(message, {
-          timeout: 3000,
-          type: "info",
-          position: "bottom-center",
-        });
+        this.showToast(message, "info");
       } else if (status === "error") {
-        this.$toast(message, {
-          timeout: 3000,
-          type: "error",
-          position: "bottom-center",
-        });
+        this.showToast(message, "error");
       }
+    },
+    showToast(message, type) {
+      this.$toast(message, {
+        timeout: 3000,
+        type: type,
+        position: "bottom-center",
+      });
     },
   },
   created() {

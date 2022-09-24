@@ -27,7 +27,7 @@ export default {
 
         return recipe;
       } catch (err) {
-        console.error("!", "@state:explore::getSingleRecipe", err);
+        console.error("!", "@state:recipe::fetchFromAPI", err);
       }
     },
     /**
