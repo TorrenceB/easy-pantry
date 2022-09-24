@@ -43,6 +43,12 @@ const routes = [
       import(/* webpackChunkName: Explore */ "@/ui/explore/Explore"),
     meta: { requiresAuth: true },
   },
+  {
+    path: "/favorites",
+    name: "Favorites",
+    component: () =>
+      import(/* webpackChunkName: Explore */ "@/ui/favorites/Favorites"),
+  },
 ];
 
 const router = new VueRouter({

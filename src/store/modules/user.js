@@ -57,18 +57,31 @@ export default {
       }
     },
     async createFavorite({ commit, rootGetters, dispatch }, recipe) {
-      const { id: userID } = rootGetters["user/getUser"];
       const input = {
         id: recipe.id,
-        userID,
+        userID: rootGetters["user/getUser"].id,
       };
 
       try {
-        const updatedRecipe = await dispatch("recipe/update", input, {
+        const getRecipe = await dispatch("recipe/get", recipe.id, {
           root: true,
         });
+        /* Check if recipe exists in DB */
+        if (getRecipe) {
+          /* If it does, just update */
+          const updatedRecipe = await dispatch("recipe/update", input, {
+            root: true,
+          });
 
-        commit("addToFavorites", updatedRecipe);
+          commit("addToFavorites", updatedRecipe);
+        } else {
+          /* If not, create a new one */
+          const createdRecipe = await dispatch("recipe/create", recipe, {
+            root: true,
+          });
+
+          commit("addToFavorites", createdRecipe);
+        }
 
         return {
           status: "created",

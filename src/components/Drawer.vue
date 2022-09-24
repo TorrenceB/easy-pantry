@@ -1,7 +1,14 @@
 <template>
   <div v-if="isAuthenticated">
     <v-navigation-drawer v-model="drawer" app>
-      <v-list class="d-flex flex-column justify-end align-center" height="100%">
+      <v-list
+        class="d-flex flex-column justify-end align-center"
+        height="100%"
+        nav
+      >
+        <v-list-item class="w-full flex-grow-0">
+          <button @click="goToFavorites" class="button">My Favorites</button>
+        </v-list-item>
         <v-list-item class="w-full">
           <button @click="handleSignOut" class="button">Sign Out</button>
         </v-list-item>
@@ -31,6 +38,9 @@ export default {
   },
   methods: {
     ...mapActions("auth", ["signOut"]),
+    goToFavorites() {
+      this.$router.push({ name: "Favorites" });
+    },
     async handleSignOut() {
       try {
         await this.signOut();
