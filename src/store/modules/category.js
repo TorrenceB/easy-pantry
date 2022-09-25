@@ -28,7 +28,6 @@ export default {
         italian: {
           params: {
             cuisine: "italian",
-            number: 1,
           },
           mutation: "setItalianResultState",
         },

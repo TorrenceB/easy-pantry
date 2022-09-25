@@ -49,6 +49,12 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: Explore */ "@/ui/favorites/Favorites"),
   },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: () =>
+      import(/* webpackChunkName: Explore */ "@/ui/profile/Profile"),
+  },
 ];
 
 const router = new VueRouter({

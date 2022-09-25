@@ -8,6 +8,24 @@
         :rotate="360"
       ></v-progress-circular>
     </div>
+    <div v-else-if="!getIsFetchingResults && getCategories.length === 0">
+      <v-row class="d-flex my-2">
+        <v-btn @click="$router.go(-1)" width="5" text
+          ><v-icon>mdi-arrow-left-circle-outline</v-icon></v-btn
+        >
+      </v-row>
+      <EmptyState>
+        <div class="px-8 text-center">
+          <h3 class="text-h6 text--primary my-2">
+            There are currently no results for this category.
+          </h3>
+          <p class="text-subtitle-2 text--secondary">
+            Keep exploring by selecting one of the other Cuisine Tiles on the
+            previous page.
+          </p>
+        </div>
+      </EmptyState>
+    </div>
     <div v-else class="d-flex flex-column p-4">
       <v-row class="d-flex my-2">
         <v-btn @click="$router.go(-1)" width="5" text
@@ -26,12 +44,14 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import EmptyState from "@/components/EmptyState";
 
 import Recipe from "@/components/Recipe";
 export default {
   name: "RecipeResults",
   components: {
     Recipe,
+    EmptyState,
   },
   props: {
     category: {
@@ -71,7 +91,9 @@ export default {
     ...mapActions("category", ["fetchRecipeByCategory"]),
 
     init() {
-      this.fetchRecipeByCategory(this.category);
+      if (this.getCategories.length === 0) {
+        this.fetchRecipeByCategory(this.category);
+      }
     },
   },
   async created() {

@@ -24,6 +24,12 @@
             </button>
           </v-list-item>
           <v-list-item width="100%">
+            <button @click="go('profile')" class="button">
+              <v-icon class="pl-6 pr-2">mdi-account-circle-outline</v-icon>
+              Profile
+            </button>
+          </v-list-item>
+          <v-list-item width="100%">
             <button @click="handleSignOut" class="button">
               <v-icon class="pl-6 pr-2">mdi-logout-variant</v-icon>Sign Out
             </button>
@@ -70,6 +76,7 @@ export default {
       const route = {
         landing: "Landing",
         favorites: "Favorites",
+        profile: "Profile",
       };
       this.$router.push({ name: route[name] });
     },
