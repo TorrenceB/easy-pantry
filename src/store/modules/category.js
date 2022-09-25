@@ -28,6 +28,7 @@ export default {
         italian: {
           params: {
             cuisine: "italian",
+            number: 1,
           },
           mutation: "setItalianResultState",
         },
@@ -75,15 +76,21 @@ export default {
 
         const recipeResults = await Promise.all(
           results.map(async ({ id }) => {
-            const recipe = await dispatch("recipe/fetchFromAPI", id, {
+            const dbRecipe = await dispatch("recipe/get", id, {
               root: true,
             });
 
-            const dbRecipe = await dispatch("recipe/create", recipe, {
-              root: true,
-            });
+            if (!dbRecipe) {
+              const recipe = await dispatch("recipe/fetchFromAPI", id, {
+                root: true,
+              });
 
-            return dbRecipe;
+              return await dispatch("recipe/create", recipe, {
+                root: true,
+              });
+            } else {
+              return dbRecipe;
+            }
           })
         );
 

@@ -56,7 +56,20 @@ export default {
         console.error("!", "@state:user::update", err);
       }
     },
-    async createFavorite({ commit, rootGetters, dispatch }, recipe) {
+
+    /**
+     * @async
+     * @function createFavorite
+     * @desc create a new favorite and add to user favorites
+     *
+     * @param { object } context
+     * @param { object } recipe
+     *
+     * @returns { object }
+     * @prop { string } status
+     * @prop { string } message
+     */
+    async createFavorite({ commit, rootGetters, dispatch }, recipe = {}) {
       const input = {
         id: recipe.id,
         userID: rootGetters["user/getUser"].id,
@@ -96,6 +109,19 @@ export default {
         };
       }
     },
+
+    /**
+     * @async
+     * @function deleteFavorite
+     * @desc remove recipe from user favorites
+     *
+     * @param { object } context
+     * @param { object } id
+     *
+     * @returns { object }
+     * @prop { string } status
+     * @prop { string } message
+     */
     async deleteFavorite({ commit, dispatch }, { id }) {
       const recipe = {
         id,
