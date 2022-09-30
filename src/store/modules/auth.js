@@ -30,6 +30,27 @@ export default {
 
     /**
      * @async
+     * @function updateUserAttributes
+     */
+    async updateAuthAttributes(_, attributes = {}) {
+      const user = await Auth.currentAuthenticatedUser();
+
+      console.log("User: ", user);
+
+      try {
+        const updatedAttributes = await Auth.updateUserAttributes(
+          user,
+          attributes
+        );
+
+        console.log("Updated attrs: ", updatedAttributes);
+      } catch (err) {
+        console.error("!", "@state:auth::updateAuthAttribues", err);
+      }
+    },
+
+    /**
+     * @async
      *
      * @function signup
      * @param { object } user

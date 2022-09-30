@@ -122,7 +122,7 @@ export default {
 
     this.debounceSuggestions = debounce((value) => {
       this.fetchIngredientSuggestions(value);
-    }, 1000);
+    }, 500);
   },
   beforeUnmount() {
     this.debounceSuggestions.cancel();
