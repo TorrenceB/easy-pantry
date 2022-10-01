@@ -16,15 +16,17 @@ export default {
      *
      * @returns { promise }
      */
-    async fetchUser({ dispatch }) {
+    async authenticate({ commit }) {
       try {
         const user = await Auth.currentAuthenticatedUser();
 
         if (user) {
-          dispatch("user/fetch", user.attributes.sub, { root: true });
+          commit("updateAuthState", true);
+
+          return user;
         }
       } catch (err) {
-        console.error("!", "@state:auth::fetchUser", err);
+        console.error("!", "@state:auth::authenticate", err);
       }
     },
 
@@ -34,8 +36,6 @@ export default {
      */
     async updateAuthAttributes(_, attributes = {}) {
       const user = await Auth.currentAuthenticatedUser();
-
-      console.log("User: ", user);
 
       try {
         const updatedAttributes = await Auth.updateUserAttributes(

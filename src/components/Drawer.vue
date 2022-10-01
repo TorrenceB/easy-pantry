@@ -85,6 +85,7 @@ export default {
         await this.signOut();
 
         this.$router.push({ name: "SignIn" });
+        this.drawer = false;
       } catch (err) {
         console.error("!", "handleSignOut:Drawer.vue", err);
       }

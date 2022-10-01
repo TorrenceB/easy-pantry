@@ -63,6 +63,9 @@ const router = new VueRouter({
 
 router.beforeEach(async (to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
+    const { attributes } = await store.dispatch("auth/authenticate");
+    await store.dispatch("user/fetch", attributes.sub);
+
     if (to.name !== "SignIn" && !store.getters["auth/getAuthenticatedState"]) {
       next({ name: "SignIn" });
       return;

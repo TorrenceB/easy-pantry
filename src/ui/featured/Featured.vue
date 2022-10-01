@@ -1,6 +1,6 @@
 <template>
   <v-container class="text-left">
-    <h2 class="text-md-h4">Featured Recipe</h2>
+    <h2 class="text-md-h4">From Your Favorites</h2>
     <Recipe :recipe="featuredRecipe" />
     <div class="d-flex flex-wrap mt-4" v-if="featuredRecipe.diets">
       <v-chip
@@ -30,12 +30,27 @@ export default {
 
     init() {
       if (Object.entries(this.featuredRecipe).length === 0) {
-        this.get(639628);
+        if (this.user.favorites && this.user.favorites.items.length > 0) {
+          const id = this.pickFeaturedFromFavorites();
+
+          this.get(id);
+        } else {
+          this.fetchFeatured();
+        }
       }
+    },
+    pickFeaturedFromFavorites() {
+      const favorites = this.user.favorites.items;
+      const { id } = favorites[
+        Math.floor(Math.random() * favorites.length) ?? 0
+      ];
+
+      return id;
     },
   },
   computed: {
     ...mapGetters("featured", ["featuredRecipe"]),
+    ...mapGetters("user", { user: "getUser" }),
   },
   created() {
     this.init();

@@ -126,7 +126,6 @@ export default {
       firstName: "",
       lastName: "",
       email: "",
-      userName: "",
     },
     userIsUpdating: false,
   }),
@@ -147,10 +146,9 @@ export default {
     ...mapActions("user", ["update"]),
     ...mapActions("auth", ["updateAuthAttributes"]),
     async handleAuthAttrUpdate(attribute) {
-      const { firstName, lastName, userName, email } = this.localUser;
+      const { firstName, lastName, email } = this.localUser;
       const attributes = {
         email: { email },
-        userName: { username: userName },
         name: { name: `${firstName} ${lastName}` },
       };
 
