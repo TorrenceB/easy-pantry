@@ -71,7 +71,7 @@ export default {
           results,
         } = await fetchRecipeClient(
           "https://api.spoonacular.com/recipes/complexSearch",
-          { query, number: 2 }
+          { query, number: 5 }
         );
 
         const enrichRecipeResults = await Promise.all(
